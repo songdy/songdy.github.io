@@ -35,9 +35,13 @@ module.exports = function(grunt) {
           compress: false,
           cleancss: true
         },
-        files: {
-          '<%= cfg.tmp %>/styles/css/main.css': '<%= cfg.app %>/styles/less/main.less',
-        }
+        files: [{
+          expand: true,
+          cwd: '<%= cfg.app %>/styles/less',
+          src: ['**/*.less'],
+          dest: '<%= cfg.tmp %>/styles/css',
+          ext: '.css'
+        }]
       }
     },
 
