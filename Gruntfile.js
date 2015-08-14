@@ -65,6 +65,19 @@ module.exports = function(grunt) {
       }
     },
 
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc',
+      },
+      app: {
+        options: {
+          jshintrc: '.jshintrc'
+        },
+        src: ['<%= cfg.app %>/scripts/{,*/}*.js']
+      }
+    },
+
     injector: {
       options: {
         template: '<%= cfg.app %>/index.html',
@@ -109,6 +122,40 @@ module.exports = function(grunt) {
             '**/*.{png,jpg,jpeg,gif,webp}',
           ]
         }],
+      }
+    },
+
+    // Run some tasks in parallel to speed up the build process
+    concurrent: {
+      app: [
+        'less'
+      ],
+      dist: [
+        'less',
+        'imagemin',
+        'svgmin'
+      ]
+    },
+
+    imagemin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= cfg.app %>/images',
+          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          dest: '<%= cfg.dist %>/images'
+        }]
+      }
+    },
+
+    svgmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= cfg.app %>/images',
+          src: '{,*/}*.svg',
+          dest: '<%= cfg.dist %>/images'
+        }]
       }
     },
 
@@ -195,25 +242,44 @@ module.exports = function(grunt) {
       less: {
         files: ['<%= cfg.app %>/styles/less/**/*.less'],
         tasks: ['less', 'autoprefixer']
-      }
+      },
+      js: {
+        files: ['<%= cfg.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
     },
   });
 
-  grunt.registerTask('build', [
-    'clean',
-    'less',
-    'autoprefixer',
-    'injector',
-    'copy',
-    'useminPrepare',
-    'concat:generated',
-    'cssmin:generated',
-    'ngAnnotate',
-    'uglify:generated',
-    'filerev',
-    'usemin',
-    'htmlmin'
-  ]);
+
+  grunt.registerTask('build', function(target) {
+
+    var buildTasks = [
+      'jshint',
+      'clean',
+      'autoprefixer',
+      'injector',
+      'copy',
+      'useminPrepare',
+      'concat:generated',
+      'cssmin:generated',
+      'ngAnnotate',
+      'uglify:generated',
+      'filerev',
+      'usemin',
+      'htmlmin'
+    ]
+
+    if (target === 'app') {
+      buildTasks.splice(1, 0, 'concurrent:app');
+      return grunt.task.run(buildTasks);
+    }
+
+    buildTasks.splice(1, 0, 'concurrent:dist');
+    grunt.task.run(buildTasks);
+  });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
 
@@ -224,7 +290,7 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      'build',
+      'build:app',
       'connect:app',
       'watch'
     ]);

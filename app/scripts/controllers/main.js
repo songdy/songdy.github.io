@@ -10,4 +10,5 @@ angular.module('againApp')
       });
   })
   .controller('MainCtrl', function ($scope) {
+    $scope.title = '主页';
   });
