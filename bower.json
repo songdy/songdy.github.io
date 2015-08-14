@@ -1,0 +1,10 @@
+{
+  "name": "again-weixin",
+  "version": "0.0.0",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "appPath": "app",
+  "moduleName": "againApp"
+}
