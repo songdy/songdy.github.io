@@ -6,7 +6,7 @@ app.directive('againticket', function() {
     templateUrl: '../../templates/againTicket.html',
     replace: true,
     scope: {
-      ticket: '=ticket'
+      ticket: '=ticket',
     }
   };
 });

@@ -1,4 +1,4 @@
-<a class="ticket{{ticket.type}}" ui-sref="ticket.{{ticket.type}}">
+<a class="ticket{{ticket.type}}" ui-sref="ticket.{{ticket.type}}({ ticketId : ticket.ticketId })">
   <div class="cardFlag"></div>
   <div class="info">
     <p class="bold">{{ticket.ticketName}}</p>
