@@ -234,6 +234,7 @@ module.exports = function(grunt) {
         },
         files: [
           '<%= cfg.app %>/{,/views/}*.html',
+          '<%= cfg.app %>/{,/templates/}*.html',
           '<%= cfg.app %>/styles/{,*/}*.css',
           '<%= cfg.app %>/scripts/{,*/}*.js',
           '<%= cfg.app %>/images/{,*/}*.{png,jpg}'

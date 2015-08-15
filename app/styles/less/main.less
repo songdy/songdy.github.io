@@ -1,15 +1,9 @@
-html, body {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
 body {
   background-color: #f4f5f6;
 }
 a {
   text-decoration:none;
 }
-
 .icon {
   display: inline-block;
   line-height: 25px;
@@ -19,4 +13,86 @@ a {
 }
 .icon-expires {
   background-image:  url('../../images/icon-expires.png');
+}
+
+.merchant-list {
+  .header {
+    height: 70px;
+    background-color:  #fff;
+    padding: 10px 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    img {
+      float: left;
+      border: 1px solid #F3F3F3;
+      width: 70px;
+    }
+    .info {
+      float: left;
+      padding-left: 10px;
+      p {
+        line-height: 32px;
+      }
+    }
+  }
+}
+
+.generate-ticket(@type, @bgColor, @offsetX) {
+  .ticket@{type} {
+    clear: both;
+    height: 48px;
+    background-color:  @bgColor;
+    color: #fff;
+    margin-top: 3px;
+    padding: 10px 20px;
+    .cardFlag {
+      float: left;
+      height: 48px;
+      width:  45.5px;
+      overflow: hidden;
+      background: url(../../images/icon-card-type.png) 0px + @offsetX 0px no-repeat;
+    }
+    .info {
+      float: left;
+      padding-left: 10px;
+      p {
+        line-height: 26px;
+      }
+    }
+  }
+}
+.generate-ticket(@type, @bgColor, @offsetX) when (@type = 1) {
+  .ticket@{type} {
+    border-left:  3px dotted #f4f5f6;
+    border-right:  3px dotted #f4f5f6;
+  }
+}
+.generate-ticket(@type, @bgColor, @offsetX) when (@type > 1) {
+  .ticket@{type} {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+  }
+}
+// 1:=优惠券
+.generate-ticket(1, #FFCC61, -45);
+// 2=印花卡
+.generate-ticket(2, #FF8673, -91);
+// 3=次卡
+.generate-ticket(3, #99B3EC, -137);
+// 4=储值卡
+.generate-ticket(4, #A395D1, -227);
+// 5=积分卡
+.generate-ticket(5, #F7B978, 0);
+// 6=打折卡
+.generate-ticket(6, #7BDEA5, -182);
+// 7=礼券
+.generate-ticket(7, #FF83A5, -273);
+
+.ellipseBtn {
+  @c:  #FF4237;
+  border-radius: 25px;
+  padding: 10px 18px;
+  background-color: #fff;
+  color: @c;
+  border: 1px solid @c;
 }

@@ -1,12 +1,27 @@
 <!-- <a ui-sref="ticket.1">link</a> -->
 
-<div class="padding-10" style="text-align: right;">
+<div class="padding-10 align-right">
   <a href="#" class="color-red icon icon-expires">过期提醒</a>
 </div>
 
 <div class="padding-horizontal-10">
-  <div ng-repeat="merchant in respData.myWallet">
+  <div ng-repeat="merchant in respData.myWallet" class="merchant-list">
+
+    <div class="header">
     <againimg url="merchant.logo.url"></againimg>
-    {{merchant.merchantName}}
+    <div class="info">
+      <p>{{merchant.merchantName}}</p>
+      <p class="color-gray"><i class="again-icon">&#xe600;</i>{{merchant.location}}</p>
+    </div>
+  </div> <!-- endOf: .header -->
+
+    <div ng-repeat="ticket in merchant.tickets" class="">
+      <againticket ticket="ticket"></againticket>
+    </div>
+
+    <div class="align-center padding-vertical-20">
+      <a ui-sref="#" class="ellipseBtn">查看更多卡券</a>
+    </div>
+
   </div>
 </div>
