@@ -1,0 +1,62 @@
+//=====================================
+//                            padding & margin
+//=====================================
+
+.no-margin {
+  margin: 0 !important;
+}
+.no-padding {
+  padding: 0 !important;
+}
+
+.generate-any(50, margin);
+.generate-any(50, padding);
+
+.generate-any(@n, @any, @i: 1) when (@i * 5 =< @n) {
+  @px: @i * 5;
+  .@{any}-@{px} {
+    @{any}: @px + 0px !important;
+  }
+  .@{any}-top-@{px} {
+    @{any}-top: @px + 0px !important;
+  }
+  .@{any}-bottom-@{px} {
+    @{any}-bottom: @px + 0px !important;
+  }
+  .@{any}-left-@{px} {
+    @{any}-left: @px + 0px !important;
+  }
+  .@{any}-right-@{px} {
+    @{any}-right: @px + 0px !important;
+  }
+  .@{any}-vertical-@{px} {
+    @{any}: @px + 0px 0 !important;
+  }
+  .@{any}-horizontal-@{px} {
+    @{any}: 0 @px + 0px !important;
+  }
+  .generate-any(@n, @any, (@i + 1));
+}
+
+//=====================================
+//                                     color
+//=====================================
+
+@white: #FFFFFF;
+@black: #000000;
+@red: #FE4135;
+@gray: #CBCBCB;
+
+.generate-color(white);
+.generate-color(black);
+.generate-color(red);
+.generate-color(gray);
+
+.generate-color(@color) {
+  .color-@{color} {
+    color: @@color;
+  }
+  .background-color-@{color} {
+    background-color: @@color;
+  }
+}
