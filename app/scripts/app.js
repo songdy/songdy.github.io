@@ -1,6 +1,6 @@
 'use strict';
 
-angular
+window.app = angular
   .module('againApp', [
     // 'ngAnimate',
     // 'ngCookies',

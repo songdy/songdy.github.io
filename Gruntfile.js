@@ -119,7 +119,7 @@ module.exports = function(grunt) {
             '*.{ico,txt}',
             '.htaccess',
             '**/*.html',
-            '**/*.{png,jpg,jpeg,gif,webp}',
+            '**/*.{png,jpg,jpeg,gif,webp,json}',
           ]
         }],
       }
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= cfg.app %>/images',
+          cwd: '<%= cfg.dist %>/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
           dest: '<%= cfg.dist %>/images'
         }]
@@ -152,7 +152,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= cfg.app %>/images',
+          cwd: '<%= cfg.dist %>/images',
           src: '{,*/}*.svg',
           dest: '<%= cfg.dist %>/images'
         }]
@@ -243,13 +243,13 @@ module.exports = function(grunt) {
         files: ['<%= cfg.app %>/styles/less/**/*.less'],
         tasks: ['less', 'autoprefixer']
       },
-      js: {
-        files: ['<%= cfg.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint'],
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        }
-      },
+      // js: {
+      //   files: ['<%= cfg.app %>/scripts/{,*/}*.js'],
+      //   tasks: ['newer:jshint'],
+      //   options: {
+      //     livereload: '<%= connect.options.livereload %>'
+      //   }
+      // },
     },
   });
 
@@ -259,9 +259,10 @@ module.exports = function(grunt) {
     var buildTasks = [
       'jshint',
       'clean',
+      'copy',
+      'concurrent:dist',
       'autoprefixer',
       'injector',
-      'copy',
       'useminPrepare',
       'concat:generated',
       'cssmin:generated',
@@ -273,11 +274,9 @@ module.exports = function(grunt) {
     ]
 
     if (target === 'app') {
-      buildTasks.splice(1, 0, 'concurrent:app');
+      buildTasks[3] = 'concurrent:app';
       return grunt.task.run(buildTasks);
     }
-
-    buildTasks.splice(1, 0, 'concurrent:dist');
     grunt.task.run(buildTasks);
   });
 

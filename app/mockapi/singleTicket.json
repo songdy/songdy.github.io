@@ -1,0 +1,61 @@
+{
+    "code": "00000",
+    "merchant": {
+        "id": "MCVVU5YQxQAQQg1hQk1IM",
+        "username": "88888888@qq.com",
+        "password": "690214",
+        "logo": {
+            "url": "image/merchant/IMAGEFEVMtkYk09RgEUx951Z.jpg",
+            "width": 200,
+            "height": 200
+        },
+        "type": 2,
+        "phoneNumber": "020-87886578",
+        "merchantName": "蛋蛋早餐店",
+        "location": "再来大厦103",
+        "merchantType": "MCTp5hgZJUMBlBF1sNBdBF",
+        "dateCreate": 1434445369075,
+        "cityCode": "76",
+        "cityName": "广州市",
+        "provinceCode": 6,
+        "start": "06:00",
+        "end": "20:00",
+        "applierRole": "店长",
+        "email": "88888888@qq.com",
+        "businessLicenseURL": "image/merchant/IMAGEFYsB5BAYgBtFox0QVtF.jpg",
+        "legalPersonURL": "image/merchant/IMAGEE4AJlF4stZsNlwNAg40.jpg",
+        "applierName": "金姚",
+        "applierPhone": "15888888888",
+        "applierDesc": "提供各种早餐",
+        "applyDate": 1434445369075,
+        "auditType": 0,
+        "status": 0,
+        "updateTime": 0,
+        "event": {
+            "ticketId": "TBJx1AMsFEh8tQExQ5RR",
+            "count": 5,
+            "ticketName": "5元代金券"
+        },
+        "resetValidTime": 0,
+        "tickets": [
+            {
+                "id": "TUcIMc9Egcd9ZoocR1BcI",
+                "ticketId": "T0cQoVAo50t9BkMQVQcY",
+                "merchantName": "蛋蛋早餐店",
+                "value": 0,
+                "used": 0,
+                "validTime": 1440777600000,
+                "haveTime": 1437361913542,
+                "status": 0,
+                "maxPrinted": 0,
+                "type": 7,
+                "ticketName": "冰激凌",
+                "desc": "冰激凌，喜欢吃吗",
+                "merchantId": "MCVVU5YQxQAQQg1hQk1IM",
+                "uid": "UBJkgE9swtk0sB5NdVk5"
+            }
+        ]
+    },
+    "serverCurrentTime": 1439622961379,
+    "desc": "请求成功"
+}

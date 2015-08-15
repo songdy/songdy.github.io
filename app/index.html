@@ -1,8 +1,9 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="againApp">
 <head>
+  <base href="/">
   <meta charset="utf-8">
-  <title>再来卡包</title>
+  <title  ng-bind="title"></title>
   <!-- build:css styles/css/style.css -->
   <!-- injector:css -->
   <link rel="stylesheet" href="styles/css/main.css">
@@ -10,8 +11,7 @@
   <!-- endbuild -->
 </head>
 
-<body ng-app="againApp">
-  <base href="/">
+<body>
   <div data-ui-view=""></div>
   <script type="text/javascript" src="http://cdn.staticfile.org/angular.js/1.3.0/angular.min.js"></script>
   <script type="text/javascript" src="http://cdn.staticfile.org/angular-resource/1.2.16/angular-resource.min.js"></script>
@@ -19,7 +19,12 @@
   <!-- build:js scripts/js/script.js -->
   <!-- injector:js -->
   <script src="scripts/app.js"></script>
-  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/mainCtrl.js"></script>
+  <script src="scripts/controllers/ticketCtrl.js"></script>
+  <script src="scripts/providers/ticketPvd.js"></script>
+  <script src="scripts/providers/walletPvd.js"></script>
+  <script src="scripts/services/ticketSvc.js"></script>
+  <script src="scripts/services/walletSvc.js"></script>
   <!-- endinjector -->
   <!-- endbuild -->
 </body>
