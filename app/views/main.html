@@ -1,5 +1,12 @@
 <!-- <a ui-sref="ticket.1">link</a> -->
 
-<div class="padding-10">
+<div class="padding-10" style="text-align: right;">
   <a href="#" class="color-red icon icon-expires">过期提醒</a>
+</div>
+
+<div class="padding-horizontal-10">
+  <div ng-repeat="merchant in respData.myWallet">
+    {{merchant.merchantName}}
+    <againimg src="merchant.logo.url"></againimg>
+  </div>
 </div>
