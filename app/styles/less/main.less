@@ -38,7 +38,7 @@ a {
 }
 
 .generate-ticket(@type, @bgColor, @offsetX) {
-  .ticket@{type} {
+  .ticket-@{type} {
     display: block;
     clear: both;
     height: 48px;
@@ -61,15 +61,23 @@ a {
       }
     }
   }
-}
-.generate-ticket(@type, @bgColor, @offsetX) when (@type = 1) {
-  .ticket@{type} {
-    border-left:  3px dotted #f4f5f6;
-    border-right:  3px dotted #f4f5f6;
+
+  .ticket-detail-@{type} {
+    .bg {
+      background-color: @bgColor;
+    }
+    .ellipseBtn {
+      color: @bgColor;
+      border-color: @bgColor;
+    }
   }
 }
+.ticket-1 {
+  border-left:  3px dotted #f4f5f6;
+  border-right:  3px dotted #f4f5f6;
+}
 .generate-ticket(@type, @bgColor, @offsetX) when (@type > 1) {
-  .ticket@{type} {
+  .ticket-@{type} {
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
   }
@@ -89,11 +97,35 @@ a {
 // 7=礼券
 .generate-ticket(7, #FF83A5, -273);
 
+.ticket-detail-1 {
+  color: #fff;
+  .bg {
+    border-left:  3px dotted #f4f5f6;
+    border-right:  3px dotted #f4f5f6;
+    p {
+      line-height: 26px;
+    }
+    .qrcode {
+      display: inline-block;
+      width: 160px;
+      height: 160px;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+.ticket-state {
+  color: #8C959A;
+  background-color: #fff;
+  p {
+    line-height: 28px;
+  }
+}
+
 .ellipseBtn {
-  @c:  #FF4237;
+  color: #FF4237;
+  border: 1px solid #FF4237;
   border-radius: 25px;
   padding: 10px 18px;
   background-color: #fff;
-  color: @c;
-  border: 1px solid @c;
 }

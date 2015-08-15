@@ -43,5 +43,6 @@
       });
   })
   .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc) {
-    console.log($stateParams)
+    console.log($stateParams.ticketId)
+    $scope.respData = ticketSvc.singleTicket();
   });
