@@ -3,7 +3,8 @@
   app.factory('prompting', function() {
 
     var show = function(title, placeholder) {
-      title = title || "", placeholder = placeholder || "";
+      title = title || '';
+      placeholder = placeholder || '';
       var  PROMPTING_TPL =
         '<div class="backdrop visible active"></div>' +
         '<div class="backdrop-container visible active">' +
