@@ -1,0 +1,35 @@
+.loading-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s opacity linear;
+  visibility: hidden;
+  opacity: 0;
+}
+.loading-container:not(.visible) .icon {
+  display: none;
+}
+.loading-container.visible {
+  visibility: visible;
+}
+.loading-container.active {
+  opacity: 1;
+}
+.loading-container .loading {
+  padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+.loading-container .loading h1, .loading-container .loading h2, .loading-container .loading h3, .loading-container .loading h4, .loading-container .loading h5, .loading-container .loading h6 {
+  color: #fff;
+}

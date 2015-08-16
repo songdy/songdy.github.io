@@ -8,7 +8,10 @@
         controller: 'mainCtrl'
       });
   })
-  .controller('mainCtrl', function ($scope, walletSvc) {
+  .controller('mainCtrl', function ($scope, walletSvc, loading) {
     $scope.$root.title = '我的卡包';
-    $scope.respData = walletSvc.myWallet();
+    loading.show();
+    $scope.respData = walletSvc.myWallet(function () {
+      loading.hide();
+    });
   });

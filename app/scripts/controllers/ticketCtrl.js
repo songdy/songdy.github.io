@@ -42,7 +42,9 @@
         controller: 'ticketCtrl'
       });
   })
-  .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc) {
-    console.log($stateParams.ticketId)
-    $scope.respData = ticketSvc.singleTicket();
+  .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc, loading) {
+    loading.show();
+    $scope.respData = ticketSvc.singleTicket(function () {
+      loading.hide();
+    });
   });
