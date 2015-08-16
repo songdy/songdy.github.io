@@ -10,7 +10,6 @@
         cancelBtn: {
           text: '取消',
           onClick: function () {
-            // body...
           }
         },
         okBtn: {
@@ -57,7 +56,7 @@
       cancelLinkElem.onclick = function () {
         hide();
         opts.cancelBtn.onClick();
-      }
+      };
 
       var okLinkElem = document.createElement('a');
       okLinkElem.setAttribute('class', 'ok');
@@ -65,7 +64,7 @@
       okLinkElem.onclick = function () {
         hide();
         opts.okBtn.onClick(inputElem.value);
-      }
+      };
 
 
       footerElem.appendChild(cancelLinkElem);
