@@ -16,6 +16,10 @@
     });
 
     $scope.expiresNotice = function () {
-      prompting.show('卡券将过期时，发短信提醒我', '输入手机号码');
+      prompting.show('卡券将过期时，发短信提醒我', '输入手机号码', function (value) {
+
+      }, {
+        inputType: 'tel'
+      });
     };
   });

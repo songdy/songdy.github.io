@@ -2,7 +2,7 @@
 
   app.factory('prompting', function() {
 
-    var show = function(title, placeholder, custom) {
+    var show = function(title, placeholder, onOK, custom) {
       var opts = {
         title: '',
         placeholder: '',
@@ -24,10 +24,15 @@
       } else if (typeof(placeholder) === 'object') {
         angular.extend(opts, placeholder);
         opts.title = title || '';
+      } else if(typeof(onOK) === 'object') {
+        angular.extend(opts, onOK);
+        opts.title = title || '';
+        opts.placeholder = placeholder || '';
       } else {
         angular.extend(opts, custom);
         opts.title = title || '';
         opts.placeholder = placeholder || '';
+        opts.okBtn.onClick = onOK;
       }
       var  PROMPTING_TPL = '<div class="backdrop visible active"></div>';
 
