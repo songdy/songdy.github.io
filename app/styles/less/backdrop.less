@@ -10,10 +10,34 @@
   opacity: 0;
   -webkit-transition: 0.1s opacity linear;
   transition: 0.1s opacity linear;
+  &.visible {
+    visibility: visible;
+  }
+  &.active {
+    opacity: 1;
+  }
 }
-.backdrop.visible {
-  visibility: visible;
-}
-.backdrop.active {
-  opacity: 1;
+
+.backdrop-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s opacity linear;
+  visibility: hidden;
+  opacity: 0;
+  &:not(.visible) .icon {
+    display: none;
+  }
+  &.visible {
+    visibility: visible;
+  }
+  &.active {
+    opacity: 1;
+  }
 }

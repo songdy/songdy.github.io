@@ -5,8 +5,8 @@
     var show = function(tips) {
       tips = tips ? tips : '加载中...';
       var LOADING_TPL =
-        '<div class="backdrop visible backdrop-loading active"></div>' +
-        '<div class="loading-container visible active">' +
+        '<div class="backdrop visible  active"></div>' +
+        '<div class="backdrop-container visible active">' +
         '<div class="loading">' +
         '<span>' +
         tips +
