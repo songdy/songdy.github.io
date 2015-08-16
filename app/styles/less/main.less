@@ -63,7 +63,7 @@ a {
   }
 
   .ticket-detail-@{type} {
-    .bg {
+    .bg when not (@type = 3) and not (@type = 2) {
       background-color: @bgColor;
     }
     .ellipseBtn {
@@ -97,14 +97,7 @@ a {
 // 7=礼券
 .generate-ticket(7, #FF83A5, -273);
 
-.ticket-detail-1 {
-  color: #fff;
-  .bg {
-    border-left:  3px dotted #f4f5f6;
-    border-right:  3px dotted #f4f5f6;
-    background-image: url('../../images/bg-card-voucher.png');
-    background-repeat: no-repeat;
-    background-position:  90% 10px;
+.ticket-detail-bottom {
     p {
       line-height: 26px;
     }
@@ -114,8 +107,46 @@ a {
       height: 160px;
       border: 1px solid #ccc;
     }
+}
+
+.ticket-detail-1:extend(.ticket-detail-bottom all) {
+  color: #fff;
+  .bg {
+    border-left:  3px dotted #f4f5f6;
+    border-right:  3px dotted #f4f5f6;
+    background-image: url('../../images/bg-card-voucher.png');
+    background-repeat: no-repeat;
+    background-position:  90% 20px;
   }
 }
+.ticket-detail-3:extend(.ticket-detail-bottom all) {
+  color: #666;
+  .bg {
+    background-image: url('../../images/meter-card.png');
+    background-repeat: no-repeat;
+    background-position:  50% 20px;
+  }
+}
+.ticket-detail-4:extend(.ticket-detail-bottom all) {
+  color: #fff;
+  .bg {
+    background-image: url('../../images/bg-card-value.png');
+    background-repeat: no-repeat;
+    background-position:  90% 20px;
+    border-radius: 10px;
+  }
+}
+
+.ticket-detail-7:extend(.ticket-detail-bottom all) {
+  color: #fff;
+  .bg {
+    background-image: url('../../images/bg-card-gift.png');
+    background-repeat: no-repeat;
+    background-position:  90% 20px;
+    border-radius: 10px;
+  }
+}
+
 
 .ticket-state {
   color: #8C959A;
