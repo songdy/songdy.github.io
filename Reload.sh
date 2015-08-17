@@ -6,7 +6,7 @@ echo '============  npm install  ============';
 
 npm install;
 
-echo '============  npm install  ============';
+echo '============  bower install  ============';
 
 bower install --allow-root;
 
