@@ -121,6 +121,18 @@ a {
     background-position:  90% 20px;
   }
 }
+.ticket-detail-2:extend(.ticket-detail-bottom all) {
+  color: #666;
+  .bg {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  qrcode {
+    position: absolute;
+    left: 50%;
+    margin-left: -75px;
+  }
+}
 .ticket-detail-3:extend(.ticket-detail-bottom all) {
   color: #666;
   .bg {
@@ -133,6 +145,16 @@ a {
   color: #fff;
   .bg {
     background-image: url('../../images/bg-card-value.png');
+    background-repeat: no-repeat;
+    background-position:  90% 20px;
+    border-radius: 10px;
+  }
+}
+
+.ticket-detail-6:extend(.ticket-detail-bottom all) {
+  color: #fff;
+  .bg {
+    background-image: url('../../images/bg-card-discount.png');
     background-repeat: no-repeat;
     background-position:  90% 20px;
     border-radius: 10px;
