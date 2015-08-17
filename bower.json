@@ -2,9 +2,9 @@
   "name": "again-weixin",
   "version": "0.0.0",
   "dependencies": {
+    "angular-qrcode": "monospaced/angular-qrcode#~6.0.3"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "appPath": "app",
   "moduleName": "againApp"
 }

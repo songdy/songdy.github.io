@@ -96,6 +96,14 @@ module.exports = function(grunt) {
       }
     },
 
+    // Automatically inject Bower components into the app
+    wiredep: {
+      app: {
+        src: ['<%= cfg.app %>/index.html'],
+        exclude: ['bower_components/angular/angular.js'],
+      }
+    },
+
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
     ngAnnotate: {
@@ -240,6 +248,10 @@ module.exports = function(grunt) {
           '<%= cfg.app %>/images/{,*/}*.{png,jpg}'
         ]
       },
+      bower: {
+        files: ['bower.json'],
+        tasks: ['wiredep']
+      },
       less: {
         files: ['<%= cfg.app %>/styles/less/**/*.less'],
         tasks: ['less', 'autoprefixer']
@@ -263,6 +275,7 @@ module.exports = function(grunt) {
       'copy',
       'concurrent:dist',
       'autoprefixer',
+      'wiredep',
       'injector',
       'useminPrepare',
       'concat:generated',

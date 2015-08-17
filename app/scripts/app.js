@@ -7,7 +7,8 @@ window.app = angular
     'ngResource',
     // 'ngSanitize',
     // 'ngTouch',
-    'ui.router'
+    'ui.router',
+    'monospaced.qrcode'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);

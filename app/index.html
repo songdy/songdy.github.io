@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" ng-app="againApp">
+<html class="no-js" ng-app="againApp" id="ng-app">
 <head>
   <base href="/">
   <meta charset="utf-8">
@@ -23,6 +23,7 @@
   <script type="text/javascript" src="http://cdn.staticfile.org/angular.js/1.3.0/angular.min.js"></script>
   <script type="text/javascript" src="http://cdn.staticfile.org/angular-resource/1.2.16/angular-resource.min.js"></script>
   <script type="text/javascript" src="http://cdn.staticfile.org/angular-ui-router/0.2.11/angular-ui-router.min.js"></script>
+
   <!-- build:js scripts/js/script.js -->
   <!-- injector:js -->
   <script src="scripts/app.js"></script>
@@ -38,6 +39,13 @@
   <script src="scripts/services/ticketSvc.js"></script>
   <script src="scripts/services/walletSvc.js"></script>
   <!-- endinjector -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/js/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/qrcode-generator/js/qrcode.js"></script>
+  <script src="bower_components/angular-qrcode/angular-qrcode.js"></script>
+  <!-- endbower -->
   <!-- endbuild -->
 </body>
 
