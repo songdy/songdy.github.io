@@ -1,6 +1,6 @@
 <div class="padding-10">
   <div class="ticket-detail-2">
-    <div class="bg padding-20">
+    <div class="bg padding-20" ng-style="{ 'padding-bottom': !!qrcodeData ? '80px' : '20px'}">
       <p class="font-18 bg-text">{{respData.merchant.tickets[0].ticketName}}</p>
       <p class="lighter font-14">
         <i class="again-icon">&#xe601;</i>
@@ -8,11 +8,11 @@
       </p>
       <br>
       <div class="align-center">
-        <div class="" >
-          <!-- {{respData.merchant.tickets[0].maxPrinted}} -->
-        </div>
+        <span ng-repeat="printed in maxPrinted">
+          <img ng-src="images/{{printed.img}}"/>
+        </span>
       </div>
-      <qrcode size="150" data="http://again.51b.org" style="display: none"></qrcode>
+      <!-- <qrcode size="150" data='{{qrcodeData}}' ng-show="!!qrcodeData"></qrcode> -->
       <br>
     </div>
 

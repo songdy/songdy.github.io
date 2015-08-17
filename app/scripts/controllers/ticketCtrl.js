@@ -44,7 +44,22 @@
   })
   .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc, loading) {
     loading.show();
-    $scope.respData = ticketSvc.singleTicket({ ticketId: $stateParams.id }, function () {
+    var qrcodeData = null;
+    var respData = ticketSvc.singleTicket({ ticketId: $stateParams.id }, function () {
+      // TODO: 根据卡券类型执行以下代码
+      var i = 0;
+      var arr = [];
+      var max = respData.merchant.tickets[0].maxPrinted;
+      var val = respData.merchant.tickets[0].value;
+      for(; i < max; i++) {
+        arr.push({ img: i < val ? 'printed-card.png' : 'printed-card-empty.png' });
+      }
+      qrcodeData = 'http://again.51b.org';
+
+      $scope.respData = respData;
+      $scope.maxPrinted = arr;
+      $scope.qrcodeData = qrcodeData;
+
       loading.hide();
     });
   });
