@@ -63,8 +63,11 @@ a {
   }
 
   .ticket-detail-@{type} {
-    .bg when not (@type = 3) and not (@type = 2) {
+    .bg when not (@type = 2) and not (@type = 3) {
       background-color: @bgColor;
+    }
+    .bg-text when (@type = 2), (@type = 3) {
+      color: @bgColor;
     }
     .ellipseBtn {
       color: @bgColor;
