@@ -3,10 +3,10 @@
 //=====================================
 
 .no-margin {
-  margin: 0 !important;
+  margin: 0;
 }
 .no-padding {
-  padding: 0 !important;
+  padding: 0;
 }
 
 .generate-any(100, margin);
@@ -15,25 +15,25 @@
 .generate-any(@n, @any, @i: 1) when (@i * 5 =< @n) {
   @px: @i * 5;
   .@{any}-@{px} {
-    @{any}: @px + 0px !important;
+    @{any}: @px + 0px;
   }
   .@{any}-top-@{px} {
-    @{any}-top: @px + 0px !important;
+    @{any}-top: @px + 0px;
   }
   .@{any}-bottom-@{px} {
-    @{any}-bottom: @px + 0px !important;
+    @{any}-bottom: @px + 0px;
   }
   .@{any}-left-@{px} {
-    @{any}-left: @px + 0px !important;
+    @{any}-left: @px + 0px;
   }
   .@{any}-right-@{px} {
-    @{any}-right: @px + 0px !important;
+    @{any}-right: @px + 0px;
   }
   .@{any}-vertical-@{px} {
-    @{any}: @px + 0px 0 !important;
+    @{any}: @px + 0px 0;
   }
   .@{any}-horizontal-@{px} {
-    @{any}: 0 @px + 0px !important;
+    @{any}: 0 @px + 0px;
   }
   .generate-any(@n, @any, (@i + 1));
 }

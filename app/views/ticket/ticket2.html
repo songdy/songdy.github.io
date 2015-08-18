@@ -12,11 +12,11 @@
           <img ng-src="images/{{printed.img}}"/>
         </span>
       </div>
-      <!-- <qrcode size="150" data='{{qrcodeData}}' ng-show="!!qrcodeData"></qrcode> -->
+      <qrcode size="150" data='{{qrcodeData}}' ng-show="!!qrcodeData"></qrcode>
       <br>
     </div>
 
-    <div class="align-center margin-vertical-30">
+    <div class="align-center margin-vertical-30" ng-style="{ 'padding-top': !!qrcodeData ? '80px' : '0'}">
       <a ui-sref="#" class="ellipseBtn">与朋友一起使用</a>
     </div>
   </div>
