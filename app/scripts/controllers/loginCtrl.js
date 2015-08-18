@@ -21,7 +21,7 @@ app.config(function ($stateProvider) {
           console.log(err);
         });
       } else {
-        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx87de30e37dd369b6&redirect_uri=http%3A%2F%2Fagain.51b.org%2Flogin&response_type=code&scope=snsapi_userinfo#wechat_redirect';
+        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx87de30e37dd369b6&redirect_uri=http://again.51b.org/login&response_type=code&scope=snsapi_userinfo#wechat_redirect';
       }
     }
   });
