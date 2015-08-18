@@ -10,7 +10,8 @@ window.app = angular
     'ui.router',
     'monospaced.qrcode'
   ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/');
+    $httpProvider.interceptors.push('authInterceptor');
   });
