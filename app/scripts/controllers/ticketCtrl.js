@@ -52,7 +52,7 @@
       var max = respData.merchant.tickets[0].maxPrinted;
       var val = respData.merchant.tickets[0].value;
       for(; i < max; i++) {
-        arr.push({ img: i < val ? 'printed-card.png' : 'printed-card-empty.png' });
+        arr.push({ clsName: i < val ? 'printed-card' : 'printed-card-empty' });
       }
       qrcodeData = 'http://again.51b.org';
 

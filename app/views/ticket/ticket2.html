@@ -8,8 +8,8 @@
       </p>
       <br>
       <div class="align-center">
-        <span ng-repeat="printed in maxPrinted">
-          <img ng-src="images/{{printed.img}}"/>
+        <span ng-repeat="item in maxPrinted">
+          <span ng-class="item.clsName"></span>
         </span>
       </div>
       <qrcode size="150" data='{{qrcodeData}}' ng-show="!!qrcodeData"></qrcode>
