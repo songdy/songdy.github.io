@@ -13,8 +13,10 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
       //   $state.go('login')
       //   loading.hide();
       // } else {
+      if(!$state.is('login')) {
         config.headers.accessToken = 'UBJkgE9swtk0sB5NdVk5|3bb231d1-0f64-4d32-a01e-430e78be3657|1439540018038';
-        deferred.resolve(config);
+      }
+      deferred.resolve(config);
       // }
       return deferred.promise;
     },
