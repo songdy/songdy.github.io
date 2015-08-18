@@ -42,8 +42,7 @@
         controller: 'ticketCtrl'
       });
   })
-  .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc, loading) {
-    loading.show();
+  .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc) {
     var qrcodeData = null;
     var respData = ticketSvc.singleTicket({ ticketId: $stateParams.id }, function () {
       // TODO: 根据卡券类型执行以下代码
@@ -60,6 +59,5 @@
       $scope.maxPrinted = arr;
       $scope.qrcodeData = qrcodeData;
 
-      loading.hide();
     });
   });
