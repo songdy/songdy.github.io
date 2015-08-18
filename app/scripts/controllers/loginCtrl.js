@@ -15,8 +15,8 @@ app.config(function ($stateProvider) {
         }).success(function(data) {
           console.log(data);
         }).error(function(err) {
-          console.log(err):
-        },
+          console.log(err);
+        });
       } else {
         console.log($location.$$search.code);
       }
