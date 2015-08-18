@@ -19,6 +19,7 @@
   "smarttabs": true,
   "globals": {
     "angular": false,
-    "app": false
+    "app": false,
+    "wx": false
   }
 }
