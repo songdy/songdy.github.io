@@ -3,15 +3,21 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
-    controller: function ($location, $state, loginSvc) {
+    controller: function ($location, $state, $http, globalConfig) {
       if ($location.$$search.code) {
-        loginSvc.login({
-          code: $location.$$search.code
-        }, function (resp) {
-          console.log('login.resp: ', resp);
-        });
+        $http({
+          method: 'POST',
+          url: globalConfig.host + '/again/weixin/getUserInfo.do',
+          data: {
+            code: $location.$$search.code
+          },
+          cache: false
+        }).success(function(data) {
+
+        }).error(function(err) {
+        },
       } else {
-        console.log('location.$$search: ', $location.$$search);
+        
       }
 
       $state.go('ticket.4', { id: 'TUJpkxcRtcEcwNIMd1M89' });
