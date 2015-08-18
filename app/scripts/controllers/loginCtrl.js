@@ -13,11 +13,12 @@ app.config(function ($stateProvider) {
           },
           cache: false
         }).success(function(data) {
-
+          console.log(data);
         }).error(function(err) {
+          console.log(err):
         },
       } else {
-        
+        console.log($location.$$search.code);
       }
 
       $state.go('ticket.4', { id: 'TUJpkxcRtcEcwNIMd1M89' });
