@@ -80,6 +80,7 @@ app.config(function($stateProvider) {
       type: $location.$$search.type,
       ticketId: $location.$$search.ticketId
     }, function() {
+      alert(JSON.stringify(ticket));
       $state.go('ticket.' + $location.$$search.type, {
         id: $location.$$search.ticketId
       });
