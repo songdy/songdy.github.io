@@ -12,16 +12,16 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, $location, lo
       var $state = $injector.get('$state');
       var deferred = $q.defer();
       if (!$state.is('login')) {
-        if (localStorage.getItem('accessToken')) {
+        if (!!localStorage.getItem('accessToken')) {
+          // config.headers.accessToken = localStorage.getItem('accessToken');
+          config.headers.accessToken = 'UE1VhFsJY40gIYApxstp|Ftxl4M9ZF4I5BBw0Ist|1439980460755';
+          deferred.resolve(config);
+        } else {
           deferred.reject('accessToken is required');
           $state.go('login', {
             from: $location.$$absUrl
           });
           loading.hide();
-        } else {
-          // config.headers.accessToken = localStorage.getItem('accessToken');
-          config.headers.accessToken = 'UE1VhFsJY40gIYApxstp|Ftxl4M9ZF4I5BBw0Ist|1439980460755';
-          deferred.resolve(config);
         }
       } else {
         deferred.resolve(config);
