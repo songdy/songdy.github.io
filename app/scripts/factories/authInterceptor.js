@@ -2,10 +2,6 @@
 
 app.factory('authInterceptor', function($q, $rootScope, $injector, $location, loading) {
 
-  // TODO: 生产环境下把这个删除
-  $rootScope.accessToken = 'UBJkgE9swtk0sB5NdVk5|3bb231d1-0f64-4d32-a01e-430e78be3657|1439540018038';
-  $rootScope.userId = $rootScope.accessToken.split('|')[0];
-  
   var interceptor = {
     request: function(config) {
       loading.show();

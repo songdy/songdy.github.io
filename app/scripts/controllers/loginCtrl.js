@@ -20,6 +20,7 @@ app.config(function($stateProvider) {
         }).success(function(data) {
           // alert('again server response: ' + JSON.stringify(data));
           $rootScope.accessToken = data.accessToken;
+          $rootScope.userId = data.accessToken.split('|')[0];
           if (!$location.$$search.state) {
             $state.go('main');
           } else {
