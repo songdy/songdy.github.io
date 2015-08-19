@@ -13,6 +13,9 @@ app.config(function($stateProvider) {
           data: {
             code: $location.$$search.code
           },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          }
           cache: false
         }).success(function(data) {
           alert(data);
