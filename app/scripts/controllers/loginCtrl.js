@@ -22,7 +22,7 @@ app.config(function($stateProvider) {
           if (!$location.$$search.state) {
             $state.go('main');
           } else {
-            $location.path($location.$$search.state);
+            $location.path(decodeURIComponent($location.$$search.state));
           }
         }).error(function(err) {
           console.log(err);
@@ -35,7 +35,7 @@ app.config(function($stateProvider) {
           redirect_uri: encodeURIComponent($location.$$absUrl),
           response_type: 'code',
           scope: 'snsapi_userinfo',
-          state: $stateParams.from || globalConfig.clienthost
+          state: encodeURIComponent($stateParams.from || globalConfig.clienthost)
         };
         var querystring = '';
         for(var field in info) {

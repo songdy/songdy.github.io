@@ -20,6 +20,7 @@
   "globals": {
     "angular": false,
     "app": false,
-    "wx": false
+    "wx": false,
+    "alert": false
   }
 }
