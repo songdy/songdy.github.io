@@ -17,6 +17,7 @@ app.config(function($stateProvider) {
         }).success(function(data) {
           alert(data);
           alert(data.code);
+          alert(data.desc);
           alert(data.accessToken);
           $rootScope.accessToken = data.accessToken;
           if (!$location.$$search.state) {
