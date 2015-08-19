@@ -47,7 +47,7 @@
       });
   })
   .controller('ticketCtrl', function ($scope, $stateParams, $rootScope, ticketSvc) {
-    var qrcodeData = null;
+    var qrcodeData = '';
     var respData = ticketSvc.singleTicket({ ticketId: $stateParams.id }, function () {
       // TODO: 根据卡券类型执行以下代码
       var i = 0;
@@ -60,17 +60,13 @@
       }
 
       if (val >= max) {
-        qrcodeData = {
-          ticketId: ticket.id,
-          deviceCode: $rootScope.userId,
-          senderId: $rootScope.userId,
-          type: ticket.type
-        };
+        qrcodeData = ticket.id + ';' + $rootScope.userId + ';' + $rootScope.userId + ';' + ticket.type;
       }
 
       $scope.respData = respData;
       $scope.maxPrinted = arr;
-      $scope.qrcodeData = JSON.stringify(qrcodeData);
+      $scope.qrcodeData = qrcodeData;
+      $scope.qrcodeVersion = 6;
 
     });
   })

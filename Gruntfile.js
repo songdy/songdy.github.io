@@ -256,13 +256,13 @@ module.exports = function(grunt) {
         files: ['<%= cfg.app %>/styles/less/**/*.less'],
         tasks: ['less', 'autoprefixer']
       },
-      // js: {
-      //   files: ['<%= cfg.app %>/scripts/{,*/}*.js'],
-      //   tasks: ['newer:jshint'],
-      //   options: {
-      //     livereload: '<%= connect.options.livereload %>'
-      //   }
-      // },
+      js: {
+        files: ['<%= cfg.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint'],
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        }
+      },
     },
   });
 
