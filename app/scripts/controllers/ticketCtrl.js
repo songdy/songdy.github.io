@@ -59,12 +59,14 @@
         arr.push({ clsName: i < val ? 'printed-card' : 'printed-card-empty' });
       }
 
-      qrcodeData = {
-        ticketId: ticket.id,
-        deviceCode: $rootScope.userId,
-        senderId: $rootScope.userId,
-        type: ticket.type
-      };
+      if (val >= max) {
+        qrcodeData = {
+          ticketId: ticket.id,
+          deviceCode: $rootScope.userId,
+          senderId: $rootScope.userId,
+          type: ticket.type
+        };
+      }
 
       $scope.respData = respData;
       $scope.maxPrinted = arr;
