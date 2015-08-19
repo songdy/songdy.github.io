@@ -27,7 +27,7 @@ app.config(function($stateProvider) {
         var url = 'https://open.weixin.qq.com/connect/oauth2/authorize';
         var info = {
           appid: globalConfig.wxAppid,
-          redirect_uri: $location.$$absUrl,
+          redirect_uri: encodeURIComponent($location.$$absUrl),
           response_type: 'code',
           scope: 'snsapi_userinfo',
           state: ''
