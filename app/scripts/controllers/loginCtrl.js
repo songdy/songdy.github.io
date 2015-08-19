@@ -42,7 +42,6 @@ app.config(function($stateProvider) {
           querystring = querystring + field + '=' + info[field] + '&';
         }
         var wxLoginUrl = url + '?' + querystring + '#wechat_redirect';
-        console.log(wxLoginUrl);
         // var redirect_uri = encodeURIComponent(globalConfig.clienthost + '/login');
         window.location.href = wxLoginUrl;
       }
