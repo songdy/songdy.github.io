@@ -8,7 +8,7 @@ app.config(function($stateProvider) {
 
       if ($location.$$search.code) {
         // alert('weixin code: ' + $location.$$search.code);
-        $scope.code = $location.$$search.code
+        $scope.code = $location.$$search.code;
 
         // $http({
         //   method: 'POST',

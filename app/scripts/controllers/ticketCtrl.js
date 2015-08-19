@@ -46,7 +46,7 @@
         controller: 'gainTicketCtrl'
       });
   })
-  .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc) {
+  .controller('ticketCtrl', function ($scope, $stateParams, $rootScope, ticketSvc) {
     var qrcodeData = null;
     var respData = ticketSvc.singleTicket({ ticketId: $stateParams.id }, function () {
       // TODO: 根据卡券类型执行以下代码
