@@ -15,8 +15,8 @@ app.config(function($stateProvider) {
           },
           cache: false
         }).success(function(data) {
-          alert('weixin code: ': $location.$$search.code);
-          alert('again server response: ': JSON.stringify(data));
+          alert('weixin code: ' + $location.$$search.code);
+          alert('again server response: ' + JSON.stringify(data));
           $rootScope.accessToken = data.accessToken;
           if (!$location.$$search.state) {
             $state.go('main');
