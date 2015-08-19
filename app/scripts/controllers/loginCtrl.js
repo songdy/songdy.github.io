@@ -6,26 +6,25 @@ app.config(function($stateProvider) {
     controller: function($location, $state, $http, $stateParams, $rootScope, globalConfig) {
 
       if ($location.$$search.code) {
-        alert($location.$$search.code);
-        $http({
-          method: 'POST',
-          url: globalConfig.apihost + '/again/weixin/getUserInfo.do?code=' + $location.$$search.code,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          cache: false
-        }).success(function(data) {
-          alert('weixin code: ' + $location.$$search.code);
-          alert('again server response: ' + JSON.stringify(data));
-          $rootScope.accessToken = data.accessToken;
-          if (!$location.$$search.state) {
-            $state.go('main');
-          } else {
-            $location.path(decodeURIComponent($location.$$search.state));
-          }
-        }).error(function(err) {
-          alert(err);
-        });
+        alert('weixin code: ' + $location.$$search.code);
+        // $http({
+        //   method: 'POST',
+        //   url: globalConfig.apihost + '/again/weixin/getUserInfo.do?code=' + $location.$$search.code,
+        //   headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        //   },
+        //   cache: false
+        // }).success(function(data) {
+        //   alert('again server response: ' + JSON.stringify(data));
+        //   $rootScope.accessToken = data.accessToken;
+        //   if (!$location.$$search.state) {
+        //     $state.go('main');
+        //   } else {
+        //     $location.path(decodeURIComponent($location.$$search.state));
+        //   }
+        // }).error(function(err) {
+        //   alert(err);
+        // });
       } else {
         var url = 'https://open.weixin.qq.com/connect/oauth2/authorize';
         var info = {
