@@ -2,7 +2,7 @@
 
 app.provider('walletPvd', function() {
   this.$get = function($resource, globalConfig) {
-    return $resource(globalConfig.host + '/again/wallet/myWallet.do', {}, {
+    return $resource(globalConfig.apihost + '/again/wallet/myWallet.do', {}, {
       query: {
         method: 'GET',
         isArray: false,

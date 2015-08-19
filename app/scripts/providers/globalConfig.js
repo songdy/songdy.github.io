@@ -1,12 +1,11 @@
 'use strict';
 
 app.provider('globalConfig', function () {
-  var host = 'http://183.63.144.83:33003';
-  var mockapihost = 'http://again.51b.org';
   this.$get = function () {
     return {
-      host: host,
-      mockapihost: mockapihost
+      apihost: 'http://183.63.144.83:33003',
+      clienthost: 'http://again.51b.org',
+      wxAppid: 'wx87de30e37dd369b6'
     };
   };
 });
