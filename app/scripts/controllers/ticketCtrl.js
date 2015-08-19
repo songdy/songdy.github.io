@@ -46,7 +46,7 @@
         controller: 'gainTicketCtrl'
       });
   })
-  .controller('ticketCtrl', function ($scope, $stateParams, $rootScope, ticketSvc) {
+  .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc) {
     var qrcodeData = '';
     var respData = ticketSvc.singleTicket({ ticketId: $stateParams.id }, function () {
       // TODO: 根据卡券类型执行以下代码
@@ -60,7 +60,7 @@
       }
 
       if (val >= max) {
-        qrcodeData = ticket.id + ';' + $rootScope.userId + ';' + $rootScope.userId + ';' + ticket.type;
+        qrcodeData = ticket.id + ';' + localStorage.getItem('userId') + ';' + localStorage.getItem('userId') + ';' + ticket.type;
       }
 
       $scope.respData = respData;
@@ -71,6 +71,7 @@
     });
   })
   .controller('gainTicketCtrl', function ($state, $location) {
+
     $state.go('ticket.' + $location.$$search.type, {
       id: $location.$$search.ticketId
     });
