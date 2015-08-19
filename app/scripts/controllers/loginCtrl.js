@@ -4,17 +4,14 @@ app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
     controller: function($location, $state, $http, $stateParams, $rootScope, globalConfig) {
-      alert($location.$$absUrl);
+
       if ($location.$$search.code) {
         alert($location.$$search.code);
         $http({
           method: 'POST',
-          url: globalConfig.apihost + '/again/weixin/getUserInfo.do',
-          data: {
-            code: $location.$$search.code
-          },
+          url: globalConfig.apihost + '/again/weixin/getUserInfo.do?code=' + $location.$$search.code,
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            'Content-Type': 'application/x-www-form-urlencoded'
           },
           cache: false
         }).success(function(data) {
