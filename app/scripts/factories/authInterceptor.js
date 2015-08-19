@@ -1,26 +1,28 @@
 'use strict';
 
-app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
+app.factory('authInterceptor', function($q, $rootScope, $injector, $location, loading) {
   var interceptor = {
     request: function(config) {
       loading.show();
-      var $state =  $injector.get('$state');
-      console.log('$state.$current.name: ', $state.$current.name);
-      console.log('$state.is("login"): ', $state.is('login'));
+      var $state = $injector.get('$state');
       var deferred = $q.defer();
-      // if (!$rootScope.accessToken &&  !$state.is('login')) {
-      //   deferred.reject('accessToken is required');
-      //   $state.go('login')
-      //   loading.hide();
-      // } else {
-      if(!$state.is('login')) {
-        config.headers.accessToken = 'UBJkgE9swtk0sB5NdVk5|3bb231d1-0f64-4d32-a01e-430e78be3657|1439540018038';
+      if (!$state.is('login')) {
+        if (!$rootScope.accessToken) {
+          deferred.reject('accessToken is required');
+          $state.go('login', {
+            from: $location.$$absUrl
+          });
+          loading.hide();
+        } else {
+          config.headers.accessToken = $rootScope.accessToken;
+          deferred.resolve(config);
+        }
+      } else {
+        deferred.resolve(config);
       }
-      deferred.resolve(config);
-      // }
       return deferred.promise;
     },
-    response: function (resp) {
+    response: function(resp) {
       loading.hide();
       return resp;
     }

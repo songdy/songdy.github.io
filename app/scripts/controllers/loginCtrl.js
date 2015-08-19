@@ -3,9 +3,10 @@
 app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
-    controller: function($location, $state, $http, globalConfig) {
+    controller: function($location, $state, $http, $stateParams, $rootScope, globalConfig) {
       if ($location.$$search.code) {
         console.log(!$location.$$search.state);
+        console.log($location.$$search.code);
         $http({
           method: 'POST',
           url: globalConfig.apihost + '/again/weixin/getUserInfo.do',
@@ -14,12 +15,13 @@ app.config(function($stateProvider) {
           },
           cache: false
         }).success(function(data) {
+          $rootScope.accessToken = data.accessToken;
+          console.log(data);
           if (!$location.$$search.state) {
             $state.go('main');
           } else {
             $location.path($location.$$search.state);
           }
-          console.log(data);
         }).error(function(err) {
           console.log(err);
         });
@@ -30,7 +32,7 @@ app.config(function($stateProvider) {
           redirect_uri: encodeURIComponent($location.$$absUrl),
           response_type: 'code',
           scope: 'snsapi_userinfo',
-          state: 'state'
+          state: $stateParams.from || globalConfig.clienthost
         };
         var querystring = '';
         for(var field in info) {
