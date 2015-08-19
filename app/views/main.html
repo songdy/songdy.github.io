@@ -19,7 +19,7 @@
     </div>
   </div> <!-- endOf: .header -->
 
-    <div ng-repeat="ticket in merchant.tickets">
+    <div ng-repeat="ticket in merchant.tickets | orderBy:'type':false">
       <!-- {{userId}} -->
       <againticket ticket="ticket" user-id="{{userId}}"></againticket>
     </div>
