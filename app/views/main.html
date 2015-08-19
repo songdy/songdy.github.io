@@ -2,6 +2,8 @@
 
 <div>
   your access token: {{accessToken}}
+  <br>
+  {{userId}}
 </div>
 
 <div class="padding-10 align-right">
@@ -19,8 +21,9 @@
     </div>
   </div> <!-- endOf: .header -->
 
-    <div ng-repeat="ticket in merchant.tickets" class="">
-      <againticket ticket="ticket"></againticket>
+    <div ng-repeat="ticket in merchant.tickets">
+      <!-- {{userId}} -->
+      <againticket ticket="ticket" user-id="{{userId}}"></againticket>
     </div>
 
     <div class="align-center padding-vertical-30">

@@ -7,6 +7,7 @@ app.directive('againticket', function() {
     replace: true,
     scope: {
       ticket: '=ticket',
+      userId: '@userId'
     }
   };
 });
