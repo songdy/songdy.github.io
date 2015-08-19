@@ -3,10 +3,13 @@
 app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
-    controller: function($location, $state, $http, $stateParams, $rootScope, globalConfig) {
+    templateUrl: '../../views/login.html',
+    controller: function($location, $state, $http, $stateParams, $rootScope, $scope, globalConfig) {
 
       if ($location.$$search.code) {
-        alert('weixin code: ' + $location.$$search.code);
+        // alert('weixin code: ' + $location.$$search.code);
+        $scope.code = $location.$$search.code
+
         // $http({
         //   method: 'POST',
         //   url: globalConfig.apihost + '/again/weixin/getUserInfo.do?code=' + $location.$$search.code,

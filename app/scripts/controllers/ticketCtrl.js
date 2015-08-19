@@ -40,6 +40,10 @@
         url: '/7/{id}',
         templateUrl: '../../views/ticket/ticket7.html',
         controller: 'ticketCtrl'
+      })
+      .state('ticket.gain', {
+        url: '/gain',
+        controller: 'gainTicketCtrl'
       });
   })
   .controller('ticketCtrl', function ($scope, $stateParams, ticketSvc) {
@@ -48,16 +52,28 @@
       // TODO: 根据卡券类型执行以下代码
       var i = 0;
       var arr = [];
+      var ticket = respData.merchant.tickets[0];
       var max = respData.merchant.tickets[0].maxPrinted;
       var val = respData.merchant.tickets[0].value;
       for(; i < max; i++) {
         arr.push({ clsName: i < val ? 'printed-card' : 'printed-card-empty' });
       }
-      qrcodeData = 'http://again.51b.org';
+
+      qrcodeData = {
+        ticketId: ticket.id,
+        deviceCode: $rootScope.userId,
+        senderId: $rootScope.userId,
+        type: ticket.type
+      };
 
       $scope.respData = respData;
       $scope.maxPrinted = arr;
-      $scope.qrcodeData = qrcodeData;
+      $scope.qrcodeData = JSON.stringify(qrcodeData);
 
+    });
+  })
+  .controller('gainTicketCtrl', function ($state, $location) {
+    $state.go('ticket.' + $location.$$search.type, {
+      id: $location.$$search.ticketId
     });
   });
