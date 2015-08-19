@@ -15,10 +15,7 @@ app.config(function($stateProvider) {
           },
           cache: false
         }).success(function(data) {
-          alert(data);
-          alert(data.code);
-          alert(data.desc);
-          alert(data.accessToken);
+          alert(JSON.stringify(data));
           $rootScope.accessToken = data.accessToken;
           if (!$location.$$search.state) {
             $state.go('main');
