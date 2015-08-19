@@ -24,6 +24,7 @@ app.config(function($stateProvider) {
             localStorage.setItem('userId', data.accessToken.split('|')[0]);
           } else {
             localStorage.clear();
+            alert(JSON.stringify(data));
           }
           if (!$location.$$search.state) {
             $state.go('main');
