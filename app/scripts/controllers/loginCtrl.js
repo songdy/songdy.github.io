@@ -4,7 +4,9 @@ app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
     controller: function($location, $state, $http, $stateParams, $rootScope, globalConfig) {
+      alert($location.$$absUrl);
       if ($location.$$search.code) {
+        alert($location.$$search.code);
         console.log(!$location.$$search.state);
         console.log($location.$$search.code);
         $http({
@@ -24,6 +26,7 @@ app.config(function($stateProvider) {
           }
         }).error(function(err) {
           console.log(err);
+          alert(err);
         });
       } else {
         var url = 'https://open.weixin.qq.com/connect/oauth2/authorize';
