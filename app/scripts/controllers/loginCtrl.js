@@ -7,8 +7,6 @@ app.config(function($stateProvider) {
       alert($location.$$absUrl);
       if ($location.$$search.code) {
         alert($location.$$search.code);
-        console.log(!$location.$$search.state);
-        console.log($location.$$search.code);
         $http({
           method: 'POST',
           url: globalConfig.apihost + '/again/weixin/getUserInfo.do',
@@ -17,15 +15,16 @@ app.config(function($stateProvider) {
           },
           cache: false
         }).success(function(data) {
+          alert(data);
+          alert(data.code);
+          alert(data.accessToken);
           $rootScope.accessToken = data.accessToken;
-          console.log(data);
           if (!$location.$$search.state) {
             $state.go('main');
           } else {
             $location.path(decodeURIComponent($location.$$search.state));
           }
         }).error(function(err) {
-          console.log(err);
           alert(err);
         });
       } else {
