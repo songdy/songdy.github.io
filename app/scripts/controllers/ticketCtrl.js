@@ -94,7 +94,7 @@ app.config(function($stateProvider) {
       type: $stateParams.type,
       ticketId: $stateParams.ticketId,
       serverCurrentTime: $stateParams.serviceCurrentTime
-      // numerical: $stateParams.numerical
+      numerical: $stateParams.numerical
     };
 
     alert(JSON.stringify(confirmParams));
