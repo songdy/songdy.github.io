@@ -26,6 +26,7 @@ app.config(function($stateProvider) {
             localStorage.clear();
             alert(JSON.stringify(data));
           }
+          alert($location.$$search.state);
           if (!$location.$$search.state) {
             $state.go('main');
           } else {
