@@ -3,9 +3,6 @@
 app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
-    params: {
-      from: '@from'
-    }
     // templateUrl: '../../views/login.html',
     controller: function($location, $state, $http, $stateParams, $rootScope, $scope, globalConfig) {
 
