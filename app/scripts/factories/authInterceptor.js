@@ -1,7 +1,7 @@
 'use strict';
 
 app.factory('authInterceptor', function($q, $rootScope, $injector, $location, loading) {
-  
+
   var interceptor = {
     request: function(config) {
       loading.show();
@@ -14,7 +14,7 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, $location, lo
         } else {
           deferred.reject('accessToken is required');
           $state.go('login', {
-            from: $location.$$absUrl
+            from: $location.absUrl()
           });
           loading.hide();
         }
