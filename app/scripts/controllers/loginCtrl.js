@@ -3,6 +3,9 @@
 app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
+    params: {
+      from: '@from'
+    }
     // templateUrl: '../../views/login.html',
     controller: function($location, $state, $http, $stateParams, $rootScope, $scope, globalConfig) {
 
@@ -35,8 +38,7 @@ app.config(function($stateProvider) {
           alert(err);
         });
       } else {
-        alert(JSON.stringify($stateParams));
-        alert(JSON.stringify($state.params));
+        alert(JSON.stringify($state.current.params));
         alert(encodeURIComponent($stateParams.from || globalConfig.clienthost));
         var wxUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize';
         var info = {
