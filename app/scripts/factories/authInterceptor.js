@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('authInterceptor', function($q, $rootScope, $injector, $location, loading) {
+app.factory('authInterceptor', function($q, $rootScope, $injector, $state, $location, loading) {
 
   var interceptor = {
     request: function(config) {
@@ -12,7 +12,8 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, $location, lo
           config.headers.accessToken = localStorage.getItem('accessToken');
           deferred.resolve(config);
         } else {
-          alert($location.absUrl());
+          console.log($state.current);
+          console.log($state.get());
           deferred.reject('accessToken is required');
           $state.go('login', {
             from: $location.absUrl()
