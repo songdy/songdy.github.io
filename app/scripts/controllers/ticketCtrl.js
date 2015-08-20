@@ -74,16 +74,45 @@ app.config(function($stateProvider) {
 
     });
   })
-  .controller('gainTicketCtrl', function($state, $location, ticketSvc) {
+  .controller('gainTicketCtrl', function($state, $location, $q, ticketSvc) {
 
-    var ticket = ticketSvc.gain({
-      type: $location.$$search.type,
-      ticketId: $location.$$search.ticketId
+    var isErr = function(result) {
+      if (result.code !== '00000') {
+        if (!!result.desc) {
+          alert(result.desc);
+        } else {
+          alert('领取失败，请重新领取');
+        }
+        return true;
+      }
+      return false;
+    };
+
+    var target = ticketSvc.h5GetTargetTicket({
+      deviceCode: localStorage.getItem('userId'),
+      ticketId: $location.$$search.ticketId,
     }, function() {
-      alert(JSON.stringify(ticket));
-      $state.go('ticket.' + $location.$$search.type, {
-        id: $location.$$search.ticketId
+      if (isErr(target)) {
+        return;
+      }
+
+      var confirm = ticketSvc.h5ConfirmTicket({
+        deviceCode: localStorage.getItem('userId'),
+        type: $location.$$search.type,
+        ticketId: target.ticketId,
+        serverCurrentTime: target.serverCurrentTime
+      }, function() {
+        if (isErr(confirm)) {
+          return;
+        }
+        $state.go('ticket.' + $location.$$search.type, {
+          id: confirm.targetTicketId,
+          userId: localStorage.getItem('userId')
+        });
+
       });
     });
+
+
 
   });
