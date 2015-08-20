@@ -1,9 +1,5 @@
 <!-- <a ui-sref="ticket.1">link</a> -->
 
-<div class="font-8">
-  your access token: {{accessToken}}
-</div>
-
 <div class="padding-10 align-right">
   <a href="#" class="color-red icon icon-expires" ng-click="expiresNotice()">过期提醒</a>
 </div>
@@ -26,6 +22,11 @@
 
     <div class="align-center padding-vertical-30">
       <a ui-sref="#" class="ellipseBtn">查看更多卡券</a>
+    </div>
+
+    <div class="font-8">
+      your access_token: <br>
+      {{accessToken}}
     </div>
 
   </div><!-- endOf: .merchant-list -->
