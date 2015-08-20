@@ -93,7 +93,7 @@ app.config(function($stateProvider) {
       deviceCode: localStorage.getItem('userId'),
       type: $stateParams.type,
       ticketId: $stateParams.ticketId,
-      serverCurrentTime: $stateParams.serviceCurrentTime
+      serverCurrentTime: $stateParams.serviceCurrentTime,
       numerical: $stateParams.numerical
     };
 
