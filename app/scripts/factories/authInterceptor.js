@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('authInterceptor', function($q, $rootScope, $injector, $state, $location, loading) {
+app.factory('authInterceptor', function($q, $rootScope, $injector, $location, loading) {
 
   var interceptor = {
     request: function(config) {
