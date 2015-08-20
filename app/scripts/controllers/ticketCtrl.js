@@ -76,6 +76,8 @@ app.config(function($stateProvider) {
   })
   .controller('gainTicketCtrl', function($state, $stateParams, $q, ticketSvc) {
 
+    alert($location.absUrl());
+
     var isErr = function(result) {
       if (result.code !== '00000') {
         if (!!result.desc) {
