@@ -12,8 +12,8 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, $state, $loca
           config.headers.accessToken = localStorage.getItem('accessToken');
           deferred.resolve(config);
         } else {
-          console.log($state.current);
-          console.log($state.get());
+          alert(JSON.stringify($state.current));
+          alert(JSON.stringify($state.get()));
           deferred.reject('accessToken is required');
           $state.go('login', {
             from: $location.absUrl()
