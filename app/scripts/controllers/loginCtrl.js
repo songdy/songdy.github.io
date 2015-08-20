@@ -54,5 +54,10 @@ app.config(function($stateProvider) {
         window.location.href = wxUrl + '?' + requestData.join('&') + '#wechat_redirect';
       }
     }
+  }).state('login.clear', {
+    url: '/login/clear',
+    controller: function () {
+      localStorage.clear();
+    }
   });
 });
