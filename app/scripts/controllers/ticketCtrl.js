@@ -7,37 +7,37 @@ app.config(function($stateProvider) {
       templateUrl: '../../views/ticket/index.html'
     })
     .state('ticket.1', {
-      url: '/1/{id}/{userId}',
+      url: '/detail/{type:1}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket1.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.2', {
-      url: '/2/{id}/{userId}',
+      url: '/detail/{type:2}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket2.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.3', {
-      url: '/3/{id}/{userId}',
+      url: '/detail/{type:3}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket3.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.4', {
-      url: '/4/{id}/{userId}',
+      url: '/detail/{type:4}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket4.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.5', {
-      url: '/5/{id}/{userId}',
+      url: '/detail/{type:5}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket5.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.6', {
-      url: '/6/{id}/{userId}',
+      url: '/detail/{type:6}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket6.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.7', {
-      url: '/7/{id}/{userId}',
+      url: '/detail/{type:7}/{id}/{userId}',
       templateUrl: '../../views/ticket/ticket7.html',
       controller: 'ticketCtrl'
     })
@@ -53,11 +53,12 @@ app.config(function($stateProvider) {
 }).controller('ticketCtrl', function($scope, $state, $stateParams, ticketSvc, sharing) {
 
   if ($stateParams.userId !== localStorage.getItem('userId')) {
-    return $state.go('ticket.share', {
+    $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
       senderId: $stateParams.userId
     });
+    return;
   }
 
   var qrcodeData = '';
@@ -80,15 +81,25 @@ app.config(function($stateProvider) {
       $scope.maxPrinted = arr;
     }
     if (ticket.type !== 2 || val >= max) {
-      qrcodeData = JSON.stringify({
+      var status = ticketSvc.h5UseTicketStatus({
         ticketId: ticket.id,
-        senderId: localStorage.getItem('userId'),
-        type: ticket.type
+        deviceCode: localStorage.getItem('userId')
+      }, function() {
+        if (!!status.serverCurrentTime) {
+          qrcodeData = JSON.stringify({
+            ticketId: ticket.id,
+            senderId: localStorage.getItem('userId'),
+            type: ticket.type,
+            serverCurrentTime: status.serverCurrentTime
+          });
+          $scope.qrcodeData = qrcodeData;
+        } else {
+          alert('二维码生成失败');
+        }
       });
     }
 
     $scope.merchant = respData.merchant;
-    $scope.qrcodeData = qrcodeData;
     $scope.qrcodeVersion = 6;
 
     $scope.shareWith = function() {
@@ -118,6 +129,7 @@ app.config(function($stateProvider) {
     });
   });
 }).controller('shareTicketCtrl', function($scope, $stateParams, ticketSvc) {
+  $scope.$root.title = '我的就是你的';
   var respData = ticketSvc.singleTicket({
     ticketId: $stateParams.id
   }, function () {

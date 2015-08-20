@@ -8,6 +8,11 @@ app.provider('ticketPvd', function () {
         method: 'GET',
         url: globalConfig.apihost + '/again/ticket/h5ConfirmTicket.do',
         isArray: false
+      },
+      h5UseTicketStatus: {
+        method: 'POST',
+        url: globalConfig.apihost + '/again/ticket/h5UseTicketStatus.do',
+        isArray: false
       }
     });
   };
