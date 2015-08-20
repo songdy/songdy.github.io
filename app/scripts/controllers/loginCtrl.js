@@ -9,8 +9,6 @@ app.config(function($stateProvider) {
       if ($location.$$search.code) {
         // alert('weixin code: ' + $location.$$search.code);
         // $scope.code = $location.$$search.code;
-        alert(JSON.stringify($location.$$search));
-
         $http({
           method: 'POST',
           url: globalConfig.apihost + '/again/weixin/getUserInfo.do?code=' + $location.$$search.code,
@@ -29,6 +27,7 @@ app.config(function($stateProvider) {
           }
           var redirect = decodeURIComponent($location.$$search.redirect);
           if (!!redirect) {
+            alert(redirect);
             $location.path(redirect);
           } else {
             $state.go('main');
