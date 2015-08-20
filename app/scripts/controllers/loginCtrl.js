@@ -54,10 +54,11 @@ app.config(function($stateProvider) {
         window.location.href = wxUrl + '?' + requestData.join('&') + '#wechat_redirect';
       }
     }
-  }).state('login.clear', {
-    url: '/login/clear',
-    controller: function () {
+  }).state('clear', {
+    url: '/clear',
+    controller: function ($state) {
       localStorage.clear();
+      $state.go('main');
     }
   });
 });
