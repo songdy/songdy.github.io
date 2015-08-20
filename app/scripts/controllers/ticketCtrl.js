@@ -82,19 +82,24 @@ app.config(function($stateProvider) {
           alert(result.desc);
         } else {
           alert('领取失败，请重新领取');
+          alert(JSON.stringify(result));
         }
         return true;
       }
       return false;
     };
 
-    var confirm = ticketSvc.h5ConfirmTicket({
+    var confirmParams = {
       deviceCode: localStorage.getItem('userId'),
       type: $stateParams.type,
       ticketId: $stateParams.ticketId,
       serverCurrentTime: $stateParams.serverCurrentTime,
       numerical: $stateParams.numerical
-    }, function() {
+    };
+
+    alert(JSON.stringify(confirmParams));
+
+    var confirm = ticketSvc.h5ConfirmTicket(confirmParams, function() {
       if (isErr(confirm)) {
         return;
       }
@@ -102,6 +107,5 @@ app.config(function($stateProvider) {
         id: confirm.targetTicketId,
         userId: localStorage.getItem('userId')
       });
-
     });
   });
