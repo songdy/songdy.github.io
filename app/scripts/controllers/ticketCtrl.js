@@ -74,7 +74,7 @@ app.config(function($stateProvider) {
 
     });
   })
-  .controller('gainTicketCtrl', function($state, $stateParams, $q, ticketSvc) {
+  .controller('gainTicketCtrl', function($state, $stateParams, $q, $location, ticketSvc) {
 
     alert($location.absUrl());
 
