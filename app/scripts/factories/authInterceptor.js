@@ -14,9 +14,8 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
           deferred.resolve(config);
         } else {
           deferred.reject('accessToken is required');
-          $state.go('login', {
-            from: encodeURIComponent($location.absUrl())
-          });
+          $rootScope.redirectUrl = encodeURIComponent($location.absUrl());
+          $state.go('login');
           loading.hide();
         }
       } else {
