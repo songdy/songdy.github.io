@@ -67,11 +67,11 @@ app.config(function($stateProvider) {
         $scope.maxPrinted = arr;
       }
       if (ticket.type !== 2 || val >= max) {
-        qrcodeData = {
+        qrcodeData = JSON.stringify({
           ticketId: ticket.id,
           senderId: localStorage.getItem('userId'),
           type: ticket.type
-        };
+        });
       }
 
       $scope.respData = respData;
