@@ -27,10 +27,11 @@ app.config(function($stateProvider) {
             localStorage.clear();
             alert(JSON.stringify(data));
           }
-          if (!$location.$$search.state) {
-            $state.go('main');
+          var redirect = decodeURIComponent($location.$$search.redirect);
+          if (!!redirect) {
+            $location.path(redirect);
           } else {
-            $location.path(decodeURIComponent($stateParams.redirect));
+            $state.go('main');
           }
         }).error(function(err) {
           alert(err);

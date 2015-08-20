@@ -42,7 +42,7 @@ app.config(function($stateProvider) {
         controller: 'ticketCtrl'
       })
       .state('ticket.gain', {
-        url: '/gain/{type}/{ticketId}',
+        url: '/gain/{type}/{ticketId}/{serviceCurrentTime}/{numerical}',
         controller: 'gainTicketCtrl'
       });
   })
@@ -75,7 +75,7 @@ app.config(function($stateProvider) {
     });
   })
   .controller('gainTicketCtrl', function($state, $stateParams, $q, $location, ticketSvc) {
-    
+
     var isErr = function(result) {
       if (result.code !== '00000') {
         if (!!result.desc) {
@@ -88,31 +88,20 @@ app.config(function($stateProvider) {
       return false;
     };
 
-    var target = ticketSvc.h5GetTargetTicket({
+    var confirm = ticketSvc.h5ConfirmTicket({
       deviceCode: localStorage.getItem('userId'),
+      type: $stateParams.type,
       ticketId: $stateParams.ticketId,
+      serverCurrentTime: $stateParams.serverCurrentTime,
+      numerical: $stateParams.numerical
     }, function() {
-      if (isErr(target)) {
+      if (isErr(confirm)) {
         return;
       }
-
-      var confirm = ticketSvc.h5ConfirmTicket({
-        deviceCode: localStorage.getItem('userId'),
-        type: $stateParams.type,
-        ticketId: target.ticketId,
-        serverCurrentTime: target.serverCurrentTime
-      }, function() {
-        if (isErr(confirm)) {
-          return;
-        }
-        $state.go('ticket.' + $stateParams.type, {
-          id: confirm.targetTicketId,
-          userId: localStorage.getItem('userId')
-        });
-
+      $state.go('ticket.' + $stateParams.type, {
+        id: confirm.targetTicketId,
+        userId: localStorage.getItem('userId')
       });
+
     });
-
-
-
   });
