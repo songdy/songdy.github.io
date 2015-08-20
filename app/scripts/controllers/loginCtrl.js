@@ -35,6 +35,7 @@ app.config(function($stateProvider) {
           alert(err);
         });
       } else {
+        alert(encodeURIComponent($stateParams.from || globalConfig.clienthost));
         var wxUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize';
         var info = {
           appid: globalConfig.wxAppid,
