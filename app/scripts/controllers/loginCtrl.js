@@ -27,6 +27,7 @@ app.config(function($stateProvider) {
             alert(JSON.stringify(data));
           }
           alert($location.$$search.state);
+          alert(JSON.stringify($location.$$search));
           if (!$location.$$search.state) {
             $state.go('main');
           } else {
