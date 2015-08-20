@@ -2,7 +2,7 @@
 
 app.config(function($stateProvider) {
   $stateProvider.state('login', {
-    url: '/login',
+    url: '/login?from',
     // templateUrl: '../../views/login.html',
     controller: function($location, $state, $http, $stateParams, $rootScope, $scope, globalConfig) {
 
@@ -35,15 +35,14 @@ app.config(function($stateProvider) {
           alert(err);
         });
       } else {
-        alert(JSON.stringify($state.current.params));
-        alert(encodeURIComponent($stateParams.from || globalConfig.clienthost));
+        alert($stateParams.from);
         var wxUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize';
         var info = {
           appid: globalConfig.wxAppid,
           redirect_uri: encodeURIComponent($location.absUrl()),
           response_type: 'code',
           scope: 'snsapi_userinfo',
-          state: encodeURIComponent($stateParams.from || globalConfig.clienthost)
+          state: $stateParams.from || encodeURIComponent(globalConfig.clienthost)
         };
         var requestData = [];
         for (var field in info) {
