@@ -3,9 +3,6 @@
 app.config(function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
-    params: {
-
-    }
     // templateUrl: '../../views/login.html',
     controller: function($location, $state, $http, $stateParams, $rootScope, $scope, globalConfig) {
 
@@ -50,7 +47,7 @@ app.config(function($stateProvider) {
           state: encodeURIComponent($stateParams.from || globalConfig.clienthost)
         };
         var requestData = [];
-        for(var field in info) {
+        for (var field in info) {
           requestData.push(field + '=' + info[field]);
         }
         // var redirect_uri = encodeURIComponent(globalConfig.clienthost + '/login');
