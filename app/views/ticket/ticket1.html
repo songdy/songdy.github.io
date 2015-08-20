@@ -1,10 +1,10 @@
 <div class="padding-10">
   <div class="ticket-detail-1">
     <div class="bg padding-20">
-      <p class="font-18">{{respData.merchant.tickets[0].ticketName}}</p>
+      <p class="font-18">{{merchant.tickets[0].ticketName}}</p>
       <p class="lighter font-14">
         <i class="again-icon">&#xe601;</i>
-        {{respData.merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日'}} - {{respData.merchant.tickets[0].validTime | date: 'MM月dd日'}}
+        {{merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日'}} - {{merchant.tickets[0].validTime | date: 'MM月dd日'}}
       </p>
       <br>
       <div class="align-center">
@@ -21,19 +21,19 @@
 
 <div class="ticket-state padding-10">
   <p>
-    {{respData.merchant.applierDesc}}
+    {{merchant.applierDesc}}
   </p>
   <br><br>
   <p>
     <i class="again-icon">&#xe604;</i>
   </p>
   <p>
-    <i class="again-icon">&#xe602;</i>&nbsp;&nbsp; {{respData.merchant.phoneNumber}}
+    <i class="again-icon">&#xe602;</i>&nbsp;&nbsp; {{merchant.phoneNumber}}
   </p>
   <p>
-    <i class="again-icon">&#xe603;</i>&nbsp;&nbsp; {{respData.merchant.location}}
+    <i class="again-icon">&#xe603;</i>&nbsp;&nbsp; {{merchant.location}}
   </p>
   <p>
-    <i class="again-icon">&#xe601;</i>&nbsp;&nbsp; {{respData.merchant.start}} - {{respData.merchant.end}}
+    <i class="again-icon">&#xe601;</i>&nbsp;&nbsp; {{merchant.start}} - {{merchant.end}}
   </p>
 </div>

@@ -1,8 +1,8 @@
 <div class="padding-10">
   <div class="ticket-detail-3">
     <div class="bg">
-      <p class="font-24 align-center bg-text" style="padding-top:80px;">{{respData.merchant.tickets[0].value}}</p>
-      <p class="font-18 align-center" style="padding-top:50px;">{{respData.merchant.tickets[0].ticketName}}</p>
+      <p class="font-24 align-center bg-text" style="padding-top:80px;">{{merchant.tickets[0].value}}</p>
+      <p class="font-18 align-center" style="padding-top:50px;">{{merchant.tickets[0].ticketName}}</p>
       <br>
       <div class="align-center">
         <qrcode size="150" version="{{qrcodeVersion}}" data='{{qrcodeData}}' ng-show="!!qrcodeData"></qrcode>
@@ -22,19 +22,19 @@
 
 <div class="ticket-state padding-10">
   <p>
-    {{respData.merchant.applierDesc}}
+    {{merchant.applierDesc}}
   </p>
   <br><br>
   <p>
     <i class="again-icon">&#xe604;</i>
   </p>
   <p>
-    <i class="again-icon">&#xe602;</i>&nbsp;&nbsp; {{respData.merchant.phoneNumber}}
+    <i class="again-icon">&#xe602;</i>&nbsp;&nbsp; {{merchant.phoneNumber}}
   </p>
   <p>
-    <i class="again-icon">&#xe603;</i>&nbsp;&nbsp; {{respData.merchant.location}}
+    <i class="again-icon">&#xe603;</i>&nbsp;&nbsp; {{merchant.location}}
   </p>
   <p>
-    <i class="again-icon">&#xe601;</i>&nbsp;&nbsp; {{respData.merchant.start}} - {{respData.merchant.end}}
+    <i class="again-icon">&#xe601;</i>&nbsp;&nbsp; {{merchant.start}} - {{merchant.end}}
   </p>
 </div>
