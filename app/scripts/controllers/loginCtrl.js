@@ -56,9 +56,8 @@ app.config(function($stateProvider) {
     }
   }).state('clear', {
     url: '/clear',
-    controller: function ($state) {
+    controller: function () {
       localStorage.clear();
-      $state.go('main');
     }
   });
 });

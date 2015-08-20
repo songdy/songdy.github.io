@@ -46,7 +46,7 @@ app.config(function($stateProvider) {
         controller: 'gainTicketCtrl'
       });
   })
-  .controller('ticketCtrl', function($scope, $stateParams, ticketSvc) {
+  .controller('ticketCtrl', function($scope, $stateParams, ticketSvc, sharing) {
     var qrcodeData = '';
     var respData = ticketSvc.singleTicket({
       ticketId: $stateParams.id
@@ -78,6 +78,9 @@ app.config(function($stateProvider) {
       $scope.qrcodeData = qrcodeData;
       $scope.qrcodeVersion = 6;
 
+      $scope.shareWith = function () {
+        sharing.show();
+      };
     });
   })
   .controller('gainTicketCtrl', function($state, $stateParams, $q, $location, ticketSvc) {
