@@ -23,11 +23,11 @@ app.config(function($stateProvider) {
             localStorage.setItem('userId', data.accessToken.split('|')[0]);
           } else {
             localStorage.clear();
-            alert(JSON.stringify(data));
+            // alert(JSON.stringify(data));
           }
           var redirect = decodeURIComponent($location.$$search.redirect);
           if (!!redirect) {
-            alert(redirect);
+            // alert(redirect);
             $location.path(redirect);
           } else {
             $state.go('main');

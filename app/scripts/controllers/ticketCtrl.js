@@ -52,23 +52,29 @@ app.config(function($stateProvider) {
       ticketId: $stateParams.id
     }, function() {
       // TODO: 根据卡券类型执行以下代码
-      var i = 0;
-      var arr = [];
       var ticket = respData.merchant.tickets[0];
-      var max = respData.merchant.tickets[0].maxPrinted;
-      var val = respData.merchant.tickets[0].value;
-      for (; i < max; i++) {
-        arr.push({
-          clsName: i < val ? 'printed-card' : 'printed-card-empty'
-        });
-      }
 
-      if (val >= max) {
-        qrcodeData = ticket.id + ';' + localStorage.getItem('userId') + ';' + localStorage.getItem('userId') + ';' + ticket.type;
+      var max = ticket.maxPrinted;
+      var val = ticket.value;
+      if (ticket.type === 2) {
+        var i = 0;
+        var arr = [];
+        for (; i < max; i++) {
+          arr.push({
+            clsName: i < val ? 'printed-card' : 'printed-card-empty'
+          });
+        }
+        $scope.maxPrinted = arr;
+      }
+      if (ticket.type !== 2 || val >= max) {
+        qrcodeData = {
+          ticketId: ticket.id,
+          senderId: localStorage.getItem('userId'),
+          type: ticket.type
+        };
       }
 
       $scope.respData = respData;
-      $scope.maxPrinted = arr;
       $scope.qrcodeData = qrcodeData;
       $scope.qrcodeVersion = 6;
 
@@ -95,8 +101,6 @@ app.config(function($stateProvider) {
       serverCurrentTime: $stateParams.serviceCurrentTime,
       numerical: $stateParams.numerical
     };
-
-    alert(JSON.stringify(confirmParams));
 
     var confirm = ticketSvc.h5ConfirmTicket(confirmParams, function() {
       if (isErr(confirm)) {
