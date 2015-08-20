@@ -42,7 +42,7 @@ app.config(function($stateProvider) {
         controller: 'ticketCtrl'
       })
       .state('ticket.gain', {
-        url: '/gain/{type}/{ticketId}/{serviceCurrentTime}/{numerical}',
+        url: '/gain/{type}/{ticketId}/{deviceCode}/{serviceCurrentTime}/{numerical}',
         controller: 'gainTicketCtrl'
       });
   })
@@ -90,8 +90,7 @@ app.config(function($stateProvider) {
     };
 
     var confirmParams = {
-      deviceCode: localStorage.getItem('userId'),
-      type: $stateParams.type,
+      deviceCode: $stateParams.deviceCode,
       ticketId: $stateParams.ticketId,
       serverCurrentTime: $stateParams.serviceCurrentTime,
       numerical: $stateParams.numerical
@@ -103,6 +102,7 @@ app.config(function($stateProvider) {
       if (isErr(confirm)) {
         return;
       }
+
       $state.go('ticket.' + $stateParams.type, {
         id: confirm.targetTicketId,
         userId: localStorage.getItem('userId')
