@@ -168,7 +168,7 @@ app.config(function($stateProvider) {
     $scope.type = $stateParams.type;
     $scope.accept = function() {
       var result = ticketSvc.shareSingleTicket({
-        ticketId: respData.merchant.tickets[0].id,
+        ticketId: $stateParams.id,
         senderId: $stateParams.accessToken.split('|')[0]
       }, function() {
         alert($stateParams.accessToken.split('|')[0]);
