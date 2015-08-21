@@ -17,8 +17,8 @@ a {
 .merchant-list {
   .header {
     display: box;
-    display:-moz-box;
-    display:-webkit-box;
+    display: -moz-box;
+    display: -webkit-box;
     height: 70px;
     background-color: #fff;
     padding: 10px 20px;
@@ -29,9 +29,9 @@ a {
       width: 70px;
     }
     .info {
-      box-flex:1;
-      -moz-box-flex:1;
-      -webkit-box-flex:1;
+      box-flex: 1;
+      -moz-box-flex: 1;
+      -webkit-box-flex: 1;
       padding-left: 10px;
       p {
         line-height: 32px;
@@ -42,37 +42,59 @@ a {
     }
   }
 }
-.generate-ticket(@type, @bgColor, @offsetX) {
-  .ticket-@{type} {
-    display: box;
-    display:-moz-box;
-    display:-webkit-box;
-    width: 100%;
-    height: 68px;
-    background-color: @bgColor;
-    color: #fff;
-    margin-top: 3px;
-    .cardFlag {
-      margin: 10px 20px;
-      height: 48px;
-      width: 45.5px;
+[class^=ticket-list] {
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  width: 100%;
+  height: 68px;
+  color: #fff;
+  margin-top: 3px;
+  .cardFlag {
+    margin: 10px 20px;
+    height: 48px;
+    width: 45.5px;
+    overflow: hidden;
+  }
+  .info {
+    margin: 10px 10px 10px 0;
+    box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    p {
+      line-height: 26px;
       overflow: hidden;
-      background: url("../../images/icon-card-type.png") 0px + @offsetX 0 no-repeat;
-    }
-    .info {
-      margin: 10px 10px 10px 0px;
-      box-flex:1;
-      -moz-box-flex:1;
-      -webkit-box-flex:1;
-      p {
-        line-height: 26px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
+  .friend {
+    width: 70px;
+    padding-top: 10px;
+    img {
+      border-radius: 50%;
+    }
+    p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
 
+.generate-ticket(@type, @bgColor, @offsetX) when (@type > 1) {
+  .ticket-list-@{type} {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+  }
+}
+.generate-ticket(@type, @bgColor, @offsetX) {
+  .ticket-list-@{type} {
+    background-color: @bgColor;
+    .cardFlag {
+      background: url("../../images/icon-card-type.png") 0px + @offsetX 0 no-repeat;
+    }
+  }
   .ticket-detail-@{type} {
     .bg when not (@type = 2) and not (@type = 3) {
       background-color: @bgColor;
@@ -86,22 +108,15 @@ a {
       border-color: @bgColor;
     }
   }
-
   .ticket-share {
     .card-@{type} {
       background-color: @bgColor;
     }
   }
 }
-.ticket-1 {
+.ticket-list-1 {
   border-left: 3px dotted #f4f5f6;
   border-right: 3px dotted #f4f5f6;
-}
-.generate-ticket(@type, @bgColor, @offsetX) when (@type > 1) {
-  .ticket-@{type} {
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-  }
 }
 
 // 1:=优惠券
@@ -135,7 +150,7 @@ a {
     background-color: #fff;
   }
 }
-.ticket-detail-1:extend(.ticket-detail-bottom all){
+.ticket-detail-1 {
   color: #fff;
   .bg {
     border-left: 3px dotted #f4f5f6;
@@ -145,7 +160,7 @@ a {
     background-position: 90% 20px;
   }
 }
-.ticket-detail-2:extend(.ticket-detail-bottom all){
+.ticket-detail-2 {
   color: #666;
   .bg {
     background-color: #fff;
@@ -167,7 +182,7 @@ a {
     background: url("../../images/printed-@{clsName}.png") 0 0 no-repeat;
   }
 }
-.ticket-detail-3:extend(.ticket-detail-bottom all){
+.ticket-detail-3 {
   color: #666;
   .bg {
     background-image: url("../../images/meter-card.png");
@@ -175,7 +190,7 @@ a {
     background-position: 50% 20px;
   }
 }
-.ticket-detail-4:extend(.ticket-detail-bottom all){
+.ticket-detail-4 {
   color: #fff;
   .bg {
     background-image: url("../../images/bg-card-value.png");
@@ -184,7 +199,7 @@ a {
     border-radius: 10px;
   }
 }
-.ticket-detail-5:extend(.ticket-detail-bottom all){
+.ticket-detail-5 {
   color: #fff;
   .bg {
     background-image: url("../../images/bg-card-score.png");
@@ -193,7 +208,7 @@ a {
     border-radius: 10px;
   }
 }
-.ticket-detail-6:extend(.ticket-detail-bottom all){
+.ticket-detail-6 {
   color: #fff;
   .bg {
     background-image: url("../../images/bg-card-discount.png");
@@ -202,7 +217,7 @@ a {
     border-radius: 10px;
   }
 }
-.ticket-detail-7:extend(.ticket-detail-bottom all){
+.ticket-detail-7 {
   color: #fff;
   .bg {
     background-image: url("../../images/bg-card-gift.png");
@@ -218,7 +233,7 @@ a {
     line-height: 28px;
   }
 }
-.ticket-share:extend(.merchant-list all) {
+.ticket-share:extend(.merchant-list all){
   .card-bg {
     @radius: 15px;
     background: #fff;
@@ -267,7 +282,7 @@ a {
   background-image: url("../../images/guide-arrow.png");
   background-size: 100%;
   background-repeat: no-repeat;
-  background-position: -15px 0px;
+  background-position: -15px 0;
   position: fixed;
   display: block;
   right: 0;
