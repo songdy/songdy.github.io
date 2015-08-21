@@ -81,26 +81,26 @@ app.config(function($stateProvider) {
       $scope.maxPrinted = arr;
     }
     if (ticket.type !== 2 || val >= max) {
-      var status = ticketSvc.h5UseTicketStatus({
+      qrcodeData = JSON.stringify({
         ticketId: ticket.id,
-        deviceCode: localStorage.getItem('userId')
-      }, function() {
-        if (!!status.serverCurrentTime) {
-          qrcodeData = JSON.stringify({
-            ticketId: ticket.id,
-            senderId: localStorage.getItem('userId'),
-            type: ticket.type,
-            serverCurrentTime: status.serverCurrentTime
-          });
-          $scope.qrcodeData = qrcodeData;
-        } else {
-          alert('二维码生成失败');
-        }
+        senderId: localStorage.getItem('userId'),
+        type: ticket.type,
+        serverCurrentTime: respData.serverCurrentTime
       });
+      $scope.qrcodeData = qrcodeData;
     }
 
     $scope.merchant = respData.merchant;
     $scope.qrcodeVersion = 6;
+
+    // var status = ticketSvc.h5UseTicketStatus({
+    //   ticketId: ticket.id
+    // }, function() {
+    //   if (!!status.serverCurrentTime) {
+    //   } else {
+    //     alert('二维码生成失败');
+    //   }
+    // });
 
     $scope.shareWith = function() {
       sharing.show();
@@ -132,7 +132,7 @@ app.config(function($stateProvider) {
   $scope.$root.title = '我的就是你的';
   var respData = ticketSvc.singleTicket({
     ticketId: $stateParams.id
-  }, function () {
+  }, function() {
     $scope.merchant = respData.merchant;
   });
 });

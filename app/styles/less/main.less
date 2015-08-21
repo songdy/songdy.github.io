@@ -16,21 +16,28 @@ a {
 }
 .merchant-list {
   .header {
+    display: box;
+    display:-moz-box;
+    display:-webkit-box;
     height: 70px;
     background-color: #fff;
     padding: 10px 20px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     img {
-      float: left;
       border: 1px solid #f3f3f3;
       width: 70px;
     }
     .info {
-      float: left;
+      box-flex:1;
+      -moz-box-flex:1;
+      -webkit-box-flex:1;
       padding-left: 10px;
       p {
         line-height: 32px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -110,6 +117,7 @@ a {
 
 // 7=礼券
 .generate-ticket(7, #FF83A5, -273);
+
 .ticket-detail-bottom {
   p {
     line-height: 26px;
@@ -203,6 +211,12 @@ a {
     line-height: 28px;
   }
 }
+.ticket-share:extend(.merchant-list all) {
+}
+.tips-share {
+  color: #7c868c;
+  line-height: 20px;
+}
 .ellipseBtn {
   color: #ff4237;
   border: 1px solid #ff4237;
@@ -223,9 +237,4 @@ a {
       color: #fff;
     }
   }
-}
-
-.tips-share {
-  color: #7c868c;
-  line-height: 20px;
 }
