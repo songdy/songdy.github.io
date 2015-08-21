@@ -19,7 +19,7 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
         } else {
           deferred.reject('accessToken is required');
           $state.go('login', {
-            redirect: encodeURIComponent($location.url())
+            redirect: $location.url()
           });
           loading.hide();
         }
