@@ -53,8 +53,7 @@ app.config(function($stateProvider) {
 }).controller('ticketCtrl', function($scope, $state, $stateParams, ticketSvc, sharing) {
 
   if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
-    alert($stateParams.accessToken);
-    alert(decodeURIComponent($stateParams.accessToken));
+  // if ($stateParams.accessToken === localStorage.getItem('accessToken')) {
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
@@ -145,7 +144,6 @@ app.config(function($stateProvider) {
     },
     cache: false
   }).success(function(respData) {
-    alert(JSON.stringify(respData));
     $scope.merchant = respData.merchant;
   }).error(function(err) {
     alert(JSON.stringify(err));
