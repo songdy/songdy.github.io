@@ -52,10 +52,10 @@ app.config(function($stateProvider) {
     });
 }).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
 
-  if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
-    alert($stateParams.accessToken);
-    alert(decodeURIComponent($stateParams.accessToken));
-    alert(localStorage.getItem('accessToken'));
+  var accessToken = localStorage.getItem('accessToken');
+  var userId = !!accessToken && accessToken.split('|')[0];
+
+  if ($stateParams.accessToken.split('|')[0] !== userId) {
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
@@ -116,15 +116,6 @@ app.config(function($stateProvider) {
 
     $scope.merchant = respData.merchant;
     $scope.qrcodeVersion = 7;
-
-    // var status = ticketSvc.h5UseTicketStatus({
-    //   ticketId: ticket.id
-    // }, function() {
-    //   if (!!status.serverCurrentTime) {
-    //   } else {
-    //     alert('二维码生成失败');
-    //   }
-    // });
 
     $scope.shareWith = function() {
       sharing.show();
