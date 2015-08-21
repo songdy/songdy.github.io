@@ -66,7 +66,6 @@ app.factory('prompting', function() {
     okLinkElem.setAttribute('class', 'ok');
     okLinkElem.innerText = opts.okBtn.text;
     okLinkElem.onclick = function() {
-      hide();
       opts.okBtn.onClick(inputElem.value);
     };
 
