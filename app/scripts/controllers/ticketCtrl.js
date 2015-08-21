@@ -151,6 +151,8 @@ app.config(function($stateProvider) {
         ticketId: respData.merchant.tickets[0].id,
         senderId: $stateParams.accessToken.split('|')[0]
       }, function() {
+        alert($stateParams.accessToken.split('|')[0]);
+        alert(JSON.stringify(result));
         if (result.code !== '00000') {
           $state.go('main');
         }
