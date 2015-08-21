@@ -6,7 +6,7 @@ app.factory('sharing', function() {
     var SHARING_TPL =
     '<div class="backdrop visible active"></div>' +
     '<div class="backdrop-container visible active">' +
-    '<img src="/images/guide-arrow.png" style="position: fixed; right: 0; width: 100%;"></img>' +
+    '<div class="sharing-guide"></div>' +
     '</div>';
 
     var sharingContent = document.createElement('div');
