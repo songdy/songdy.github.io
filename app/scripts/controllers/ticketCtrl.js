@@ -128,7 +128,7 @@ app.config(function($stateProvider) {
       userId: localStorage.getItem('userId')
     });
   });
-}).controller('shareTicketCtrl', function($scope, $stateParams, $http, globalConfig, ticketSvc) {
+}).controller('shareTicketCtrl', function($scope, $stateParams, $http, globalConfig) {
   $scope.$root.title = '我的就是你的';
   // var respData = ticketSvc.singleTicket({
   //   ticketId: $stateParams.id
