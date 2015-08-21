@@ -91,7 +91,7 @@ app.config(function($stateProvider) {
     }
 
     $scope.merchant = respData.merchant;
-    $scope.qrcodeVersion = 6;
+    $scope.qrcodeVersion = 7;
 
     // var status = ticketSvc.h5UseTicketStatus({
     //   ticketId: ticket.id
