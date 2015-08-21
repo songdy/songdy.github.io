@@ -26,7 +26,8 @@ app.config(function($stateProvider) {
             // alert(JSON.stringify(data));
           }
           var redirect = decodeURIComponent($location.$$search.redirect);
-          alert(redirect);
+          redirect = redirect.replace(/[\?&]from=singlemessage/i, '');
+          redirect = redirect.replace(/[\?&]isappinstalled=\d*/i, '');
           if (!!redirect) {
             // alert(redirect);
             $location.path(redirect);
