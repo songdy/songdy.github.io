@@ -98,8 +98,9 @@ app.config(function($stateProvider) {
           } else if (status.validResult === 2) {
             $scope.qrcodeData.serverCurrentTime = status.serverCurrentTime;
           }
+          console.log(status);
         });
-      }, 3000);
+      }, 5000);
 
       $scope.$on('$destroy', function(e) {
         if (angular.isDefined(stop)) {
