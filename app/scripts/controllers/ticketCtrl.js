@@ -53,6 +53,9 @@ app.config(function($stateProvider) {
 }).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
 
   if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
+    alert($stateParams.accessToken);
+    alert(decodeURIComponent($stateParams.accessToken));
+    alert(localStorage.getItem('accessToken'));
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
@@ -151,7 +154,6 @@ app.config(function($stateProvider) {
     });
   });
 }).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, globalConfig, ticketSvc) {
-  alert($location.url());
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams) {
       if (/ticket\.[1-7]/.test(toState.name) && fromState.name === 'ticket.share') {
