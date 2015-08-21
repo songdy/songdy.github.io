@@ -87,6 +87,13 @@ app.config(function($stateProvider) {
         serverCurrentTime: respData.serverCurrentTime
       };
 
+      $scope.$on('$destroy', function(e) {
+        if (angular.isDefined(stop)) {
+          $interval.cancel(stop);
+          stop = undefined;
+        }
+      });
+
       var stop = $interval(function () {
         var status = ticketSvc.h5UseTicketStatus({
           ticketId: ticket.id
@@ -102,12 +109,6 @@ app.config(function($stateProvider) {
         });
       }, 5000);
 
-      $scope.$on('$destroy', function(e) {
-        if (angular.isDefined(stop)) {
-          $interval.cancel(stop);
-          stop = undefined;
-        }
-      });
     }
 
     $scope.merchant = respData.merchant;
