@@ -3,6 +3,11 @@
 app.factory('loading', function() {
 
   var show = function(tips) {
+    var el = document.getElementById('loading-box');
+    if (!!el) {
+      return;
+    }
+
     tips = tips ? tips : '加载中...';
     var LOADING_TPL =
       '<div class="backdrop visible  active"></div>' +
@@ -22,10 +27,12 @@ app.factory('loading', function() {
 
   var hide = function() {
     var el = document.getElementById('loading-box');
-    if (el.remove) {
-      el.remove();
-    } else {
-      el.parentNode.removeChild(el);
+    if (!!el) {
+      if (el.remove) {
+        el.remove();
+      } else {
+        el.parentNode.removeChild(el);
+      }
     }
   };
 
