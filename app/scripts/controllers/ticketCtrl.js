@@ -171,7 +171,7 @@ app.config(function($stateProvider) {
         ticketId: $stateParams.id,
         senderId: $stateParams.accessToken.split('|')[0]
       }, function() {
-        alert($stateParams.accessToken.split('|')[0]);
+        alert($stateParams.id);
         alert(JSON.stringify(result));
         if (result.code !== '00000') {
           $state.go('main');
