@@ -15,7 +15,7 @@
     </div><!-- endOf: .header -->
 
     <div ng-repeat="ticket in merchant.tickets | orderBy:'type':false">
-      <againticket ticket="ticket" user-id="{{userId}}"></againticket>
+      <againticket ticket="ticket" access-token="{{accessToken}}"></againticket>
     </div>
 
     <div class="align-center padding-vertical-30">

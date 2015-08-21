@@ -10,7 +10,9 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
       var deferred = $q.defer();
       if (!$state.is('login')) {
         if (!!localStorage.getItem('accessToken')) {
-          config.headers.accessToken = localStorage.getItem('accessToken');
+          if (!config.headers.accessToken) {
+            config.headers.accessToken = localStorage.getItem('accessToken');
+          }
           deferred.resolve(config);
         } else {
           deferred.reject('accessToken is required');

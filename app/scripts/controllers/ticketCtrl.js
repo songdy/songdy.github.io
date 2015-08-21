@@ -7,37 +7,37 @@ app.config(function($stateProvider) {
       templateUrl: '../../views/ticket/index.html'
     })
     .state('ticket.1', {
-      url: '/detail/{type:1}/{id}/{userId}',
+      url: '/detail/{type:1}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket1.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.2', {
-      url: '/detail/{type:2}/{id}/{userId}',
+      url: '/detail/{type:2}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket2.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.3', {
-      url: '/detail/{type:3}/{id}/{userId}',
+      url: '/detail/{type:3}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket3.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.4', {
-      url: '/detail/{type:4}/{id}/{userId}',
+      url: '/detail/{type:4}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket4.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.5', {
-      url: '/detail/{type:5}/{id}/{userId}',
+      url: '/detail/{type:5}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket5.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.6', {
-      url: '/detail/{type:6}/{id}/{userId}',
+      url: '/detail/{type:6}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket6.html',
       controller: 'ticketCtrl'
     })
     .state('ticket.7', {
-      url: '/detail/{type:7}/{id}/{userId}',
+      url: '/detail/{type:7}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/ticket7.html',
       controller: 'ticketCtrl'
     })
@@ -46,17 +46,17 @@ app.config(function($stateProvider) {
       controller: 'gainTicketCtrl'
     })
     .state('ticket.share', {
-      url: '/share/{type}/{id}/{senderId}',
+      url: '/share/{type}/{id}/{accessToken}',
       templateUrl: '../../views/ticket/share.html',
       controller: 'shareTicketCtrl'
     });
 }).controller('ticketCtrl', function($scope, $state, $stateParams, ticketSvc, sharing) {
 
-  if ($stateParams.userId !== localStorage.getItem('userId')) {
+  if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
-      senderId: $stateParams.userId
+      accessToken: $stateParams.accessToken
     });
     return;
   }
@@ -128,11 +128,25 @@ app.config(function($stateProvider) {
       userId: localStorage.getItem('userId')
     });
   });
-}).controller('shareTicketCtrl', function($scope, $stateParams, ticketSvc) {
+}).controller('shareTicketCtrl', function($scope, $stateParams, $http, globalConfig, ticketSvc) {
   $scope.$root.title = '我的就是你的';
-  var respData = ticketSvc.singleTicket({
-    ticketId: $stateParams.id
-  }, function() {
+  // var respData = ticketSvc.singleTicket({
+  //   ticketId: $stateParams.id
+  // }, function() {
+  //   $scope.merchant = respData.merchant;
+  // });
+  $http({
+    method: 'GET',
+    url: globalConfig.apihost + '/again/ticket/weixinSingleTicket.do' + $stateParams.id,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'accessToken': $stateParams.accessToken
+    },
+    cache: false
+  }).success(function(respData) {
+    alert(JSON.stringify(respData));
     $scope.merchant = respData.merchant;
+  }).error(function(err) {
+    alert(JSON.stringify(err));
   });
 });
