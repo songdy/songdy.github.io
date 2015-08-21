@@ -146,6 +146,7 @@ app.config(function($stateProvider) {
 
     $state.go('ticket.' + $stateParams.type, {
       id: respData.targetTicketId,
+      type: $stateParams.type,
       accessToken: localStorage.getItem('accessToken')
     });
   });
