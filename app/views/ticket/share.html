@@ -11,7 +11,28 @@
         <i class="again-icon">&#xe600;</i>{{merchant.location}}</p>
     </div>
   </div>
+  <div class="card-bg">
+    <div class="card card-{{type}}">
+      <p class="color-white font-22 padding-horizontal-20" style="padding-top: 20px; padding-bottom: 10px;">
+        {{merchant.tickets[0].ticketName}}
+      </p>
+      <p class="color-white font-12 padding-horizontal-20">
+        <i class="again-icon">&#xe601;</i>{{merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日过期'}}
+      </p>
+    </div>
+  </div>
+
+  <div class="padding-vertical-70 align-center">
+    <a class="squareBtn font-22" ng-click="accept()">接受好友的心意</a>
+  </div>
 
 </div>
 
-{{merchant.tickets[0].ticketName}}
+<div class="align-center tips-share">
+  <p>
+    再来已跟城中93户热门商家合作
+  </p>
+  <p>
+    涵盖了餐饮、美容、汽车、娱乐等消费优惠
+  </p>
+</div>

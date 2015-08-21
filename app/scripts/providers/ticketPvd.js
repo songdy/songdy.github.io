@@ -13,6 +13,11 @@ app.provider('ticketPvd', function () {
         method: 'POST',
         url: globalConfig.apihost + '/again/ticket/h5UseTicketStatus.do',
         isArray: false
+      },
+      shareSingleTicket: {
+        method: 'POST',
+        url: globalConfig.apihost + '/again/share/shareSingleTicket.do',
+        isArray: false
       }
     });
   };

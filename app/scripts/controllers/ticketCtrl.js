@@ -53,7 +53,6 @@ app.config(function($stateProvider) {
 }).controller('ticketCtrl', function($scope, $state, $stateParams, ticketSvc, sharing) {
 
   if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
-  // if ($stateParams.accessToken === localStorage.getItem('accessToken')) {
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
@@ -129,13 +128,14 @@ app.config(function($stateProvider) {
       accessToken: localStorage.getItem('accessToken')
     });
   });
-}).controller('shareTicketCtrl', function($scope, $stateParams, $http, globalConfig) {
+}).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, globalConfig, ticketSvc) {
+  $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams) {
+      if (/ticket\.[1-7]/.test(toState.name) && fromState.name === 'ticket.share') {
+        event.preventDefault();
+      }
+    });
   $scope.$root.title = '我的就是你的';
-  // var respData = ticketSvc.singleTicket({
-  //   ticketId: $stateParams.id
-  // }, function() {
-  //   $scope.merchant = respData.merchant;
-  // });
   $http({
     method: 'GET',
     url: globalConfig.apihost + '/again/ticket/weixinSingleTicket.do?ticketId=' + $stateParams.id,
@@ -145,6 +145,17 @@ app.config(function($stateProvider) {
     cache: false
   }).success(function(respData) {
     $scope.merchant = respData.merchant;
+    $scope.type = $stateParams.type;
+    $scope.accept = function() {
+      var result = ticketSvc.shareSingleTicket({
+        ticketId: respData.merchant.tickets[0].id,
+        senderId: $stateParams.accessToken.split('|')[0]
+      }, function() {
+        if (result.code !== '00000') {
+          $state.go('main');
+        }
+      });
+    };
   }).error(function(err) {
     alert(JSON.stringify(err));
   });
