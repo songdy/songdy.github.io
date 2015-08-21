@@ -53,6 +53,8 @@ app.config(function($stateProvider) {
 }).controller('ticketCtrl', function($scope, $state, $stateParams, ticketSvc, sharing) {
 
   if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
+    alert($stateParams.accessToken);
+    alert(decodeURIComponent($stateParams.accessToken));
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
