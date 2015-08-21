@@ -26,7 +26,7 @@ app.config(function($stateProvider) {
             // alert(JSON.stringify(data));
           }
           var redirect = decodeURIComponent($location.$$search.redirect);
-          alert(redirectUrl):
+          alert(redirect);
           if (!!redirect) {
             // alert(redirect);
             $location.path(redirect);
