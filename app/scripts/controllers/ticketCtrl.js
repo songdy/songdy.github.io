@@ -50,7 +50,7 @@ app.config(function($stateProvider) {
       templateUrl: '../../views/ticket/share.html',
       controller: 'shareTicketCtrl'
     });
-}).controller('ticketCtrl', function($scope, $state, $stateParams, ticketSvc, sharing) {
+}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
 
   if ($stateParams.accessToken !== localStorage.getItem('accessToken')) {
     $state.go('ticket.share', {
@@ -61,7 +61,6 @@ app.config(function($stateProvider) {
     return;
   }
 
-  var qrcodeData = '';
   var respData = ticketSvc.singleTicket({
     ticketId: $stateParams.id
   }, function() {
@@ -81,13 +80,33 @@ app.config(function($stateProvider) {
       $scope.maxPrinted = arr;
     }
     if (ticket.type !== 2 || val >= max) {
-      qrcodeData = JSON.stringify({
+      $scope.qrcodeData = {
         ticketId: ticket.id,
         senderId: localStorage.getItem('userId'),
         type: ticket.type,
         serverCurrentTime: respData.serverCurrentTime
+      };
+
+      var stop = $interval(function () {
+        var status = ticketSvc.h5UseTicketStatus({
+          ticketId: ticket.id
+        }, function () {
+          if (status.validResult === 1) {
+            $interval.cancel(stop);
+            alert('核销成功');
+            $state.go('main');
+          } else if (status.validResult === 2) {
+            $scope.qrcodeData.serverCurrentTime = status.serverCurrentTime;
+          }
+        });
+      }, 3000);
+
+      $scope.$on('$destroy', function(e) {
+        if (angular.isDefined(stop)) {
+          $interval.cancel(stop);
+          stop = undefined;
+        }
       });
-      $scope.qrcodeData = qrcodeData;
     }
 
     $scope.merchant = respData.merchant;
