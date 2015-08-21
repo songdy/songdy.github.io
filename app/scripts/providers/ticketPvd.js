@@ -15,7 +15,7 @@ app.provider('ticketPvd', function () {
         isArray: false
       },
       shareSingleTicket: {
-        method: 'POST',
+        method: 'GET',
         url: globalConfig.apihost + '/again/share/shareSingleTicket.do',
         isArray: false
       }
