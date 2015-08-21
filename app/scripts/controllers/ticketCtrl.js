@@ -126,7 +126,7 @@ app.config(function($stateProvider) {
 
     $state.go('ticket.' + $stateParams.type, {
       id: respData.targetTicketId,
-      userId: localStorage.getItem('userId')
+      accessToken: localStorage.getItem('accessToken')
     });
   });
 }).controller('shareTicketCtrl', function($scope, $stateParams, $http, globalConfig) {
