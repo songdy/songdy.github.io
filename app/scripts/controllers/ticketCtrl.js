@@ -139,9 +139,8 @@ app.config(function($stateProvider) {
   // });
   $http({
     method: 'GET',
-    url: globalConfig.apihost + '/again/ticket/weixinSingleTicket.do' + $stateParams.id,
+    url: globalConfig.apihost + '/again/ticket/weixinSingleTicket.do?ticketId=' + $stateParams.id,
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
       'accessToken': $stateParams.accessToken
     },
     cache: false
