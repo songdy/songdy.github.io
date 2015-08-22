@@ -191,9 +191,7 @@ app.config(function($stateProvider) {
         serverCurrentTime: $stateParams.serviceCurrentTime,
         numerical: $stateParams.numerical
       };
-      alert(JSON.stringify(params));
       var respData = ticketSvc.h5ConfirmTicket(params, function() {
-        alert(JSON.stringify(respData));
         if (respData.code !== '00000') {
           if (!!respData.desc) {
             alert(respData.desc);
