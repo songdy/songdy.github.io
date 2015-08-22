@@ -138,7 +138,6 @@ app.config(function($stateProvider) {
       }
       var data = $stateParams;
       data.merchant = friends.merchant;
-      data.serverCurrentTime = friends.serverCurrentTime;
       $state.go('ticket.friends', data);
     } else {
       var respData = ticketSvc.h5ConfirmTicket({
@@ -199,15 +198,16 @@ app.config(function($stateProvider) {
           }
           return;
         }
-
-        if(chooseTicket.id === $stateParams.ticketId) {
+        if (respData.validResult === 1) {
           $state.go('ticket.' + chooseTicket.type, {
             id: respData.targetTicketId,
             type: chooseTicket.type,
             accessToken: localStorage.getItem('accessToken')
           });
+        } else if (status.validResult === 2) {
+          alert('卡券已过时，请重新领取');
         } else {
-          $state.go('main');
+          alert('领取失败');
         }
       });
     }
