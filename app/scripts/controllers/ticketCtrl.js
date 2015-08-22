@@ -131,7 +131,7 @@ app.config(function($stateProvider) {
   var friends = ticketSvc.specTypeTicketList({
     ticketId: $stateParams.ticketId
   }, function() {
-    if (friends.tickets > 1) {
+    if (friends.tickets && friends.tickets.length > 1) {
       if (friends.code !== '00000') {
         alert('领卷失败，请稍候再试!');
         return;
