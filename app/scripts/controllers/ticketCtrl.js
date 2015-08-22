@@ -57,6 +57,7 @@ app.config(function($stateProvider) {
     });
 }).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
 
+  $scope.empty = false;
   var accessToken = localStorage.getItem('accessToken');
   var userId = !!accessToken && accessToken.split('|')[0];
 
