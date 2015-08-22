@@ -108,8 +108,12 @@ app.config(function($stateProvider) {
         }, function() {
           if (status.validResult === 1) {
             $interval.cancel(stop);
-            alert('核销成功');
-            $state.go('main');
+            if ([3,4,5,6].indexOf(ticket.type) > -1) {
+              $state.reload();
+            } else {
+              $scope.empty = true;
+            }
+            // $state.go('main');
           } else if (status.validResult === 2) {
             $scope.qrcodeData.serverCurrentTime = status.serverCurrentTime;
           }

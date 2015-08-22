@@ -1,5 +1,5 @@
 <div class="padding-10">
-  <div class="ticket-detail-5">
+  <div class="ticket-detail-5" ng-show="!empty">
     <div class="bg padding-20">
       <p class="font-18">{{merchant.tickets[0].ticketName}}</p>
       <p class="lighter font-14">
@@ -19,6 +19,9 @@
     <div class="align-center padding-vertical-30">
       <a class="ellipseBtn" ng-click="shareWith()">与朋友一起使用</a>
     </div>
+  </div>
+  <div ng-show="empty">
+    <img src="/images/no-card.png" alt="" />
   </div>
 </div>
 
