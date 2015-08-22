@@ -198,13 +198,13 @@ app.config(function($stateProvider) {
           }
           return;
         }
-        if (respData.validResult === 1) {
+        if (respData.validResult === 0) {
           $state.go('ticket.' + chooseTicket.type, {
             id: respData.targetTicketId,
             type: chooseTicket.type,
             accessToken: localStorage.getItem('accessToken')
           });
-        } else if (status.validResult === 2) {
+        } else if (status.validResult === 1) {
           alert('卡券已过时，请重新领取');
         } else {
           alert('领取失败');
