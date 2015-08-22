@@ -13,7 +13,7 @@ app.provider('walletPvd', function() {
       },
       specTicketList: {
         method: 'GET',
-        url: '/again/wallet/specTicketList.do',
+        url: globalConfig.apihost + '/again/wallet/specTicketList.do',
         isArray: false
       }
     });
