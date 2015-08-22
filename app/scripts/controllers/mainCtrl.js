@@ -8,10 +8,34 @@
         controller: 'mainCtrl'
       });
   })
-  .controller('mainCtrl', function ($scope, $state, $location, walletSvc, shareSvc, prompting) {
+  .controller('mainCtrl', function ($rootScope, $scope, $state, $location, walletSvc, shareSvc, prompting) {
     $scope.$root.title = '我的卡包';
-    $scope.respData = walletSvc.myWallet();
+    var currentIndex = 1;
+    if (!!$location.$$search.merchantId || $rootScope.merchantId) {
+      $rootScope.merchantId = $rootScope.merchantId || $location.$$search.merchantId;
+      $scope.respData = walletSvc.specTicketList({
+        merchantId: $location.$$search.merchantId
+      });
+      $scope.hideMoreBtn = true;
+    } else {
+      $scope.respData = walletSvc.myWallet(function () {
+        if ($scope.respData.myWallet.length > 0) {
+          ++currentIndex;
+        }
+      });
+    }
     $scope.accessToken = localStorage.getItem('accessToken');
+
+    $scope.more = function () {
+      var respData = walletSvc.myWallet({
+        pageIndex: currentIndex
+      }, function () {
+        if (respData.myWallet.length > 0) {
+          ++currentIndex;
+          $scope.respData.myWallet = $scope.respData.myWallet.concat(respData.myWallet);
+        }
+      });
+    };
 
     $scope.expiresNotice = function () {
 

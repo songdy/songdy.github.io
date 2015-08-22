@@ -10,6 +10,11 @@ app.provider('walletPvd', function() {
           longitude: '23.22983202',
           latitude: '113.23928322'
         }
+      },
+      specTicketList: {
+        method: 'GET',
+        url: '/again/wallet/specTicketList.do',
+        isArray: false
       }
     });
   };

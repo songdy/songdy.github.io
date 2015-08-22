@@ -18,8 +18,8 @@
       <againticket ticket="ticket" access-token="{{accessToken}}"></againticket>
     </div>
 
-    <div class="align-center padding-vertical-30">
-      <a class="ellipseBtn" ui-sref="#">查看更多卡券</a>
+    <div class="align-center padding-vertical-30" ng-show="!hideMoreBtn">
+      <a class="ellipseBtn" ui-sref="#" ng-click="more()">查看更多卡券</a>
     </div>
 
   </div><!-- endOf: .merchant-list -->
