@@ -81,7 +81,6 @@ a {
     }
   }
 }
-
 .generate-ticket(@type, @bgColor, @offsetX) when (@type > 1) {
   .ticket-list-@{type} {
     border-top-left-radius: 1em;
@@ -92,7 +91,7 @@ a {
   .ticket-list-@{type} {
     background-color: @bgColor;
     .cardFlag {
-      background: url("../../images/icon-card-type.png") 0px + @offsetX 0 no-repeat;
+      background: url("../../images/icon-card-type.png") 1px * @offsetX 0 no-repeat;
     }
   }
   .ticket-detail-@{type} {
@@ -139,7 +138,6 @@ a {
 
 // 7=礼券
 .generate-ticket(7, #FF83A5, -273);
-
 [class^=ticket-detail] {
   p {
     line-height: 26px;
@@ -246,7 +244,7 @@ a {
     }
   }
 }
-.tips-share {
+.tips {
   color: #7c868c;
   line-height: 20px;
 }
@@ -288,4 +286,15 @@ a {
   right: 0;
   width: 100%;
   height: 100%;
+}
+[class^=checkbox] {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #fff;
+  margin: 17px 10px 0;
+}
+.checkbox-checked {
+  background: #fff url("../../images/chose.png") 0 0 no-repeat;
+  background-size: 28px;
 }

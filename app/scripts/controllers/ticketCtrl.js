@@ -51,7 +51,7 @@ app.config(function($stateProvider) {
       controller: 'shareTicketCtrl'
     })
     .state('ticket.friends', {
-      url: '/friends/{data}',
+      url: '/friends/{type}/{ticketId}/{deviceCode}/{serviceCurrentTime}/{numerical}/{merchant}',
       templateUrl: '../../views/ticket/friends.html',
       controller: 'friendsCtrl'
     });
@@ -132,7 +132,14 @@ app.config(function($stateProvider) {
     ticketId: $stateParams.ticketId
   }, function() {
     if (friends.tickets > 1) {
-
+      if (friends.code !== '00000') {
+        alert('领卷失败，请稍候再试!');
+        return;
+      }
+      var data = $stateParams;
+      data.merchant = friends.merchant;
+      data.serverCurrentTime = friends.serverCurrentTime;
+      $state.go('ticket.friends', data);
     } else {
       var respData = ticketSvc.h5ConfirmTicket({
         deviceCode: $stateParams.deviceCode,
@@ -157,62 +164,51 @@ app.config(function($stateProvider) {
       });
     }
   });
-}).controller('friendsCtrl', function($scope, $state, $stateParams) {
+}).controller('friendsCtrl', function($scope, $state, $stateParams, ticketSvc) {
 
-  // var mockData = {
-  //   "code": "00000",
-  //   "merchant": {
-  //     "logo": {
-  //       "url": "image/merchant/merchant_default_logo.jpg",
-  //       "width": 108,
-  //       "height": 108
-  //     },
-  //     "merchantName": "轻松一下",
-  //     "dateCreate": 0,
-  //     "applyDate": 0,
-  //     "auditType": 1,
-  //     "status": 1,
-  //     "updateTime": 0,
-  //     "resetValidTime": 0,
-  //     "tickets": [{
-  //       "id": "TZpoUlF1VpJk8xBcpcxQ",
-  //       "value": 0,
-  //       "used": 0,
-  //       "validTime": 1440172799000,
-  //       "haveTime": 0,
-  //       "status": 0,
-  //       "maxPrinted": 0,
-  //       "type": 4,
-  //       "ticketName": "储值卡150817"
-  //     }, {
-  //       "id": "TUFE9k9xpwcpwVJ0V5d9B",
-  //       "ticketId": "TZpoUlF1VpJk8xBcpcxQ",
-  //       "sharedFriends": [
-  //         null,
-  //         "UBJkgE9swtk0sB5NdVk5"
-  //       ],
-  //       "merchantName": "轻松一下",
-  //       "value": 50,
-  //       "used": 0,
-  //       "validTime": 1440172799000,
-  //       "haveTime": 1440063982742,
-  //       "status": 0,
-  //       "maxPrinted": 50,
-  //       "type": 4,
-  //       "ticketName": "储值卡150817",
-  //       "desc": "20150817",
-  //       "merchantId": "MCM1kVpsdVsUZFAIMVgMc",
-  //       "friendsName": "CJZ3",
-  //       "friendsHeaderImg": "image/head_image/default_user_head_image.jpg",
-  //       "friendId": "UAJRd9x8RZIlYldEl1h5",
-  //       "uid": "UAJRd9x8RZIlYldEl1h5"
-  //     }]
-  //   },
-  //   "serverCurrentTime": 1440211337372,
-  //   "desc": "请求成功"
-  // }
-  //
-  // $scope.data = mockData;
+  $scope.$root.title = '分享卡券';
+  $scope.merchant = $stateParams.merchant;
+  var chooseTicket;
+  $scope.choose = function (value) {
+    for(var idx in $scope.merchant.tickets) {
+      var isChoose = $scope.merchant.tickets[idx].id === value;
+      $scope.merchant.tickets[idx].choose = isChoose;
+      if (isChoose) {
+        chooseTicket = $scope.merchant.tickets[idx];
+      }
+    }
+  };
+  $scope.choosed = function () {
+    if (!chooseTicket) {
+      alert('请选择！');
+    } else {
+      var respData = ticketSvc.h5ConfirmTicket({
+        deviceCode: $stateParams.deviceCode,
+        ticketId: chooseTicket.id,
+        serverCurrentTime: $stateParams.serviceCurrentTime,
+        numerical: $stateParams.numerical
+      }, function() {
+        if (respData.code !== '00000') {
+          if (!!respData.desc) {
+            alert(respData.desc);
+          } else {
+            alert('分享失败，请重新领取');
+          }
+          return;
+        }
+
+        if(chooseTicket.id === $stateParams.ticketId) {
+          $state.go('ticket.' + chooseTicket.type, {
+            id: respData.targetTicketId,
+            type: chooseTicket.type,
+            accessToken: localStorage.getItem('accessToken')
+          });
+        } else {
+          $state.go('main');
+        }
+      });
+    }
+  };
 
 }).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, globalConfig, ticketSvc) {
   $rootScope.$on('$stateChangeStart',
