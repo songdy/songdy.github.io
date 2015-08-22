@@ -6,6 +6,9 @@
         url: '/',
         templateUrl: '../../views/main.html',
         controller: 'mainCtrl'
+      }).state('empty', {
+        url: '/empty',
+        templateUrl: '../../views/empty.html'
       });
   })
   .controller('mainCtrl', function ($rootScope, $scope, $state, $location, walletSvc, shareSvc, prompting) {
@@ -15,11 +18,17 @@
       $rootScope.merchantId = $rootScope.merchantId || $location.$$search.merchantId;
       $scope.respData = walletSvc.specTicketList({
         merchantId: $location.$$search.merchantId
+      }, function () {
+        if (!$scope.respData.myWallet || $scope.respData.myWallet.length === 0) {
+          $state.go('empty');
+        }
       });
       $scope.hideMoreBtn = true;
     } else {
       $scope.respData = walletSvc.myWallet(function () {
-        if ($scope.respData.myWallet.length > 0) {
+        if (!$scope.respData.myWallet || $scope.respData.myWallet.length === 0) {
+          $state.go('empty');
+        } else {
           ++currentIndex;
         }
       });
