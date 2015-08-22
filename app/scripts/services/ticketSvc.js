@@ -5,4 +5,5 @@ app.service('ticketSvc', function (ticketPvd) {
   this.h5ConfirmTicket = ticketPvd.h5ConfirmTicket;
   this.h5UseTicketStatus = ticketPvd.h5UseTicketStatus;
   this.shareSingleTicket = ticketPvd.shareSingleTicket;
+  this.specTypeTicketList = ticketPvd.specTypeTicketList;
 });

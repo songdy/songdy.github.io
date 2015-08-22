@@ -18,6 +18,11 @@ app.provider('ticketPvd', function () {
         method: 'GET',
         url: globalConfig.apihost + '/again/share/shareSingleTicket.do',
         isArray: false
+      },
+      specTypeTicketList: {
+        method: 'GET',
+        url: globalConfig.apihost + '/again/ticket/specTypeTicketList.do',
+        isArray: false
       }
     });
   };
