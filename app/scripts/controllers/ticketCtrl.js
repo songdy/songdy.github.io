@@ -182,12 +182,15 @@ app.config(function($stateProvider) {
     if (!chooseTicket) {
       alert('请选择！');
     } else {
-      var respData = ticketSvc.h5ConfirmTicket({
+      var params = {
         deviceCode: $stateParams.deviceCode,
         ticketId: chooseTicket.id,
         serverCurrentTime: $stateParams.serviceCurrentTime,
         numerical: $stateParams.numerical
-      }, function() {
+      };
+      alert(JSON.stringify(params));
+      var respData = ticketSvc.h5ConfirmTicket(params, function() {
+        alert(JSON.stringify(respData));
         if (respData.code !== '00000') {
           if (!!respData.desc) {
             alert(respData.desc);
