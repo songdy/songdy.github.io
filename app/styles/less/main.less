@@ -3,15 +3,18 @@ body {
 }
 a {
   text-decoration: none;
+  img {
+    border: none;
+  }
 }
-a:link,a:visited,a:hover,a:active{
-  text-decoration:none;
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
 }
-a:focus{
-  outline:0;
-}
-img {
-  border: 0;
+a:focus {
+  outline: 0;
 }
 .icon {
   display: inline-block;
@@ -58,9 +61,12 @@ img {
   width: 100%;
   height: 68px;
   color: #fff;
-  &:link,&:visited,&:hover,&:active {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
     color: #fff;
-    text-decoration:none;
+    text-decoration: none;
   }
   .cardFlag {
     margin: 10px 20px;
@@ -133,8 +139,9 @@ img {
   background-repeat: repeat-y;
   background-size: 3px 10px;
 }
-.ticket-wrapper-bg-1:extend(.ticket-wrapper-list-1) {}
+.ticket-wrapper-bg-1:extend(.ticket-wrapper-list-1){
 
+}
 [class^=ticket-wrapper-list] {
   margin-top: 3px;
 }
@@ -159,7 +166,6 @@ img {
 
 // 7=礼券
 .generate-ticket(7, #FF83A5, -273);
-
 [class^=ticket-detail] {
   p {
     line-height: 26px;
