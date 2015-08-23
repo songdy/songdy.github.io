@@ -57,8 +57,6 @@ app.config(function($stateProvider) {
     });
 }).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
 
-  $scope.ios = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-
   $scope.empty = false;
   var accessToken = localStorage.getItem('accessToken');
   var userId = !!accessToken && accessToken.split('|')[0];
@@ -105,6 +103,8 @@ app.config(function($stateProvider) {
         }
       });
 
+      // $scope.$on()
+
       var stop = $interval(function() {
         var status = ticketSvc.h5UseTicketStatus({
           ticketId: ticket.id
@@ -112,7 +112,7 @@ app.config(function($stateProvider) {
           if (status.validResult === 1) {
             $interval.cancel(stop);
             if ([3,4,5,6].indexOf(ticket.type) > -1) {
-              $state.reload();
+              $state.go('.', {}, { reload: true });
             } else {
               $scope.empty = true;
             }
