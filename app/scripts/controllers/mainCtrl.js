@@ -11,7 +11,7 @@
         templateUrl: '../../views/empty.html'
       });
   })
-  .controller('mainCtrl', function ($rootScope, $scope, $state, $location, walletSvc, shareSvc, prompting) {
+  .controller('mainCtrl', function ($rootScope, $scope, $state, $location, $timeout, walletSvc, shareSvc, prompting, loading) {
     $scope.$root.title = '我的卡包';
     var currentIndex = 1;
     if (!!$location.$$search.merchantId || $rootScope.merchantId) {
@@ -42,6 +42,8 @@
         if (respData.myWallet.length > 0) {
           ++currentIndex;
           $scope.respData.myWallet = $scope.respData.myWallet.concat(respData.myWallet);
+        } else {
+          loading.show('没有更多数据了', 0, 3000);
         }
       });
     };

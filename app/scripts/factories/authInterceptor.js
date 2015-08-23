@@ -5,7 +5,7 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
   var interceptor = {
     request: function(config) {
       if (config.url.indexOf('h5UseTicketStatus') < 0) {
-        loading.show();
+        loading.show(null, 300);
       }
       var $state = $injector.get('$state');
       var $location = $injector.get('$location');
