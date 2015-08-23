@@ -23,12 +23,12 @@ app.factory('loading', function($timeout) {
     loadingContent.id = 'loading-box';
     loadingContent.innerHTML = LOADING_TPL;
     if (!!showDelay && showDelay > 0) {
-      loadingContent.style.display = "none";
+      loadingContent.style.display = 'none';
 
       $timeout(function () {
         var el = document.getElementById('loading-box');
         if (!!el) {
-          loadingContent.style.display = "block";
+          loadingContent.style.display = 'block';
         }
       }, showDelay);
     }
