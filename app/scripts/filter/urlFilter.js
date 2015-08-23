@@ -6,8 +6,10 @@ app.filter('urlFilter', function (globalConfig) {
       return val;
     } else if (/^\//.test(val)) {
       return globalConfig.apihost + '/again' + val;
-    } else {
+    } else if (!!val) {
       return globalConfig.apihost + '/again/' + val;
+    } else {
+      return val;
     }
   };
 });
