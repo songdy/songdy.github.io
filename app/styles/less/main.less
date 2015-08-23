@@ -4,6 +4,7 @@ body {
 a {
   text-decoration: none;
   outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0 ,0);
   img {
     border: none;
   }
@@ -13,10 +14,15 @@ a:visited,
 a:hover,
 a:active {
   text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0 ,0);
 }
 a:active,
 a:focus {
   outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0 ,0);
+}
+::-moz-focus-inner {
+  border: 0;
 }
 .icon {
   display: inline-block;
