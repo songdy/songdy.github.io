@@ -57,6 +57,8 @@ app.config(function($stateProvider) {
     });
 }).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
 
+  $scope.ios = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
   $scope.empty = false;
   var accessToken = localStorage.getItem('accessToken');
   var userId = !!accessToken && accessToken.split('|')[0];
@@ -114,7 +116,6 @@ app.config(function($stateProvider) {
             } else {
               $scope.empty = true;
             }
-            // $state.go('main');
           } else if (status.validResult === 2) {
             $scope.qrcodeData.serverCurrentTime = status.serverCurrentTime;
           }
