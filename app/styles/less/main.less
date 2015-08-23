@@ -49,7 +49,6 @@ a {
   width: 100%;
   height: 68px;
   color: #fff;
-  margin-top: 3px;
   .cardFlag {
     margin: 10px 20px;
     height: 48px;
@@ -114,12 +113,21 @@ a {
   }
 }
 .ticket-list-1 {
-  border-left: 3px dotted #f4f5f6;
-  border-right: 3px dotted #f4f5f6;
-  // background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAUBAMAAABc/FHrAAAAA3NCS…hLS2NAx0JhaQwMzEDM4AbEakAsBsVqEDGgnJAbpj4gBgBkhg9XSMD78AAAAABJRU5ErkJggg==),url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAUBAMAAABc/FHrAAAAA3NCS…hLS2PAwKmKDGkGDAwpDAwMSUCcCMUgNkgMJJeWooipLy0NALbsEUaJijyaAAAAAElFTkSuQmCC);
-  // background-position: 0 0, 100% 0;
-  // background-repeat: repeat-y;
-  // background-size: 3px 10px;
+
+  // border-left: 3px solid transparent;
+}
+.ticket-wrapper-list-1 {
+  padding-left: 3px;
+  padding-right: 3px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAUBAMAAABc/FHrAAAAA3NCSVQICAjb4U/gAAAAFVBMVEX////+zlL+zlL+zlL+zlL+zlL+zlJ+v27VAAAAB3RSTlMAEUR3qrv/OKkdggAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAApSURBVAiZY0hLS2NAx0JhaQwMzEDM4AbEakAsBsVqEDGgnJAbpj4gBgBkhg9XSMD78AAAAABJRU5ErkJggg==),url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAUBAMAAABc/FHrAAAAA3NCSVQICAjb4U/gAAAAFVBMVEX////+zlL+zlL+zlL+zlL+zlL+zlJ+v27VAAAAB3RSTlMAEUR3qrv/OKkdggAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAArSURBVAiZY0hLS2PAwKmKDGkGDAwpDAwMSUCcCMUgNkgMJJeWooipLy0NALbsEUaJijyaAAAAAElFTkSuQmCC);
+  background-position: 0 0, 100% 0;
+  background-repeat: repeat-y;
+  background-size: 3px 10px;
+}
+.ticket-wrapper-bg-1:extend(.ticket-wrapper-list-1) {}
+  
+[class^=ticket-wrapper-list] {
+  margin-top: 3px;
 }
 
 // 1:=优惠券
@@ -155,8 +163,6 @@ a {
 .ticket-detail-1 {
   color: #fff;
   .bg {
-    border-left: 3px dotted #f4f5f6;
-    border-right: 3px dotted #f4f5f6;
     background-image: url("../../images/bg-card-voucher.png");
     background-repeat: no-repeat;
     background-position: 90% 20px;
