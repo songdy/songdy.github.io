@@ -1,7 +1,7 @@
 <div class="padding-10">
   <div class="ticket-detail-4" ng-show="!empty">
     <div class="bg padding-20">
-      <p class="font-18">{{merchant.tickets[0].ticketName}} ({{merchant.tickets[0].value}} 元)</p>
+      <p class="font-18">{{merchant.tickets[0].ticketName}} ({{merchant.tickets[0].value | number:2}} 元)</p>
       <p class="lighter font-14">
         <i class="again-icon">&#xe601;</i>
         {{merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日'}} - {{merchant.tickets[0].validTime | date: 'MM月dd日'}}

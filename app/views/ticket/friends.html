@@ -7,7 +7,7 @@
 <div class="padding-horizontal-10">
   <div class="merchant-list">
     <div class="header">
-      <againimg url="merchant.logo.url"></againimg>
+      <img ng-src="{{merchant.logo.url | urlFilter}}" alt="" />
       <div class="info">
         <p>{{merchant.merchantName}}</p>
         <p class="color-gray">
@@ -23,7 +23,7 @@
           <p class="lighter font-14"><i class="again-icon">&#xe601;</i>{{ticket.haveTime | date: 'yyyy年MM月dd日'}} - {{ticket.validTime | date: 'MM月dd日'}}</p>
         </div>
         <div class="friend align-center" ng-show="!!ticket.friendsName">
-          <img ng-src="{{ticket.friendsHeaderImg}}" width="36px" height="36px" />
+          <img ng-src="{{ticket.friendsHeaderImg | urlFilter}}" width="36px" height="36px" />
           <p class="font-10 padding-top-5">
             {{ticket.friendsName}}
           </p>

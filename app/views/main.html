@@ -6,7 +6,8 @@
   <div class="merchant-list" ng-repeat="merchant in respData.myWallet">
 
     <div class="header">
-      <againimg url="merchant.logo.url"></againimg>
+      <!-- <againimg url="merchant.logo.url"></againimg> -->
+      <img ng-src="{{merchant.logo.url | urlFilter}}" alt="" />
       <div class="info">
         <p>{{merchant.merchantName}}</p>
         <p class="color-gray">
