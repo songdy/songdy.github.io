@@ -248,11 +248,12 @@ app.config(function($stateProvider) {
           loading.show('领取成功', 0, 3000);
           $state.go('main');
         } else if (result.result === 2) {
-          loading.show('您已经领过了哦，去Again再来公众号看看我的卡包吧');
+          loading.show('您已经领过了哦，去Again再来公众号看看我的卡包吧', 0, 3000);
           $state.go('main');
         } else {
           window.location.href = 'http://app.againvip.com/promote.html';
         }
+        alert(JSON.stringify(result));
       });
     };
   }).error(function(err) {
