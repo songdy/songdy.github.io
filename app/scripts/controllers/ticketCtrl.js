@@ -245,6 +245,15 @@ app.config(function($stateProvider) {
     },
     cache: false
   }).success(function(respData) {
+
+    if (!respData.merchant || !respData.merchant.tickets) {
+      loading.show('卡券已核销', 0, 3000);
+      $timeout(function () {
+        window.location.href = 'http://app.againvip.com/promote.html';
+      }, 3000);
+      return;
+    }
+
     $scope.merchant = respData.merchant;
     $scope.type = $stateParams.type;
     $scope.accept = function() {
