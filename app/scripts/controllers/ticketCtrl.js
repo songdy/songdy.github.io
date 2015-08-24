@@ -247,6 +247,7 @@ app.config(function($stateProvider) {
         if (result.code === '00000') {
           $state.go('main');
         }
+        alert(JSON.stringify(result));
       });
     };
   }).error(function(err) {
