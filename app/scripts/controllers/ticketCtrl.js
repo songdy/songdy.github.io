@@ -161,7 +161,7 @@ app.config(function($stateProvider) {
         serverCurrentTime: $stateParams.serviceCurrentTime,
         numerical: $stateParams.numerical
       }, function() {
-        if (respData.validResult === 1 || respData.targetTicketId) {
+        if (respData.validResult === 1 || !respData.targetTicketId) {
           window.location.href = 'http://app.againvip.com/promote.html';
         } else {
           $state.go('ticket.' + $stateParams.type, {

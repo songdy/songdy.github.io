@@ -32,6 +32,11 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
     response: function(resp) {
       loading.hide();
       return resp;
+    },
+    responseError: function (rejection) {
+      loading.hide();
+      loading.show('网络不可用，请链接网络', 500, 3000);
+      return $q.reject(rejection);
     }
   };
 
