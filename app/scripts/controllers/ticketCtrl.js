@@ -55,7 +55,7 @@ app.config(function($stateProvider) {
       templateUrl: '../../views/ticket/friends.html',
       controller: 'friendsCtrl'
     });
-}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing, loading) {
+}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, $timeout, ticketSvc, sharing, loading) {
 
   $scope.empty = false;
   var accessToken = localStorage.getItem('accessToken');
@@ -103,8 +103,6 @@ app.config(function($stateProvider) {
         }
       });
 
-      // $scope.$on()
-
       var stop = $interval(function() {
         var status = ticketSvc.h5UseTicketStatus({
           ticketId: ticket.id
@@ -112,15 +110,16 @@ app.config(function($stateProvider) {
           if (status.validResult === 1) {
             $interval.cancel(stop);
             if ([3,4,5,6].indexOf(ticket.type) > -1) {
-              $state.go('.', {}, { reload: true });
               loading.show('核销成功！', 0, 3000);
+              $timeout(function () {
+                $state.go('.', {}, { reload: true });
+              }, 3500);
             } else {
               $scope.empty = true;
             }
           } else if (status.validResult === 2) {
             $scope.qrcodeData.serverCurrentTime = status.serverCurrentTime;
           }
-          console.log(status);
         });
       }, 5000);
 
