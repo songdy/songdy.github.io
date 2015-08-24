@@ -254,8 +254,12 @@ app.config(function($stateProvider) {
           $timeout(function () {
             $state.go('main');
           }, 3500);
+        } else if (result.result === 5) {
+          loading.show('领自己的券有意思么？', 0, 3000);
+          $timeout(function () {
+            $state.go('main');
+          }, 3500);
         } else {
-          alert(JSON.stringify(result));
           window.location.href = 'http://app.againvip.com/promote.html';
         }
       });
