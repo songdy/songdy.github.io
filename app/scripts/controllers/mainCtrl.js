@@ -17,7 +17,7 @@
     if (!!$location.$$search.merchantId || $rootScope.merchantId) {
       $rootScope.merchantId = $rootScope.merchantId || $location.$$search.merchantId;
       $scope.respData = walletSvc.specTicketList({
-        merchantId: $location.$$search.merchantId
+        merchantId: $rootScope.merchantId
       }, function () {
         if (!$scope.respData.myWallet || $scope.respData.myWallet.length === 0) {
           $state.go('empty');

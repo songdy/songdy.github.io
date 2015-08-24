@@ -14,6 +14,7 @@ app.factory('authInterceptor', function($q, $rootScope, $injector, loading) {
         if (!!localStorage.getItem('accessToken')) {
           if (!config.headers.accessToken) {
             config.headers.accessToken = localStorage.getItem('accessToken');
+            config.cache = false;
           }
           deferred.resolve(config);
         } else {

@@ -176,7 +176,7 @@ app.config(function($stateProvider) {
   });
 }).controller('friendsCtrl', function($scope, $state, $stateParams, ticketSvc, loading) {
 
-  $scope.$root.title = '分享卡券';
+  $scope.$root.title = '选择卡券';
   $scope.merchant = $stateParams.merchant;
   var chooseTicket;
   $scope.choose = function (value) {
