@@ -161,21 +161,16 @@ app.config(function($stateProvider) {
         serverCurrentTime: $stateParams.serviceCurrentTime,
         numerical: $stateParams.numerical
       }, function() {
-        if (respData.code !== '00000') {
-          // if (!!respData.desc) {
-          //   alert(respData.desc);
-          // } else {
-          //   alert('领取失败，请重新领取');
-          // }
-          loading.show('领取失败，请重新领取', 0, 3000);
-          return;
+        if (respData.validResult === 1 || respData.targetTicketId) {
+          window.location.href = 'http://app.againvip.com/promote.html';
+        } else {
+          $state.go('ticket.' + $stateParams.type, {
+            id: respData.targetTicketId,
+            type: $stateParams.type,
+            accessToken: localStorage.getItem('accessToken')
+          });
         }
 
-        $state.go('ticket.' + $stateParams.type, {
-          id: respData.targetTicketId,
-          type: $stateParams.type,
-          accessToken: localStorage.getItem('accessToken')
-        });
       });
     }
   });
@@ -205,13 +200,6 @@ app.config(function($stateProvider) {
       };
       var respData = ticketSvc.h5ConfirmTicket(params, function() {
         if (respData.code !== '00000') {
-          // if (!!respData.desc) {
-          //   alert(respData.desc);
-          // } else {
-          //   alert('分享失败，请重新领取');
-          // }
-          // return;
-
           loading.show('分享失败，请重新领取', 0, 5000);
         }
         if (respData.validResult === 0) {
