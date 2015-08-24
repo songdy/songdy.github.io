@@ -1,7 +1,7 @@
 <div class="padding-10">
   <div class="ticket-detail-5" ng-show="!empty">
     <div class="bg padding-20">
-      <p class="font-18">{{merchant.tickets[0].ticketName}}</p>
+      <p class="font-18">{{merchant.tickets[0].ticketName}} ({{merchant.tickets[0].value}} 积分)</p>
       <p class="lighter font-14">
         <i class="again-icon">&#xe601;</i>
         {{merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日'}} - {{merchant.tickets[0].validTime | date: 'yyyy年MM月dd日'}}
@@ -21,7 +21,7 @@
     </div>
   </div>
   <div ng-show="empty">
-    <img src="/images/no-card.png" alt="" width="100%" />
+    <img src="../../images/no-card.png" alt="" width="100%" />
   </div>
 </div>
 

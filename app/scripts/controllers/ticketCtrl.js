@@ -74,6 +74,15 @@ app.config(function($stateProvider) {
     ticketId: $stateParams.id
   }, function() {
     // TODO: 根据卡券类型执行以下代码
+
+    if (!respData.merchant || !respData.merchant.tickets) {
+      loading.show('卡券已核销', 0, 3000);
+      $timeout(function () {
+        window.location.href = 'http://app.againvip.com/promote.html';
+      }, 3000);
+      return;
+    }
+
     var ticket = respData.merchant.tickets[0];
 
     var max = ticket.maxPrinted;
