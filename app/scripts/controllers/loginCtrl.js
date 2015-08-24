@@ -35,7 +35,7 @@ app.config(function($stateProvider) {
             $state.go('main');
           }
         }).error(function(err) {
-          alert(err);
+          // alert(err);
         });
       } else {
         var wxUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize';

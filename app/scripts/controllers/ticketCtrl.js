@@ -55,7 +55,7 @@ app.config(function($stateProvider) {
       templateUrl: '../../views/ticket/friends.html',
       controller: 'friendsCtrl'
     });
-}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing) {
+}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, ticketSvc, sharing, loading) {
 
   $scope.empty = false;
   var accessToken = localStorage.getItem('accessToken');
@@ -113,6 +113,7 @@ app.config(function($stateProvider) {
             $interval.cancel(stop);
             if ([3,4,5,6].indexOf(ticket.type) > -1) {
               $state.go('.', {}, { reload: true });
+              loading.show('核销成功！', 0, 3000);
             } else {
               $scope.empty = true;
             }
@@ -132,14 +133,14 @@ app.config(function($stateProvider) {
       sharing.show();
     };
   });
-}).controller('gainTicketCtrl', function($state, $stateParams, $q, $location, ticketSvc) {
+}).controller('gainTicketCtrl', function($state, $stateParams, $q, $location, ticketSvc, loading) {
 
   var friends = ticketSvc.specTypeTicketList({
     ticketId: $stateParams.ticketId
   }, function() {
     if (!!friends.merchant && !!friends.merchant.tickets && friends.merchant.tickets.length > 1) {
       if (friends.code !== '00000') {
-        alert('领卷失败，请稍候再试!');
+        loading('领卷失败，请稍候再试!', 0, 3000);
         return;
       }
       var data = $stateParams;
@@ -153,11 +154,12 @@ app.config(function($stateProvider) {
         numerical: $stateParams.numerical
       }, function() {
         if (respData.code !== '00000') {
-          if (!!respData.desc) {
-            alert(respData.desc);
-          } else {
-            alert('领取失败，请重新领取');
-          }
+          // if (!!respData.desc) {
+          //   alert(respData.desc);
+          // } else {
+          //   alert('领取失败，请重新领取');
+          // }
+          loading('领取失败，请重新领取', 0, 3000);
           return;
         }
 
@@ -169,7 +171,7 @@ app.config(function($stateProvider) {
       });
     }
   });
-}).controller('friendsCtrl', function($scope, $state, $stateParams, ticketSvc) {
+}).controller('friendsCtrl', function($scope, $state, $stateParams, ticketSvc, loading) {
 
   $scope.$root.title = '分享卡券';
   $scope.merchant = $stateParams.merchant;
@@ -185,7 +187,7 @@ app.config(function($stateProvider) {
   };
   $scope.choosed = function () {
     if (!chooseTicket) {
-      alert('请选择！');
+      loading('请选择！', 0, 3000);
     } else {
       var params = {
         deviceCode: $stateParams.deviceCode,
@@ -195,12 +197,14 @@ app.config(function($stateProvider) {
       };
       var respData = ticketSvc.h5ConfirmTicket(params, function() {
         if (respData.code !== '00000') {
-          if (!!respData.desc) {
-            alert(respData.desc);
-          } else {
-            alert('分享失败，请重新领取');
-          }
-          return;
+          // if (!!respData.desc) {
+          //   alert(respData.desc);
+          // } else {
+          //   alert('分享失败，请重新领取');
+          // }
+          // return;
+
+          loading('分享失败，请重新领取', 0, 5000);
         }
         if (respData.validResult === 0) {
           $state.go('ticket.' + chooseTicket.type, {
@@ -209,15 +213,15 @@ app.config(function($stateProvider) {
             accessToken: localStorage.getItem('accessToken')
           });
         } else if (status.validResult === 1) {
-          alert('卡券已过时，请重新领取');
+          loading.show('卡券已过时，请重新领取', 0, 5000);
         } else {
-          alert('领取失败');
+          loading.show('领取失败', 0, 5000);
         }
       });
     }
   };
 
-}).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, globalConfig, ticketSvc) {
+}).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, globalConfig, ticketSvc, loading) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams) {
       if (/ticket\.[1-7]/.test(toState.name) && fromState.name === 'ticket.share') {
@@ -246,6 +250,8 @@ app.config(function($stateProvider) {
       });
     };
   }).error(function(err) {
-    alert(JSON.stringify(err));
+    // alert(JSON.stringify(err));
+    loading('领取失败', 0, 3000);
+    $state.go('main');
   });
 });

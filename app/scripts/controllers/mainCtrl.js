@@ -52,7 +52,7 @@
 
       prompting.show('卡券将过期时，发短信提醒我', '输入手机号码', function (value) {
         if (!/^\d{11}$/ig.test(value)) {
-          alert('请输入有效的手机号码!');
+          loading('请输入有效的手机号码!', 0, 3000);
           return;
         }
         var result = shareSvc.setOverTime({
@@ -61,7 +61,7 @@
           if (result.code === '00000') {
             prompting.hide();
           } else {
-            alert('操作失败，请稍候再试！');
+            loading('操作失败，请稍候再试！', 0, 3000);
           }
         });
       }, {
