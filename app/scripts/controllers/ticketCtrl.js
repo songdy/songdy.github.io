@@ -140,7 +140,7 @@ app.config(function($stateProvider) {
   }, function() {
     if (!!friends.merchant && !!friends.merchant.tickets && friends.merchant.tickets.length > 1) {
       if (friends.code !== '00000') {
-        loading('领卷失败，请稍候再试!', 0, 3000);
+        loading.show('领卷失败，请稍候再试!', 0, 3000);
         return;
       }
       var data = $stateParams;
@@ -159,7 +159,7 @@ app.config(function($stateProvider) {
           // } else {
           //   alert('领取失败，请重新领取');
           // }
-          loading('领取失败，请重新领取', 0, 3000);
+          loading.show('领取失败，请重新领取', 0, 3000);
           return;
         }
 
@@ -187,7 +187,7 @@ app.config(function($stateProvider) {
   };
   $scope.choosed = function () {
     if (!chooseTicket) {
-      loading('请选择！', 0, 3000);
+      loading.show('请选择！', 0, 3000);
     } else {
       var params = {
         deviceCode: $stateParams.deviceCode,
@@ -204,7 +204,7 @@ app.config(function($stateProvider) {
           // }
           // return;
 
-          loading('分享失败，请重新领取', 0, 5000);
+          loading.show('分享失败，请重新领取', 0, 5000);
         }
         if (respData.validResult === 0) {
           $state.go('ticket.' + chooseTicket.type, {
@@ -244,15 +244,20 @@ app.config(function($stateProvider) {
         ticketId: $stateParams.id,
         senderId: $stateParams.accessToken.split('|')[0]
       }, function() {
-        if (result.code === '00000') {
+        if (result.result === 0) {
+          loading.show('领取成功', 0, 3000);
           $state.go('main');
+        } else if (result.result === 2) {
+          loading.show('您已经领过了哦，去Again再来公众号看看我的卡包吧');
+          $state.go('main');
+        } else {
+          window.location.href = 'http://app.againvip.com/promote.html';
         }
-        alert(JSON.stringify(result));
       });
     };
   }).error(function(err) {
     // alert(JSON.stringify(err));
-    loading('领取失败', 0, 3000);
+    loading.show('领取失败', 0, 3000);
     $state.go('main');
   });
 });
