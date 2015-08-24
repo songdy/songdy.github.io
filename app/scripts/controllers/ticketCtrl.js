@@ -255,6 +255,7 @@ app.config(function($stateProvider) {
             $state.go('main');
           }, 3500);
         } else {
+          alert(JSON.stringify(result));
           window.location.href = 'http://app.againvip.com/promote.html';
         }
       });
