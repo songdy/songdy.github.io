@@ -221,7 +221,7 @@ app.config(function($stateProvider) {
     }
   };
 
-}).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, globalConfig, ticketSvc, loading) {
+}).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, $timeout, globalConfig, ticketSvc, loading) {
   $rootScope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams) {
       if (/ticket\.[1-7]/.test(toState.name) && fromState.name === 'ticket.share') {
@@ -246,14 +246,17 @@ app.config(function($stateProvider) {
       }, function() {
         if (result.result === 0) {
           loading.show('领取成功', 0, 3000);
-          $state.go('main');
+          $timeout(function () {
+            $state.go('main');
+          }, 3500);
         } else if (result.result === 2) {
           loading.show('您已经领过了哦，去Again再来公众号看看我的卡包吧', 0, 3000);
-          $state.go('main');
+          $timeout(function () {
+            $state.go('main');
+          }, 3500);
         } else {
           window.location.href = 'http://app.againvip.com/promote.html';
         }
-        alert(JSON.stringify(result));
       });
     };
   }).error(function(err) {
