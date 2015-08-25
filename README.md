@@ -1,7 +1,7 @@
 # again-weixin  
 
 
-### 1. 项目配置      
+### 1. 项目配置
 
 
   * #### 配置文件  
@@ -23,11 +23,11 @@
 
   * #### 打包命令：  
     ```
-      -> npm install
+    -> npm install
 
-      -> bower install --allow-root
+    -> bower install --allow-root
 
-      -> grunt build:dist;
+    -> grunt build:dist;
     ```
 
     > * 以上命令请按顺序逐一运行
@@ -39,7 +39,7 @@
 
   ```
   server{
-    listen       80; #监听端口
+    listen       80; #微信不支持带端口的域名，这里只能是80端口
     server_name  again.51b.log; #微信公众号客户端域名;
     location / {
         root  /mnt/apps/again-weixin/dist; #项目路径，请指向项目文件夹下的dist目录
