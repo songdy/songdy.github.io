@@ -91,6 +91,7 @@ app.config(function($stateProvider) {
     }
 
     var ticket = respData.merchant.tickets[0];
+    $scope.$root.title = ticket.ticketName;
 
     var max = ticket.maxPrinted;
     var val = ticket.value;
