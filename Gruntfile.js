@@ -100,7 +100,7 @@ module.exports = function(grunt) {
     wiredep: {
       app: {
         src: ['<%= cfg.app %>/index.html'],
-        exclude: ['bower_components/angular/angular.js'],
+        // exclude: ['bower_components/angular/angular.js'],
       }
     },
 
@@ -128,6 +128,7 @@ module.exports = function(grunt) {
             '.htaccess',
             '**/*.html',
             '**/*.{png,jpg,jpeg,gif,webp,json}',
+            '**/*.{eot,svg,ttf,woff}'
           ]
         }],
       }
