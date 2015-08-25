@@ -3,7 +3,7 @@
 <div class="padding-10">
   <div class="ticket-detail-2" ng-show="!empty">
     <div class="bg padding-20" ng-style="{ 'padding-bottom': !!qrcodeData ? '80px' : '20px'}">
-      <p class="font-18 bg-text">{{merchant.tickets[0].ticketName}}</p>
+      <p class="font-20 bg-text">{{merchant.tickets[0].ticketName}}</p>
       <p class="lighter font-14">
         <i class="again-icon">&#xe601;</i>
         {{merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日'}} - {{merchant.tickets[0].validTime | date: 'yyyy年MM月dd日'}}
@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div class="ticket-state padding-10">
+<div class="ticket-state padding-20">
   <p>
     {{merchant.applierDesc}}
   </p>
