@@ -5,7 +5,6 @@ app.directive('againgoback', function() {
   var template = isIOS.length > 0 ? '' : '<div class="navbar">' +
     '<a ui-sref="main" class="goback"></a>' +
     '</div>';
-  console.log(template);
   return {
     restrict: 'E',
     template: template,
