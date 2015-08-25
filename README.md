@@ -1,7 +1,8 @@
-# again-weixin
+# again-weixin  
 
 
 1. ### 项目配置      
+
 
   * #### 配置文件  
 
@@ -16,6 +17,7 @@
 
 
 2. ### 项目打包  
+
 
   * #### 打包环境：node, grunt, bower  
 
