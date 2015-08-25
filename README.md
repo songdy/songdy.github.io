@@ -13,6 +13,7 @@
       * wxAppid： 微信公众号的APPID  
       * aboutAgain: 再来的介绍页地址  
 
+
 1. ### 打包项目  
 
   * #### 打包环境：node, grunt, bower  
