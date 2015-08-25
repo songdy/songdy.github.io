@@ -57,6 +57,13 @@ app.config(function($stateProvider) {
     });
 }).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, $timeout, ticketSvc, sharing, loading) {
 
+  $scope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams) {
+      if (['ticket.gain', 'ticket.friends'].indexOf(toState.name) >= -1) {
+        event.preventDefault();
+      }
+    });
+
   $scope.empty = false;
   var accessToken = localStorage.getItem('accessToken');
   var userId = !!accessToken && accessToken.split('|')[0];
@@ -77,7 +84,7 @@ app.config(function($stateProvider) {
 
     if (!respData.merchant || !respData.merchant.tickets) {
       loading.show('卡券已核销', 0, 3000);
-      $timeout(function () {
+      $timeout(function() {
         window.location.href = 'http://app.againvip.com/promote.html';
       }, 3000);
       return;
@@ -118,10 +125,12 @@ app.config(function($stateProvider) {
         }, function() {
           if (status.validResult === 1) {
             $interval.cancel(stop);
-            if ([3,4,5,6].indexOf(ticket.type) > -1) {
+            if ([3, 4, 5, 6].indexOf(ticket.type) > -1) {
               loading.show('核销成功！', 0, 3000);
-              $timeout(function () {
-                $state.go('.', {}, { reload: true });
+              $timeout(function() {
+                $state.go('.', {}, {
+                  reload: true
+                });
               }, 3500);
             } else {
               $scope.empty = true;
@@ -141,7 +150,7 @@ app.config(function($stateProvider) {
       sharing.show();
     };
   });
-}).controller('gainTicketCtrl', function($state, $stateParams, $q, $location, ticketSvc, loading) {
+}).controller('gainTicketCtrl', function($state, $stateParams, $q, $location, $scope, ticketSvc, loading) {
 
   var friends = ticketSvc.specTypeTicketList({
     ticketId: $stateParams.ticketId
@@ -176,11 +185,18 @@ app.config(function($stateProvider) {
   });
 }).controller('friendsCtrl', function($scope, $state, $stateParams, ticketSvc, loading) {
 
+  $scope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams) {
+      if (toState.name === 'ticket.gain') {
+        event.preventDefault();
+      }
+    });
+
   $scope.$root.title = '选择卡券';
   $scope.merchant = $stateParams.merchant;
   var chooseTicket;
-  $scope.choose = function (value) {
-    for(var idx in $scope.merchant.tickets) {
+  $scope.choose = function(value) {
+    for (var idx in $scope.merchant.tickets) {
       var isChoose = $scope.merchant.tickets[idx].id === value;
       $scope.merchant.tickets[idx].choose = isChoose;
       if (isChoose) {
@@ -188,7 +204,7 @@ app.config(function($stateProvider) {
       }
     }
   };
-  $scope.choosed = function () {
+  $scope.choosed = function() {
     if (!chooseTicket) {
       loading.show('请选择！', 0, 3000);
     } else {
@@ -217,13 +233,16 @@ app.config(function($stateProvider) {
     }
   };
 
-}).controller('shareTicketCtrl', function($rootScope, $scope, $state, $stateParams, $http, $location, $timeout, globalConfig, ticketSvc, loading) {
-  $rootScope.$on('$stateChangeStart',
+}).controller('shareTicketCtrl', function($scope, $state, $stateParams, $http, $location, $timeout, globalConfig, ticketSvc, loading) {
+
+  $scope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams) {
-      if (/ticket\.[1-7]/.test(toState.name) && fromState.name === 'ticket.share') {
+      if (/ticket\.[1-7]/.test(toState.name)) {
         event.preventDefault();
+        $state.go('main');
       }
     });
+
   $scope.$root.title = '我的就是你的';
   $http({
     method: 'GET',
@@ -236,7 +255,7 @@ app.config(function($stateProvider) {
 
     if (!respData.merchant || !respData.merchant.tickets) {
       loading.show('卡券已核销', 0, 3000);
-      $timeout(function () {
+      $timeout(function() {
         window.location.href = 'http://app.againvip.com/promote.html';
       }, 3000);
       return;
@@ -251,17 +270,17 @@ app.config(function($stateProvider) {
       }, function() {
         if (result.result === 0) {
           loading.show('领取成功', 0, 3000);
-          $timeout(function () {
+          $timeout(function() {
             $state.go('main');
           }, 3500);
         } else if (result.result === 2) {
           loading.show('您已经领过了哦，去Again再来公众号看看我的卡包吧', 0, 3000);
-          $timeout(function () {
+          $timeout(function() {
             $state.go('main');
           }, 3500);
         } else if (result.result === 5) {
           loading.show('领自己的券有意思么？', 0, 3000);
-          $timeout(function () {
+          $timeout(function() {
             $state.go('main');
           }, 3500);
         } else {
