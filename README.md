@@ -30,6 +30,7 @@
       -> grunt build:dist;
     ```
 
+    > * 以上命令请按顺序逐一运行
     > * 打包成功后，在项目根目录下会生成dist目录  
     > * 请确保npm的包安装成功  
 
@@ -37,15 +38,15 @@
 ### 3. 配置Nginx  
 
   ```
-    server{
+  server{
     listen       80; #监听端口
     server_name  again.51b.log; #微信公众号客户端域名;
     location / {
         root  /mnt/apps/again-weixin/dist; #项目路径，请指向项目文件夹下的dist目录
         index index.html;
         try_files $uri $uri/ /index.html =404;
-      }
     }
+  }
   ```
 
   > 带`#`号的为可修改的部分，其它部分不建议修改
