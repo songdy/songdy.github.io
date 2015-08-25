@@ -68,7 +68,7 @@ app.config(function($stateProvider) {
   var accessToken = localStorage.getItem('accessToken');
   var userId = !!accessToken && accessToken.split('|')[0];
 
-  if ($stateParams.accessToken.split('|')[0] !== userId) {
+  if ($stateParams.accessToken.split('|')[0] === userId) {
     $state.go('ticket.share', {
       type: $stateParams.type,
       id: $stateParams.id,
