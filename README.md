@@ -1,6 +1,7 @@
 # again-weixin
 
-1. ### 项目配置
+1. ### 项目配置  
+
     * #### 配置文件  
     见路径： `/again-weixin/app/scripts/providers/globalConfig.js`
 
@@ -10,8 +11,10 @@
       * wxAppid： 微信公众号的APPID
       * aboutAgain: 再来的介绍页地址
 
-1. ### 打包项目
-    * #### 打包环境：node, grunt, bower
+1. ### 打包项目  
+
+    * #### 打包环境：node, grunt, bower  
+
     * #### 打包命令：  
       ```
       -> npm install
