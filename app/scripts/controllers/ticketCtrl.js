@@ -59,7 +59,7 @@ app.config(function($stateProvider) {
 
   $scope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams) {
-      if (['ticket.gain', 'ticket.friends'].indexOf(toState.name) >= -1) {
+      if (['ticket.gain', 'ticket.friends'].indexOf(toState.name) > -1) {
         event.preventDefault();
       }
     });
