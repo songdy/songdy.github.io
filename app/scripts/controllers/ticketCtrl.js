@@ -55,7 +55,7 @@ app.config(function($stateProvider) {
       templateUrl: '../../views/ticket/friends.html',
       controller: 'friendsCtrl'
     });
-}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, $timeout, ticketSvc, sharing, loading) {
+}).controller('ticketCtrl', function($scope, $state, $stateParams, $interval, $timeout, ticketSvc, sharing, loading, globalConfig) {
 
   $scope.$on('$stateChangeStart',
     function(event, toState, toParams, fromState, fromParams) {
@@ -85,7 +85,7 @@ app.config(function($stateProvider) {
     if (!respData.merchant || !respData.merchant.tickets) {
       loading.show('卡券已核销', 0, 3000);
       $timeout(function() {
-        window.location.href = 'http://app.againvip.com/promote.html';
+        window.location.href = globalConfig.aboutAgain;
       }, 3000);
       return;
     }
@@ -150,7 +150,7 @@ app.config(function($stateProvider) {
       sharing.show();
     };
   });
-}).controller('gainTicketCtrl', function($state, $stateParams, $q, $location, $scope, ticketSvc, loading) {
+}).controller('gainTicketCtrl', function($state, $stateParams, $q, $location, $scope, ticketSvc, loading, globalConfig) {
 
   var friends = ticketSvc.specTypeTicketList({
     ticketId: $stateParams.ticketId
@@ -171,7 +171,7 @@ app.config(function($stateProvider) {
         numerical: $stateParams.numerical
       }, function() {
         if (respData.validResult === 1 || !respData.targetTicketId) {
-          window.location.href = 'http://app.againvip.com/promote.html';
+          window.location.href = globalConfig.aboutAgain;
         } else {
           $state.go('ticket.' + $stateParams.type, {
             id: respData.targetTicketId,
@@ -256,7 +256,7 @@ app.config(function($stateProvider) {
     if (!respData.merchant || !respData.merchant.tickets) {
       loading.show('卡券已核销', 0, 3000);
       $timeout(function() {
-        window.location.href = 'http://app.againvip.com/promote.html';
+        window.location.href = globalConfig.aboutAgain;
       }, 3000);
       return;
     }
@@ -284,12 +284,11 @@ app.config(function($stateProvider) {
             $state.go('main');
           }, 3500);
         } else {
-          window.location.href = 'http://app.againvip.com/promote.html';
+          window.location.href = globalConfig.aboutAgain;
         }
       });
     };
   }).error(function(err) {
-    // alert(JSON.stringify(err));
     loading.show('领取失败', 0, 3000);
     $state.go('main');
   });
