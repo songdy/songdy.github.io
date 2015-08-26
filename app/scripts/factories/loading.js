@@ -29,6 +29,7 @@ app.factory('loading', function($timeout) {
         var el = document.getElementById('loading-box');
         if (!!el) {
           loadingContent.style.display = 'block';
+          // loadingContent.setAttribute('class')
         }
       }, showDelay);
     }
