@@ -4,7 +4,7 @@
   <div class="ticket-detail-2" ng-show="!empty">
     <div class="bg padding-20" ng-style="{ 'padding-bottom': !!qrcodeData ? '80px' : '20px'}">
       <p class="font-20 bg-text">{{merchant.tickets[0].ticketName}}</p>
-      <p class="lighter font-14">
+      <p class="lighter font-14" style="color: #999999;">
         <i class="again-icon">&#xe601;</i>
         {{merchant.tickets[0].haveTime | date: 'yyyy年MM月dd日'}} - {{merchant.tickets[0].validTime | date: 'yyyy年MM月dd日'}}
       </p>

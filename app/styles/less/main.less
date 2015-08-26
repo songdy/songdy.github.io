@@ -91,6 +91,9 @@ a:focus {
     height: 48px;
     width: 45.5px;
     overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 45px;
+    background-position: center;
   }
   .info {
     margin: 10px 10px 10px 0;
@@ -118,17 +121,17 @@ a:focus {
     }
   }
 }
-.generate-ticket(@type, @bgColor, @offsetX) when (@type > 1) {
+.generate-ticket(@type, @bgColor) when (@type > 1) {
   .ticket-list-@{type} {
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
   }
 }
-.generate-ticket(@type, @bgColor, @offsetX) {
+.generate-ticket(@type, @bgColor) {
   .ticket-list-@{type} {
     background-color: @bgColor;
     .cardFlag {
-      background: url("../../images/icon-card-type.png") 1px * @offsetX 0 no-repeat;
+      background-image: url("../../images/ticket@{type}.png");
     }
   }
   .ticket-detail-@{type} {
@@ -166,25 +169,25 @@ a:focus {
 }
 
 // 1:=优惠券
-.generate-ticket(1, #FECD53, -47);
+.generate-ticket(1, #FECD53);
 
 // 2=印花卡
-.generate-ticket(2, #FA8871, -91);
+.generate-ticket(2, #FA8871);
 
 // 3=次卡
-.generate-ticket(3, #9BB3EF, -137);
+.generate-ticket(3, #9BB3EF);
 
 // 4=储值卡
-.generate-ticket(4, #A397D5, -227);
+.generate-ticket(4, #A397D5);
 
 // 5=积分卡
-.generate-ticket(5, #F3BB72, 0);
+.generate-ticket(5, #F3BB72);
 
 // 6=打折卡
-.generate-ticket(6, #7ADFA5, -182);
+.generate-ticket(6, #7ADFA5);
 
 // 7=礼券
-.generate-ticket(7, #FF83A5, -273);
+.generate-ticket(7, #FF83A5);
 [class^=ticket-detail] {
   p {
     line-height: 26px;
@@ -209,7 +212,9 @@ a:focus {
     background-color: #fff;
     border-radius: 10px;
     .printed(card);
-    .printed(card-empty);
+    .printed(card-last);
+    .printed(card2);
+    .printed(card-last2);
   }
   qrcode {
     position: absolute;
@@ -219,12 +224,16 @@ a:focus {
 }
 .printed(@clsName) {
   .printed-@{clsName} {
-    margin-top: 5px;
-    display: inline-block;
-    width: 48px;
-    height: 48px;
-    background: url("../../images/printed-@{clsName}.png") 0 0 no-repeat;
+    background-image: url("../../images/printed-@{clsName}.png");
   }
+}
+[class^=printed] {
+  margin-top: 5px;
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-size: 40px;
 }
 .ticket-detail-3 {
   color: #666;
@@ -309,14 +318,14 @@ a:focus {
   background-color: #f64029;
 }
 .navbar {
-  padding: 10px 20px 0px;
+  padding: 10px 20px 0;
   // background-color: #22292c;
 }
 .sharing-guide {
   background-image: url("../../images/guide-arrow.png");
-  background-size: 100%;
+  background-size: 95%;
   background-repeat: no-repeat;
-  background-position: -15px 0;
+  background-position: right top;
   position: fixed;
   display: block;
   right: 0;
@@ -341,7 +350,7 @@ a:focus {
   border: 3px dashed #dcdcdc;
   width: 90%;
   height: 180px;
-  padding: 60px 0px 0px;
+  padding: 60px 0 0;
 }
 .goback {
   display: block;

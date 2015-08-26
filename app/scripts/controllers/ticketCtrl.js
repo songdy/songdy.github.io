@@ -99,9 +99,15 @@ app.config(function($stateProvider) {
       var i = 0;
       var arr = [];
       for (; i < max; i++) {
-        arr.push({
-          clsName: i < val ? 'printed-card' : 'printed-card-empty'
-        });
+        if (i !== max-1) {
+          arr.push({
+            clsName: i < val ? 'printed-card2' : 'printed-card'
+          });
+        } else {
+          arr.push({
+            clsName: i < val ? 'printed-card-last2' : 'printed-card-last'
+          });
+        }
       }
       $scope.maxPrinted = arr;
     }
