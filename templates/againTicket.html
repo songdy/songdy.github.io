@@ -1,0 +1,15 @@
+<div class="ticket-wrapper-list-{{ticket.type}}">
+  <a class="ticket-list-{{ticket.type}}" ui-sref="ticket.{{ticket.type}}({ type: ticket.type, id: ticket.id, accessToken: accessToken })">
+    <div class="cardFlag"></div>
+    <div class="info">
+      <p class="bold">{{ticket.ticketName}}</p>
+      <p class="lighter font-13"  style="margin-top: -2px"><i class="again-icon">&#xe601;</i>{{ticket.haveTime | date: 'yyyy年MM月dd日'}} - {{ticket.validTime | date: 'yyyy年MM月dd日'}}</p>
+    </div>
+    <div class="friend align-center" ng-show="!!ticket.friendsName">
+      <img ng-src="{{ticket.friendsHeaderImg | urlFilter}} " width="36px" height="36px" />
+      <p class="font-10 padding-top-5">
+        {{ticket.friendsName}}
+      </p>
+    </div>
+  </a>
+</div>
