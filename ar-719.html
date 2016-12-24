@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title></title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		.wrapper{
+    		margin: 50px auto;
+
+		}
+		#drop_area {
+		    width: 100%;
+		    height: 100px;
+		    border: 3px dashed silver;
+		    line-height: 100px;
+		    text-align: center;
+		    font-size: 36px;
+		    color: #d3d3d3;
+		}
+		#img{
+			width: auto;
+			height: auto;
+			position: absolute;
+			visibility: hidden;
+		}
+		#myCanvas2{
+			margin-left: 50px;
+		}
+
+	</style>
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var rangeAvgVal,rangeNumVal;
+			var left = 195;
+			var top = 610;
+			var width = 719;
+			//阻止浏览器默认行。 
+		    $(document).on({ 
+		        dragleave:function(e){    //拖离 
+		            e.preventDefault(); 
+		        }, 
+		        drop:function(e){  //拖后放 
+		            e.preventDefault(); 
+		        }, 
+		        dragenter:function(e){    //拖进 
+		            e.preventDefault(); 
+		        }, 
+		        dragover:function(e){    //拖来拖去 
+		            e.preventDefault(); 
+		        }
+		    }); 
+		    var box = document.getElementById('drop_area'); //拖拽区域 
+		    box.addEventListener("drop",function(e){
+		        e.preventDefault(); //取消默认浏览器拖拽效果 
+		        var fileList = e.dataTransfer.files; //获取文件对象 
+		        //检测是否是拖拽文件到页面的操作 
+		        if(fileList.length == 0){
+		            return false; 
+		        }
+		        //检测文件是不是图片 
+		        /*if(fileList[0].type.indexOf('sheet') === -1){
+		            alert("您拖的不是excel！");
+		            return false;
+		        }*/
+		        readFile(fileList[0]);
+		        
+		    },false);
+		    function readFile(file){
+				if(window.FileReader) {
+	                var fr = new FileReader();
+	                fr.onloadend = function(event) {
+	                    var data = event.target.result;
+	                    img2canvas(data)
+	                };
+	                fr.readAsDataURL(file);
+	            }else{
+	            	alert('浏览器不支持FileReader,换chrome吧');
+	            }
+		    }
+		    function img2canvas(data){
+		    	var myImage = $('#img')[0];
+                $(myImage).attr('src',data);
+                var canvas = document.getElementById('myCanvas');
+				
+				canvas.width = width-left*2//myImage.width;
+				canvas.height = width-left*2//myImage.height;
+				var ctx = canvas.getContext('2d');
+				//console.log(w,h)
+				ctx.drawImage(myImage,left,top,width-left*2,width-left*2,0,0,width-left*2,width-left*2);
+				$('#rangeAvg').off('input').on('input',function(){
+					rangeAvgVal = $(this).val();
+					$('#rangeAvgVal').html(rangeAvgVal);
+					findColor();
+				}).trigger('input');
+				$('#rangeNum').off('input').on('input',function(){
+					rangeNumVal = $(this).val();
+					$('#rangeNumVal').html(rangeNumVal);
+					findColor();
+				}).trigger('input');
+			}
+		    function findColor(){
+		    	var myImage = $('#img')[0];
+				var canvas = document.getElementById('myCanvas');
+				
+
+		    	
+			    var ctx = canvas.getContext('2d');
+	            var imagedata = ctx.getImageData( 0 , 0 , canvas.width , canvas.height ) ;
+	            var arr = [];
+	            for ( var i = 0 , h = canvas.height ; i < h ; i ++ ) {
+	            	var row = 0;
+	            	for ( var j = 0 , w = canvas.width ; j < w ; j ++ ) {
+	            		var k = i * w * 4 + j * 4;
+	            		row += Math.floor((imagedata.data[ k ] + imagedata.data[ k + 1 ] + imagedata.data[ k + 2 ])/3);
+	            		
+	            	}
+					
+	            	if( row / canvas.width < rangeAvgVal ){
+	            		arr.push(i);
+	            	}else{
+	            		if( arr.length >= rangeNumVal ){
+	            			arr.unshift(arr[0]-1);
+	            			arr.push(i);
+	            			arr.push(i+1);
+	            			replaceColor(imagedata,arr);
+	            		}
+	            		arr = [];
+	            	}
+	            }
+	            canvas = document.getElementById('myCanvas2');
+	            canvas.width = width-left*2//myImage.width;
+				canvas.height = width-left*2//myImage.height;
+	            ctx = canvas.getContext('2d');
+			    ctx.putImageData( imagedata , 0 , 0 ) ; 
+		    }
+		    function replaceColor(imagedata,arr){
+		    	var myImage = $('#img')[0];
+		    	var currentIndex = arr[0];
+	            var preIndex = currentIndex - 2;
+	            var nextIndex = arr[arr.length-1] + 2;
+		    	for ( var i = currentIndex; i < arr[arr.length-1] ; i ++ ) {
+	            	for ( var j = 0 , w = width-left*2 ; j < w ; j ++ ) {
+	            		var k = i * w * 4 + j * 4;
+	            		var preK = preIndex * w * 4 + j * 4;
+	            		var nextK = nextIndex * w * 4 + j * 4;
+	            		var avgR = Math.floor((imagedata.data[ preK ] + imagedata.data[ nextK ])/2);
+	            		var avgG = Math.floor((imagedata.data[ preK + 1 ] + imagedata.data[ nextK + 1 ])/2);
+	            		var avgB = Math.floor((imagedata.data[ preK +2 ] + imagedata.data[ nextK +2 ])/2);
+	            		//console.log(imagedata.data[ preK ] , imagedata.data[ preK+1 ], imagedata.data[ preK+2 ],imagedata.data[ k ] , imagedata.data[ k+1 ], imagedata.data[ k+2 ]);
+	            		imagedata.data[ k ] = avgR;
+	            		imagedata.data[ k + 1 ] = avgG;
+	            		imagedata.data[ k + 2 ] = avgB;
+	            	}
+	            	
+	            }
+		    }
+		    
+		    
+		});
+	</script>
+</head>
+<body>
+<div class="wrapper">
+	<div>范围40~80，默认65,当前<span id="rangeAvgVal"></span>
+		<input type="range" id="rangeAvg" min="40" max="80" step="1" value="65" autocomplete="off">
+		范围1~4，默认3，当前<span id="rangeNumVal"></span>
+		<input type="range" id="rangeNum" min="1" max="4" step="1" value="3" autocomplete="off">
+	</div>
+	<div id="drop_area">将图片拖拽到此区域</div>
+	<div>
+		<img src="" id="img">
+	</div>
+	<canvas id="myCanvas" width="500" height="300" >
+	Your browser does not support the HTML5 canvas tag.
+	</canvas>
+	<canvas id="myCanvas2" width="500" height="300" >
+	Your browser does not support the HTML5 canvas tag.
+	</canvas>
+</div>
+
+</body>
+</html>
