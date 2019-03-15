@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>简单的全景图</title>
+</head>
+<body>
+<script type="text/javascript" src="https://threejs.org/build/three.min.js"></script>
+<script type="text/javascript" src="https://threejs.org/examples/js/controls/DeviceOrientationControls.js"></script>
+<script type="text/javascript">
+let geometry = new THREE.SphereGeometry( 500, 60, 40 );
+geometry.scale( -1, 1, 1 );
+
+let material = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load( 'panorama.jpg'),
+    depthTest: false//此参数控制是否使用像素深度来计算新像素的值
+});
+
+let mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+let camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 1100 );
+camera.target = new THREE.Vector3( 0, 0, 0 );
+camera.position.set(0, 0, 0);
+
+let controls = new THREE.DeviceOrientationControls( camera );
+
+function animate() {
+    render();
+    requestAnimationFrame(animate);
+}
+function render() {
+    //更新控制器
+    controls.update();
+    camera.lookAt( camera.target );
+    renderer.render(scene, camera);
+}
+</script>
+</body>
+</html>
