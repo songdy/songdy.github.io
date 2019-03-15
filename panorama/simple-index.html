@@ -3,38 +3,67 @@
 <head>
 	<meta charset="utf-8">
 	<title>简单的全景图</title>
+    <style type="text/css">
+        *{padding: 0;margin: 0;}
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-<script type="text/javascript" src="https://threejs.org/build/three.min.js"></script>
-<script type="text/javascript" src="https://threejs.org/examples/js/controls/DeviceOrientationControls.js"></script>
-<script type="text/javascript">
-let geometry = new THREE.SphereGeometry( 500, 60, 40 );
-geometry.scale( -1, 1, 1 );
+    <div id="container"></div>
+    <script type="text/javascript" src="./js/three.min.js"></script>
+    <script type="text/javascript" src="./js/DeviceOrientationControls.js"></script>
+    <script type="text/javascript">
+    class panorama{
+        constructor () {
+            this.scene = new THREE.Scene();
+            this.initCamera();
+            this.initMesh();
+            this.initRenderer();
+            this.animate();
+        }
 
-let material = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load( 'panorama.jpg'),
-    depthTest: false//此参数控制是否使用像素深度来计算新像素的值
-});
+        initCamera () {
+            let camera = this.camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 1100 );
+            camera.position.set(0, 0, 0);
 
-let mesh = new THREE.Mesh( geometry, material );
-scene.add( mesh );
+            this.controls = new THREE.DeviceOrientationControls( camera );
+            this.controls.connect();
+        }
+        initMesh () {
+            let geometry = new THREE.SphereGeometry( 500, 60, 40 );
+            geometry.scale( -1, 1, 1 );
+            geometry.rotateY(-Math.PI / 2)
 
-let camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 1100 );
-camera.target = new THREE.Vector3( 0, 0, 0 );
-camera.position.set(0, 0, 0);
+            let material = new THREE.MeshBasicMaterial({
+                map: new THREE.TextureLoader().load('./textures/SphericalMap.jpg')
+            });
 
-let controls = new THREE.DeviceOrientationControls( camera );
-
-function animate() {
-    render();
-    requestAnimationFrame(animate);
-}
-function render() {
-    //更新控制器
-    controls.update();
-    camera.lookAt( camera.target );
-    renderer.render(scene, camera);
-}
-</script>
+            let mesh = new THREE.Mesh( geometry, material );
+            this.scene.add( mesh );
+        }
+        initRenderer () {
+            let container = document.getElementById( 'container' );
+            let renderer = this.renderer = new THREE.WebGLRenderer({ logarithmicDepthBuffer: true });
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            renderer.sortObjects = false;
+            renderer.autoClear = false;
+            container.appendChild( renderer.domElement );
+        }
+        animate() {
+            this.render();
+            requestAnimationFrame( ()=>{this.animate()});
+        }
+        render() {
+            //更新控制器
+            this.controls.update();
+            this.renderer.render(this.scene, this.camera);
+        }
+    }
+    new panorama();
+    </script>
 </body>
 </html>
