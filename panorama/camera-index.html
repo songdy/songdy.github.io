@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>玩转相机</title>
+    <link rel="stylesheet" type="text/css" href="./css/simple-index.css">
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/javascript" src="./js/three.min.js"></script>
+    <script type="text/javascript" src="./js/DeviceOrientationControls.js"></script>
+    <script type="text/javascript" src="./js/Tween.js"></script>
+    <script type="text/javascript">
+    class panorama{
+        constructor () {
+            this.SCREEN_WIDTH = window.innerWidth;
+            this.SCREEN_HEIGHT = window.innerHeight;
+            this.scene = new THREE.Scene();
+            this.initCamera();
+            this.initMesh();
+            this.initRenderer();
+            this.animate();
+            this.start();
+        }
+        initCamera () {
+            let aspect = this.SCREEN_WIDTH / this.SCREEN_HEIGHT;
+            this.camera = new THREE.PerspectiveCamera( 150, 0.5 * aspect, 1, 2000 );
+            this.camera.position.set(0, 450, 0);
+            this.camera.target = new THREE.Vector3( 0, -1, 0 );
+
+        }
+        initMesh () {
+            let geometry = new THREE.SphereGeometry( 500, 60, 40 );
+            geometry.scale( -1, 1, 1 );
+            geometry.rotateY(-Math.PI / 2)
+            let material = new THREE.MeshBasicMaterial({
+                map: new THREE.TextureLoader().load('./textures/SphericalMap.jpg')
+            });
+            this.mesh = new THREE.Mesh( geometry, material );
+            this.scene.add( this.mesh );
+        }
+        initRenderer () {
+            let container = document.getElementById( 'container' );
+            let renderer = this.renderer = new THREE.WebGLRenderer({ logarithmicDepthBuffer: true });
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            renderer.sortObjects = false;
+            renderer.autoClear = false;
+            container.appendChild( renderer.domElement );
+        }
+        start () {
+                let {camera} = this;
+                new TWEEN.Tween( { lat : 0, y : camera.position.y, fov : camera.fov } )
+                .to( { lat: 90, y : 0, fov : 100 }, 2500 )
+                .delay(1000)
+                .easing(TWEEN.Easing.Cubic.InOut)
+                .repeat(Infinity)
+                .onUpdate(function() {
+                    let phi = THREE.Math.degToRad( this.lat );
+                    camera.target.y = -500 * Math.cos( phi );
+                    camera.target.z = -500 * Math.sin( phi );
+                    camera.position.y = this.y;
+                    camera.fov = this.fov;
+                    camera.updateProjectionMatrix();
+                })
+                .start()        
+        }
+        animate() {
+            this.render();
+            requestAnimationFrame( ()=>{this.animate()});
+        }
+        render() {
+            TWEEN.update();
+            this.camera.lookAt( this.camera.target );
+            this.renderer.clear();
+            this.renderer.render( this.scene, this.camera );
+        }
+    }
+    new panorama();
+    </script>
+</body>
+</html>
