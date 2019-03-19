@@ -24,7 +24,7 @@
         }
         initCamera () {
             let aspect = this.SCREEN_WIDTH / this.SCREEN_HEIGHT;
-            this.camera = new THREE.PerspectiveCamera( 150, 0.5 * aspect, 1, 2000 );
+            this.camera = new THREE.PerspectiveCamera( 150, aspect, 1, 2000 );
             this.camera.position.set(0, 450, 0);
             this.camera.target = new THREE.Vector3( 0, -1, 0 );
 
