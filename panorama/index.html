@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>全景图-点击热区</title>
+    <script type="text/javascript">
+        !function(){
+            var root = document.documentElement;
+            var width = root.getBoundingClientRect().width>640?640:root.getBoundingClientRect().width;
+            root.style.fontSize = width/10 + 'px';
+        }();
+    </script>
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+<body>
+    <div id="container"></div>
+    <div class="md-modal md-effect-3">
+        <div class="md-wrap">
+            <div class="md-close"></div>
+            <div class="md-main">
+                <div class="md-content"></div>
+                <div class="md-text-mask"></div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="md-overlay"></div>
+
+    <script type="text/html" id="tpl-content-huadengjie">
+        <p>中秋是我国三大灯节之一，人月双圆，少不了花灯。早在北宋《武林旧事》中，记载中秋夜节俗：将“一点红”灯放入江中漂流玩耍……</p>
+        <p>中秋玩花灯，多集中在南方。中秋夜，树中秋，“树”即“竖”，即将灯彩高竖起来。小孩子在家长协助下扎出兔仔灯、杨桃灯或正方形灯，横挂在短竿中，再竖在高杆上，彩光闪耀，为中秋添景。孩子们互相比赛，看谁竖得高，竖得多，灯彩最精巧。</p>
+        <p>花灯，又名“彩灯”，有吉祥的含意，是我国传统农业时代的文化产物，兼具生活功能与艺术特色。</p>
+    </script>
+
+    <script type="text/html" id="tpl-content-ranbaotadeng">
+        <p>玄宗皇帝微服出巡来到扬州，路上看到大明寺栖灵塔，被它独特的建筑外形和巧妙的结构设计深深吸引。</p>
+        <p>于是，每逢中秋佳节，皇宫里到处供奉扬州栖灵宝塔灯。</p>
+        <p>之后，扬州民间艺人就完全仿照栖灵塔，制作了宝塔灯，让皇上在日理万机之余还能欣赏心仪的建筑，聊以解乏，舒畅心神。</p>
+        <p>对扬州人而言，八月十五点宝塔灯敬月神是其独特的风俗习惯，也是祈求家人幸福平安的重要方式。</p>
+    </script>
+
+    <script type="text/html" id="tpl-content-touguasongzi">
+        <p>“偷瓜送子”的习俗在贵州省广泛流行，要是谁家不生小孩，村里好心的小伙子便在中秋这天趁着明亮的月光，来到地里，摘一个大冬瓜，刻画出小孩的模样，再把准备好的小孩衣服套上，用竹篮装好后敲锣打鼓抬到这户人家。</p>
+        <p>受瓜人在招待客人后，将瓜放在床上与妻伴睡一夜，第二天将冬瓜煮熟进食。</p>
+        <p>之后如果怀了孕，受瓜人会好好感谢送瓜的小伙子。</p>
+    </script>
+
+    <script type="text/html" id="tpl-content-wuhuolong">
+        <p>中秋舞火龙的起源有一段传说：很久以前，在一次风灾袭击后，出现了一条蟒蛇，四处作恶，村民们四出搜捕，终于把它击毙。不料次日蟒蛇不翼而飞。数天后，便发生瘟疫。这时，村中父老忽获菩萨托梦，说只要在中秋佳节舞动火龙，便可将瘟疫驱除。事有巧合，此举竟然奏效。</p>
+        <p>从此，舞火龙就流传至今，成为中秋佳节，全国各地人民祈求平安和丰收的一种风俗习惯。</p>
+    </script>
+
+    <script type="text/html" id="tpl-content-paopazhaoqin">
+        <p>八月十五抛帕招亲的习俗在山东地区颇为盛行。</p>
+        <p>每逢中秋之夜，人们在广场中搭建彩台，布置成月宫景状，并装饰玉兔、桂树等。一些未出嫁的姑娘就扮成嫦娥，在欢庆歌舞之后，将一些绣着不同花色的手帕向台下抛去。如有观众接得手帕与“嫦娥”手中的花色相同，即可登台领奖。</p>
+        <p>有些未婚的小伙子在交还手帕时，若受“嫦娥”喜欢，则可以戒指相赠。此后，双方可以交友往来，情投者便喜结良缘。</p>
+    </script>
+
+    <script type="text/javascript" src="./js/three.min.js"></script>
+    <script type="text/javascript" src="./js/DeviceOrientationControls.js"></script>
+    <script type="text/javascript" src="./js/Tween.js"></script>
+    <script type="text/javascript" src="./js/classie.js"></script>
+    <script type="text/javascript">
+    class panorama{
+        constructor () {
+            this.scene = new THREE.Scene();
+            this.initCamera();
+            this.initMesh();
+            this.initButtons();
+            this.initRenderer();
+            this.animate();
+            this.initModal();
+            this.bindEvent();
+        }
+
+        initCamera () {
+            let camera = this.camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 1100 );
+            camera.position.set(0, 0, 0);
+
+            this.controls = new THREE.DeviceOrientationControls( camera );
+            this.controls.connect();
+        }
+        initMesh () {
+            let geometry = new THREE.SphereGeometry( 500, 60, 40 );
+            geometry.scale( -1, 1, 1 );
+            geometry.rotateY(-Math.PI / 2)
+
+            let material = new THREE.MeshBasicMaterial({
+                map: new THREE.TextureLoader().load('./textures/SphericalMap.jpg')
+            });
+
+            let mesh = new THREE.Mesh( geometry, material );
+            this.scene.add( mesh );
+        }
+        initButtons () {
+
+            this.buttonList = [
+                {
+                    phi : -90,
+                    theta : -10,
+                    name : 'huadengjie',
+                },
+                {
+                    phi : 32,
+                    theta : 14,
+                    name : 'wuhuolong',
+                }, 
+                {
+                    phi : -153,
+                    theta : -44,
+                    name : 'paopazhaoqin',
+                }, 
+                {
+                    phi : 67,
+                    theta : 19,
+                    name : 'ranbaotadeng',
+                }, 
+                {
+                    phi : 58,
+                    theta : -9,
+                    name : 'touguasongzi',
+                }, 
+            ];
+            
+            this.buttonGroup = new THREE.Group();
+            this.buttonArr = [];
+            this.buttonList.forEach( (button) => {
+                this.createButton(button)
+            });
+            this.scene.add( this.buttonGroup );
+            
+        }
+        getButtonPoint (phi, theta) {
+            let r = 500;
+            return [
+                r * Math.sin(  THREE.Math.degToRad( phi ) ) * Math.cos( THREE.Math.degToRad( theta ) ),
+                r * Math.sin( THREE.Math.degToRad( phi ) ) * Math.sin( THREE.Math.degToRad( theta ) ),
+                r * Math.cos( THREE.Math.degToRad( phi ) )
+            ]
+        }
+        createButton (button) {
+            let position = this.getButtonPoint( button.phi, button.theta );
+            let meshGroup = new THREE.Group();
+            meshGroup.name = button.name;
+            meshGroup.position.set(...position);
+
+            let mesh = this.createSpriteShape('#ffffff',0.8,12);
+            
+            meshGroup.add(mesh);
+            
+            mesh = this.createSpriteShape('#2d2d2d',0.6,24);
+            meshGroup.add(mesh);
+
+            mesh = this.createSpriteShape('#2d2d2d',0.2,36);
+            meshGroup.add(mesh);
+            this.buttonArr.push(mesh);
+            mesh.name = button.name;
+            this.buttonGroup.add(meshGroup);
+            this.animatePoints(meshGroup);
+        }
+        createSpriteShape(color,opacity,scale){
+            let canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            canvas.width = 128;
+            canvas.height = 128;
+            let ctx = canvas.getContext("2d");
+            ctx.fillStyle = color;
+            ctx.arc(64,64,64,0,2*Math.PI);
+            ctx.fill();
+
+            let texture = new THREE.Texture(canvas);
+            texture.needsUpdate = true; //注意这句不能少
+            let material = new THREE.SpriteMaterial({
+                map:texture,
+                transparent: true,
+                opacity:opacity,
+                depthTest: false
+            });
+            let mesh = new THREE.Sprite(material);
+            mesh.scale.set(scale*2,scale*2,1);
+            return mesh;
+        }
+        animatePoints (meshGroup) {
+            let t = 300;
+            meshGroup.children.forEach( item => {
+                let scale = item.scale;
+                let tweenA = new TWEEN.Tween(scale)
+                            .to({x:scale.x*0.8,y:scale.y*0.8},500)
+                            .delay(100)
+                let tweenB = new TWEEN.Tween(scale)
+                            .to({x:scale.x*1.2,y:scale.y*1.2},500)
+                            .delay(100)
+                tweenA.chain(tweenB);
+                tweenB.chain(tweenA);
+                tweenA.start(t = t+100);
+            } )
+            
+        }
+        bindEvent(){
+            let raycaster = new THREE.Raycaster();
+            document.addEventListener( 'click', (event) => {
+                if(this.isShowModaling)return;
+                event.preventDefault();
+
+                
+                let mouse = new THREE.Vector2();
+                //通过鼠标点击的位置计算出raycaster所需要的点的位置，以屏幕中心为原点，值的范围为-1到1.
+                mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+                mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+                // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
+                raycaster.setFromCamera( mouse, this.camera );
+
+                // 获取raycaster直线和所有模型相交的数组集合
+                var intersects = raycaster.intersectObjects( this.buttonArr );
+
+                //如果只需要将第一个触发事件，那就取数组的第一个模型
+                if(intersects.length > 0){
+                    this.showModal(intersects[ 0 ].object.name)
+                }
+
+            }, true );
+        }
+        initModal () {
+            var overlay = document.querySelector('.md-overlay');
+            var modal = document.querySelector('.md-modal');
+            var main = document.querySelector('.md-main');
+            var content = modal.querySelector('.md-content');
+            var close = modal.querySelector('.md-close');
+            function removeModal() {
+                classie.remove(modal, 'md-show');
+                this.isShowModaling = false;
+            }
+            close.addEventListener('click', ev => {
+                ev.stopPropagation();
+                removeModal.call(this);
+            });
+            this.showModal = (name) => {
+                main.className = 'md-main md-main-' + name;
+                let tpl = document.querySelector('#tpl-content-' + name).innerHTML;
+                content.innerHTML = tpl;
+                classie.add(modal, 'md-show');
+                this.isShowModaling = true;
+            }
+        }
+        initRenderer () {
+            let container = document.getElementById( 'container' );
+            let renderer = this.renderer = new THREE.WebGLRenderer({ logarithmicDepthBuffer: true });
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            renderer.sortObjects = false;
+            renderer.autoClear = false;
+            container.appendChild( renderer.domElement );
+        }
+        animate() {
+            this.render();
+            requestAnimationFrame( ()=>{this.animate()});
+        }
+        render() {
+            TWEEN.update();
+            //更新控制器
+            this.controls.update();
+            this.renderer.render(this.scene, this.camera);
+        }
+    }
+    new panorama();
+    </script>
+</body>
+</html>
