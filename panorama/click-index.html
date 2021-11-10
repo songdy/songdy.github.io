@@ -69,17 +69,15 @@
             this.initMesh();
             this.initButtons();
             this.initRenderer();
-            this.animate();
             this.initModal();
+            this.initControl();
             this.bindEvent();
+            this.animate();
         }
 
         initCamera () {
             let camera = this.camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 1100 );
-            camera.position.set(0, 0, 0);
-
-            this.controls = new THREE.DeviceOrientationControls( camera );
-            this.controls.connect();
+            camera.position.set(0, 0, 1);
         }
         initMesh () {
             let geometry = new THREE.SphereGeometry( 500, 60, 40 );
@@ -253,6 +251,10 @@
             renderer.autoClear = false;
             container.appendChild( renderer.domElement );
         }
+        initControl(){
+          this.controls = new THREE.DeviceOrientationControls( this.camera );
+          this.controls.connect();
+        }
         animate() {
             this.render();
             requestAnimationFrame( ()=>{this.animate()});
@@ -264,7 +266,27 @@
             this.renderer.render(this.scene, this.camera);
         }
     }
+    if(window.DeviceOrientationEvent && window.DeviceOrientationEvent.requestPermission){
+    window.DeviceOrientationEvent.requestPermission().then(state => {
+      switch (state) {
+        case "granted":
+          // you can do something
+          break;
+        case "denied":
+          alert("你拒绝了使用陀螺仪");
+          break;
+        case "prompt":
+          alert("其他行为");
+          break;
+      }
+      new panorama();
+    }).catch((e)=>{
+      alert(e);
+      new panorama();
+    });
+  }else{
     new panorama();
+  }
     </script>
 </body>
 </html>

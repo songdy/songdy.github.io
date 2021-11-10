@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
 	<meta charset="utf-8">
 	<title>简单的全景图</title>
-    <link rel="stylesheet" type="text/css" href="./css/simple-index.css">
+  <link rel="stylesheet" type="text/css" href="./css/simple-index.css">
 </head>
 <body>
     <div id="container"></div>
     <script type="text/javascript" src="./js/three.min.js"></script>
-    <script type="text/javascript" src="./js/DeviceOrientationControls.js"></script>
+    <script type="text/javascript" src="./js/OrbitControls.js"></script>
     <script type="text/javascript">
     class panorama{
         constructor () {
@@ -16,15 +16,14 @@
             this.initCamera();
             this.initMesh();
             this.initRenderer();
+            this.initControl()
             this.animate();
+            
         }
 
         initCamera () {
             let camera = this.camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 1100 );
-            camera.position.set(0, 0, 0);
-
-            this.controls = new THREE.DeviceOrientationControls( camera );
-            this.controls.connect();
+            camera.position.set(0, 0, 1);
         }
         initMesh () {
             let geometry = new THREE.SphereGeometry( 500, 60, 40 );
@@ -40,12 +39,17 @@
         }
         initRenderer () {
             let container = document.getElementById( 'container' );
-            let renderer = this.renderer = new THREE.WebGLRenderer({ logarithmicDepthBuffer: true });
+            let renderer = this.renderer = new THREE.WebGLRenderer({logarithmicDepthBuffer: true});
+            
             renderer.setPixelRatio( window.devicePixelRatio );
             renderer.setSize( window.innerWidth, window.innerHeight );
             renderer.sortObjects = false;
             renderer.autoClear = false;
             container.appendChild( renderer.domElement );
+            
+        }
+        initControl() {
+          this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);          
         }
         animate() {
             this.render();
@@ -57,7 +61,8 @@
             this.renderer.render(this.scene, this.camera);
         }
     }
-    new panorama();
+  new panorama();
+
     </script>
 </body>
 </html>
