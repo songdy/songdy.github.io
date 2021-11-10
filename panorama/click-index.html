@@ -252,6 +252,9 @@
             container.appendChild( renderer.domElement );
         }
         initControl(){
+          if(this.controls){
+            this.controls.dispose()
+          }
           this.controls = new THREE.DeviceOrientationControls( this.camera );
           this.controls.connect();
         }
@@ -266,27 +269,26 @@
             this.renderer.render(this.scene, this.camera);
         }
     }
-    if(window.DeviceOrientationEvent && window.DeviceOrientationEvent.requestPermission){
-    window.DeviceOrientationEvent.requestPermission().then(state => {
-      switch (state) {
-        case "granted":
-          // you can do something
-          break;
-        case "denied":
-          alert("你拒绝了使用陀螺仪");
-          break;
-        case "prompt":
-          alert("其他行为");
-          break;
+    let pano = new panorama();
+    document.addEventListener('click', (event) => {
+      if(window.DeviceOrientationEvent && window.DeviceOrientationEvent.requestPermission){
+        window.DeviceOrientationEvent.requestPermission().then(state => {
+          switch (state) {
+            case "granted":
+              pano.initControl()
+              break;
+            case "denied":
+              alert("你拒绝了使用陀螺仪");
+              break;
+            case "prompt":
+              alert("其他行为");
+              break;
+          }
+        }).catch((e)=>{
+          alert(e);
+        });
       }
-      new panorama();
-    }).catch((e)=>{
-      alert(e);
-      new panorama();
-    });
-  }else{
-    new panorama();
-  }
+    })
     </script>
 </body>
 </html>
